@@ -18,9 +18,9 @@ const AppContainer = styled.div`
 `;
 
 const MainContent = styled.div`
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   height: 100vh;
   width: 500px;
   min-width: 320px;
