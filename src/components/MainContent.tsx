@@ -1,22 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
-import Logo from '../components/Logo';
-import MainContent from '../components/MainContent';
+import { COLORS } from '../styles/colors';
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  width: 500px;
+  min-width: 320px;
+  max-width: 500px;
+  background-color: white;
 `;
 
-function MainPage() {
+function MainContent() {
   return (
     <Container>
-      <Logo />
-      <MainContent />
+      <h1>메인</h1>
     </Container>
   );
 }
 
-export default MainPage;
+export default MainContent;
