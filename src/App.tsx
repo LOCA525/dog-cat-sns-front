@@ -1,27 +1,24 @@
 import React from 'react';
-import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
+import styled from 'styled-components';
 import './App.css';
-import JoinPage from './pages/JoinPage';
-import LoginPage from './pages/LoginPage';
-import MainPage from './pages/MainPage';
-import MyPage from './pages/MyPage';
-import UserFeedPage from './pages/UserFeedPage';
-import GlobalStyle from './styles/GlobalStyle';
+import Logo from './components/Logo';
+import MainContent from './components/MainContent';
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
 
 function App() {
   return (
-    <>
-      <GlobalStyle />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/join" element={<JoinPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/" element={<MainPage />} />
-          <Route path="/myPage" element={<MyPage />} />
-          <Route path="/유저닉네임" element={<UserFeedPage />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+    <div>
+      <Container>
+        <Logo />
+        <MainContent />
+      </Container>
+    </div>
   );
 }
 
