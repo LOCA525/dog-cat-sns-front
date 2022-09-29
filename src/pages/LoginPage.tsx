@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import titleLogoImg from '../assets/images/titleLogo.png';
 
@@ -71,7 +72,7 @@ const LoginBtn = styled.button`
   color: #ffffff;
 `;
 
-const JoinBtn = styled.a``;
+const JoinLink = styled(Link)``;
 
 function LoginPage() {
   const [id, setId] = useState<string>('');
@@ -103,11 +104,9 @@ function LoginPage() {
             아이디 저장
           </SaveIdCheckLabel>
         </CheckboxContainer>
-
         <LoginBtn>로그인</LoginBtn>
       </Form>
-
-      <JoinBtn>회원가입</JoinBtn>
+      <JoinLink to="/join">회원가입</JoinLink>
     </Container>
   );
 }
