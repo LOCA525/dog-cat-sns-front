@@ -1,11 +1,12 @@
 import React from 'react';
+import Board from '../components/Board';
 import Header from '../components/Header';
 
 function MainPage() {
   return (
     <div>
       <Header />
-      메인페이지
+      <Board />
     </div>
   );
 }
