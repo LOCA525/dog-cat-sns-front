@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import catBtn from '../../assets/images/catBtn.png';
 import dogBtn from '../../assets/images/dogBtn.png';
 import heartBtn from '../../assets/images/Heart.png';
 import searchBtn from '../../assets/images/Search.png';
-import uploadBtn from '../../assets/images/uploadBtn.png';
-import homeBtn from '../../assets/images/Vector.png';
 
 const Container = styled.div`
   display: flex;
@@ -16,14 +14,17 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const CatBtn = styled.img`
+const ToggleBtn = styled.img`
   margin-left: 10px;
-  width: 114px;
+  width: 100%;
+  max-width: 114px;
   height: 35.76px;
 `;
 
 const SearchInput = styled.input`
-  width: 220px;
+  width: 100%;
+  margin-left: 5px;
+  max-width: 220px;
   height: 40px;
   background-color: #eaeef1;
   padding: 20px;
@@ -49,15 +50,12 @@ const HeaderBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 10px;
 `;
 
-const HomeBtn = styled.img`
-  margin-right: 10px;
-`;
-const UploadBtn = styled.img`
-  margin-right: 10px;
-`;
 const HeartBtn = styled.img`
+  width: 24px;
+  height: 24px;
   margin-right: 10px;
 `;
 const UserBtn = styled.div`
@@ -67,18 +65,24 @@ const UserBtn = styled.div`
   border-radius: 30px;
   margin-right: 10px;
 `;
+
 function Header() {
+  const [toggle, setToggle] = useState(true);
+
   return (
     <div>
       <Container>
-        <CatBtn src={catBtn} />
+        <ToggleBtn
+          src={toggle ? catBtn : dogBtn}
+          onClick={() => {
+            setToggle(!toggle);
+          }}
+        />
         <SearchForm>
           <SearchInput placeholder="search" />
           <SearchBtn src={searchBtn} />
         </SearchForm>
         <HeaderBtn>
-          <HomeBtn src={homeBtn} />
-          <UploadBtn src={uploadBtn} />
           <HeartBtn src={heartBtn} />
           <UserBtn />
         </HeaderBtn>

@@ -18,11 +18,8 @@ const AppContainer = styled.div`
 `;
 
 const MainContent = styled.div`
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   height: 100vh;
-  width: 500px;
+  width: 100%;
   min-width: 320px;
   max-width: 500px;
   background-color: white;
