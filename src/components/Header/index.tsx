@@ -4,9 +4,6 @@ import catBtn from '../../assets/images/catBtn.png';
 import dogBtn from '../../assets/images/dogBtn.png';
 import heartBtn from '../../assets/images/Heart.png';
 import searchBtn from '../../assets/images/Search.png';
-import searchFeedBtn from '../../assets/images/searchFeedIcon.png';
-import uploadBtn from '../../assets/images/uploadBtn.png';
-import homeBtn from '../../assets/images/Vector.png';
 
 const Container = styled.div`
   display: flex;
@@ -56,22 +53,6 @@ const HeaderBtn = styled.div`
   margin-left: 10px;
 `;
 
-const HomeBtn = styled.img`
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-`;
-
-const SearchFeedBtn = styled.img`
-  width: 24px;
-  height: 22px;
-  margin-right: 10px;
-`;
-const UploadBtn = styled.img`
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-`;
 const HeartBtn = styled.img`
   width: 24px;
   height: 24px;
@@ -84,6 +65,7 @@ const UserBtn = styled.div`
   border-radius: 30px;
   margin-right: 10px;
 `;
+
 function Header() {
   const [toggle, setToggle] = useState(true);
 
@@ -101,9 +83,6 @@ function Header() {
           <SearchBtn src={searchBtn} />
         </SearchForm>
         <HeaderBtn>
-          <HomeBtn src={homeBtn} />
-          <SearchFeedBtn src={searchFeedBtn} />
-          <UploadBtn src={uploadBtn} />
           <HeartBtn src={heartBtn} />
           <UserBtn />
         </HeaderBtn>
