@@ -1,11 +1,14 @@
 import React from 'react';
+import Board from '../components/Board';
+import BottomNav from '../components/BottomNav';
 import Header from '../components/Header';
 
 function MainPage() {
   return (
     <div>
       <Header />
-      메인페이지
+      <Board />
+      <BottomNav />
     </div>
   );
 }
