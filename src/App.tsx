@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import './App.css';
@@ -9,21 +8,6 @@ import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
 import UserFeedPage from './pages/UserFeedPage';
 import GlobalStyle from './styles/GlobalStyle';
-
-const AppContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
-
-const MainContent = styled.div`
-  height: 100vh;
-  width: 100%;
-  min-width: 320px;
-  max-width: 500px;
-  background-color: white;
-`;
 
 function App() {
   return (
@@ -48,3 +32,18 @@ function App() {
 }
 
 export default App;
+
+const AppContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+const MainContent = styled.div`
+  height: 100vh;
+  width: 100%;
+  min-width: 320px;
+  max-width: 500px;
+  background-color: white;
+`;
