@@ -7,7 +7,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  margin-top: 5rem;
 `;
 
 const TitleLogo = styled.div`
@@ -29,6 +29,7 @@ const Input = styled.input`
   background: #fff5eb;
   border: 1px solid #e3e3e3;
   border-radius: 10px;
+  caret-color: #ff7f00;
 `;
 
 const CheckboxContainer = styled.div`
@@ -51,11 +52,7 @@ const SaveIdCheckbox = styled.input`
   margin-right: 0.3rem;
   width: 1rem;
   height: 1rem;
-
-  :checked {
-    background-color: #ff7f00;
-    color: #ff7f00;
-  }
+  accent-color: #ff7f00;
 `;
 
 const LoginBtn = styled.button`
@@ -65,14 +62,22 @@ const LoginBtn = styled.button`
   background: #ff7f00;
   border-radius: 10px;
 
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: bold;
   line-height: 23px;
   text-align: center;
   color: #ffffff;
+
+  :hover {
+    background: #fca650;
+    cursor: pointer;
+  }
 `;
 
-const JoinLink = styled(Link)``;
+const JoinLink = styled(Link)`
+  font-size: 0.9rem;
+  margin-top: 1rem;
+`;
 
 function LoginPage() {
   const [id, setId] = useState<string>('');
