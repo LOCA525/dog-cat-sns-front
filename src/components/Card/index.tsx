@@ -120,7 +120,7 @@ function Card() {
         <UserNickName>HELLOLOCA</UserNickName>
         <CardText>
           반갑습니다 여러분 안녕하세요 하이하이 우리 멍멍이 참 귀엽죠 ? 더많은
-          사진을 보고싶으면 저를 팔로우 해주세요 !!
+          사진을 보고싶으면 저를 팔로우 해주세요 !!!
         </CardText>
       </TextContainer>
       <CommentCount>댓글 11개</CommentCount>
