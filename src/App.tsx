@@ -9,6 +9,7 @@ import MyPage from './pages/MyPage';
 import PasswordChangePage from './pages/PasswordChangePage';
 import ProfileEditPage from './pages/ProfileEditPage';
 import SettingPage from './pages/SettingPage';
+import UploadPage from './pages/UploadPage';
 import UserFeedPage from './pages/UserFeedPage';
 import GlobalStyle from './styles/GlobalStyle';
 
@@ -32,6 +33,7 @@ function App() {
                 path="/accounts/password/change"
                 element={<PasswordChangePage />}
               />
+              <Route path="/upload" element={<UploadPage />} />
             </Routes>
           </MainContent>
         </BrowserRouter>
