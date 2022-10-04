@@ -1,8 +1,21 @@
+import { ChangeEvent, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import exampleImage from '../assets/images/example.png';
 import UserHeader from '../components/UserHeader';
 
 function UploadPage() {
+  const [introduce, setIntroduce] = useState<string>('');
+
+  const textAreaHeight = useMemo(() => {
+    const paddingBottom = 8; // 0.5rem (8px)
+    const lineHeight = 24; // line-height: 1rem (24px)
+    const lines = introduce.split('\n').length;
+    return `${lines * lineHeight + paddingBottom}px`;
+  }, [introduce]);
+
+  const handleChangeIntroduce = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setIntroduce(event.currentTarget.value);
+  };
   return (
     <div>
       <UserHeader />
@@ -10,7 +23,12 @@ function UploadPage() {
         <UploadContainer>
           <Image />
           <Content>
-            <ContentInput></ContentInput>
+            <TextArea
+              value={introduce}
+              style={{ height: textAreaHeight }}
+              onChange={handleChangeIntroduce}
+              placeholder="사진에 대해 입력하세요"
+            />
           </Content>
           <UploadBtn>공유</UploadBtn>
         </UploadContainer>
@@ -43,12 +61,24 @@ const Image = styled.div`
   background-repeat: no-repeat;
 `;
 
-const Content = styled.div``;
-const ContentInput = styled.input`
-  display: block;
-  border: 1px solid rgb(223, 227, 232);
+const Content = styled.div`
+  display: flex;
+`;
+
+const TextArea = styled.textarea`
+  margin-top: 10px;
+  padding: 10px;
   width: 100%;
-  padding-bottom: 20%;
+  min-height: 50px;
+  border: none;
+  outline: none;
+  resize: none;
+  overflow-y: hidden;
+  border-bottom: 2px solid gainsboro;
+
+  ::placeholder {
+    color: gray;
+  }
 `;
 const UploadBtn = styled.div`
   margin-top: 10px;
