@@ -32,6 +32,10 @@ const GlobalStyle = createGlobalStyle`
   button {
     border: none;
     background: transparent;
+
+    :hover {
+      cursor: pointer;
+    }
   }
   a {
     color: black;
@@ -42,7 +46,12 @@ const GlobalStyle = createGlobalStyle`
       color: gainsboro; 
     }
   }
-
+  textarea {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+      "Droid Sans", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 `;
 
 export default GlobalStyle;
