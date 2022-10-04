@@ -10,7 +10,6 @@ const CardContainer = styled.div`
   margin-top: 12px;
   max-width: 470px;
   width: 100%;
-  height: 100%;
   border: 1px solid #e8e8e8;
   border-radius: 30px;
   background-color: #fff;
@@ -39,12 +38,10 @@ const UserNickName = styled.div`
   font-weight: bold;
 `;
 const CardImage = styled.div`
-  max-width: 468px;
   width: 100%;
-  max-height: 500px;
-  height: 100%;
-  background-color: #000;
+  padding-bottom: 100%;
   background-image: url(${exampleDogImage});
+  background-color: #000;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -103,7 +100,6 @@ function Card() {
           <UserNickName>HELLOLOCA</UserNickName>
         </UserContainer>
       </HeaderContainer>
-
       <CardImage />
 
       <ButtonContainer>
@@ -119,7 +115,10 @@ function Card() {
         <UserNickName>HELLOLOCA</UserNickName>
         <CardText>
           반갑습니다 여러분 안녕하세요 하이하이 우리 멍멍이 참 귀엽죠 ? 더많은
-          사진을 보고싶으면 저를 팔로우 해주세요 !!!
+          사진을 보고싶으면 저를 팔로우 해주세요 !!!반갑습니다 여러분 안녕하세요
+          하이하이 우리 멍멍이 참 귀엽죠 ? 더많은 사진을 보고싶으면 저를 팔로우
+          해주세요 !!!진을 보고싶으면 저를 팔로우 해주세요 !!!반갑습니다 여러분
+          안
         </CardText>
       </TextContainer>
       <CommentCount>댓글 11개</CommentCount>

@@ -6,6 +6,7 @@ import JoinPage from './pages/JoinPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
+import UploadPage from './pages/UploadPage';
 import UserFeedPage from './pages/UserFeedPage';
 import GlobalStyle from './styles/GlobalStyle';
 
@@ -23,6 +24,7 @@ function App() {
               <Route path="/" element={<MainPage />} />
               <Route path="/myPage" element={<MyPage />} />
               <Route path="/유저닉네임" element={<UserFeedPage />} />
+              <Route path="/upload" element={<UploadPage />} />
             </Routes>
           </MainContent>
         </BrowserRouter>
