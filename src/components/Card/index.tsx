@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import bookMarkBtn from '../../assets/images/Bookmark.png';
 import commentBtn from '../../assets/images/Comment.png';

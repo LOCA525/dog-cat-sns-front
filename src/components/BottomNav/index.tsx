@@ -1,10 +1,10 @@
-import React from 'react';
 import styled from 'styled-components';
 import HomeBtn from '../common/HomeBtn';
 import SearchFeedBtn from '../common/SearchFeedBtn';
 import UploadBtn from '../common/UploadBtn';
 
 const Container = styled.div`
+  bottom: 0;
   display: flex;
   align-items: center;
   justify-content: space-around;

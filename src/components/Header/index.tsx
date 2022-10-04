@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import catBtn from '../../assets/images/catBtn.png';
 import dogBtn from '../../assets/images/dogBtn.png';
