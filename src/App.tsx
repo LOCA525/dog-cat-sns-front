@@ -6,6 +6,9 @@ import JoinPage from './pages/JoinPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
+import PasswordChangePage from './pages/PasswordChangePage';
+import ProfileEditPage from './pages/ProfileEditPage';
+import SettingPage from './pages/SettingPage';
 import UploadPage from './pages/UploadPage';
 import UserFeedPage from './pages/UserFeedPage';
 import GlobalStyle from './styles/GlobalStyle';
@@ -24,6 +27,12 @@ function App() {
               <Route path="/" element={<MainPage />} />
               <Route path="/myPage" element={<MyPage />} />
               <Route path="/유저닉네임" element={<UserFeedPage />} />
+              <Route path="/setting" element={<SettingPage />} />
+              <Route path="/accounts/edit" element={<ProfileEditPage />} />
+              <Route
+                path="/accounts/password/change"
+                element={<PasswordChangePage />}
+              />
               <Route path="/upload" element={<UploadPage />} />
             </Routes>
           </MainContent>
