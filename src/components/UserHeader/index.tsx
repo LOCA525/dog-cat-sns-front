@@ -1,10 +1,19 @@
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import backIcon from '../../assets/images/back.png';
+import { ReactComponent as BackBtn } from '../../assets/images/back.svg';
+import { themeColor } from '../../store/themeColor';
 
 function UserHeader() {
+  const [themeState, setThemeColor] = useRecoilState(themeColor);
+
   return (
     <Container>
-      <BackBtn src={backIcon} />
+      <BackBtn
+        width={'60px'}
+        height={'60px'}
+        fill={themeState}
+        stroke={themeState}
+      />
       <UserNickName>HELLOLOCA</UserNickName>
       <EmptyBtn />
     </Container>
@@ -20,12 +29,6 @@ const Container = styled.div`
   height: 60px;
   width: 100%;
   padding: 0 10px 0 10px;
-`;
-
-const BackBtn = styled.img`
-  width: 45px;
-  height: 45px;
-  cursor: pointer;
 `;
 
 const UserNickName = styled.div`
