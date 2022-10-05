@@ -107,6 +107,7 @@ const Input = styled.input`
 
   ::placeholder {
     font-size: 0.7rem;
+    color: gainsboro;
   }
 `;
 
@@ -121,6 +122,6 @@ const TextArea = styled.textarea`
 
   ::placeholder {
     font-size: 0.7rem;
-    color: gray;
+    color: gainsboro;
   }
 `;

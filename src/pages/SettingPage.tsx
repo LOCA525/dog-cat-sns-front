@@ -36,6 +36,8 @@ const MainContainer = styled.div`
 const LinkStyled = styled(Link)`
   display: flex;
   align-items: center;
+  fill: grey;
+  color: grey;
 
   :hover {
     fill: gainsboro;
