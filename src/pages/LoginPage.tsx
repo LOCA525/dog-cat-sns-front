@@ -1,83 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import titleLogoImg from '../assets/images/titleLogo.png';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 5rem;
-`;
-
-const TitleLogo = styled.div`
-  margin: 4rem 0 4rem 0;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Input = styled.input`
-  box-sizing: border-box;
-  width: 400px;
-  height: 60px;
-  padding: 0 1rem 0 1rem;
-  margin-bottom: 0.5rem;
-  background: #fff5eb;
-  border: 1px solid #e3e3e3;
-  border-radius: 10px;
-  caret-color: #ff7f00;
-`;
-
-const CheckboxContainer = styled.div`
-  display: flex;
-  align-self: flex-start;
-  align-items: center;
-`;
-
-const SaveIdCheckLabel = styled.label`
-  padding: 0.5rem 0.5rem 0.5rem 0;
-  font-size: 0.8rem;
-  color: gray;
-
-  :hover {
-    color: black;
-  }
-`;
-
-const SaveIdCheckbox = styled.input`
-  margin-right: 0.3rem;
-  width: 1rem;
-  height: 1rem;
-  accent-color: #ff7f00;
-`;
-
-const LoginBtn = styled.button`
-  margin-top: 0.5rem;
-  width: 400px;
-  height: 50px;
-  background: #ff7f00;
-  border-radius: 10px;
-
-  font-size: 1rem;
-  font-weight: bold;
-  line-height: 23px;
-  text-align: center;
-  color: #ffffff;
-
-  :hover {
-    background: #fca650;
-    cursor: pointer;
-  }
-`;
-
-const JoinLink = styled(Link)`
-  font-size: 0.9rem;
-  margin-top: 1rem;
-`;
 
 function LoginPage() {
   const [id, setId] = useState<string>('');
@@ -117,3 +41,82 @@ function LoginPage() {
 }
 
 export default LoginPage;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5rem;
+`;
+
+const TitleLogo = styled.div`
+  margin: 4rem 0 4rem 0;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  padding: 0 1.5rem 0 1.5rem;
+`;
+
+const Input = styled.input`
+  box-sizing: border-box;
+  width: 100%;
+  height: 3.3rem;
+  padding: 0 1rem 0 1rem;
+  margin-bottom: 0.5rem;
+  background: #fff5eb;
+  border: 1px solid #e3e3e3;
+  border-radius: 10px;
+  caret-color: #ff7f00;
+`;
+
+const CheckboxContainer = styled.div`
+  display: flex;
+  align-self: flex-start;
+  align-items: center;
+  margin-left: 0.2rem;
+`;
+
+const SaveIdCheckLabel = styled.label`
+  font-size: 0.8rem;
+  color: gray;
+
+  :hover {
+    color: black;
+  }
+`;
+
+const SaveIdCheckbox = styled.input`
+  margin-right: 0.3rem;
+  width: 1rem;
+  height: 1rem;
+  accent-color: #ff7f00;
+`;
+
+const LoginBtn = styled.button`
+  margin-top: 1rem;
+  width: 100%;
+  height: 50px;
+  background: #ff7f00;
+  border-radius: 10px;
+
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 23px;
+  text-align: center;
+  color: #ffffff;
+
+  :hover {
+    background: #fca650;
+    cursor: pointer;
+  }
+`;
+
+const JoinLink = styled(Link)`
+  font-size: 0.9rem;
+  margin-top: 1rem;
+`;

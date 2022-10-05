@@ -14,8 +14,8 @@ function PasswordChangePage() {
       <MainContainer>
         <Form>
           <Description>
-            비밀번호는 최소 6자 이상이어야 하며 숫자, 영문, 특수 문자를 <br />
-            포함해야 합니다.
+            비밀번호는 최소 6자 이상이어야 하며 숫자, 영문, 특수 문자를 포함해야
+            합니다.
           </Description>
           <InputContainer>
             <InputLabel>현재 비밀번호</InputLabel>
@@ -62,16 +62,17 @@ const MainContainer = styled.div`
   margin: 1rem;
 `;
 
-const Description = styled.label`
-  color: gray;
-  font-size: 1rem;
-  line-height: 2rem;
-`;
-
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+`;
+
+const Description = styled.label`
+  color: gray;
+  font-size: 1rem;
+  line-height: 2rem;
+  margin-bottom: 1rem;
 `;
 
 const InputContainer = styled.div`
@@ -93,5 +94,6 @@ const Input = styled.input`
 
   ::placeholder {
     font-size: 0.7rem;
+    color: gainsboro;
   }
 `;
