@@ -1,6 +1,10 @@
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { themeColor } from '../../store/themeColor';
 
 function UserProfile() {
+  const [themeState, setThemeColor] = useRecoilState(themeColor);
+
   return (
     <Container>
       <ProfileContainer>
@@ -25,7 +29,7 @@ function UserProfile() {
         판매중이에요 살펴보고 가세요. 중고거래는 댓글남겨주세요 !
       </Introduce>
       <FollowBtnContainer>
-        <FollowBtn>팔로우</FollowBtn>
+        <FollowBtn color={themeState}>팔로우</FollowBtn>
         {/* <FollowBtn>프로필편집</FollowBtn> */}
       </FollowBtnContainer>
     </Container>
@@ -87,7 +91,7 @@ const FollowBtn = styled.div`
   height: 30px;
   font-weight: bold;
   color: #ffff;
-  background-color: #ff7f00;
+  background-color: ${props => props.color};
   display: flex;
   align-items: center;
   justify-content: center;

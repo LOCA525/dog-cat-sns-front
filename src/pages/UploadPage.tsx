@@ -1,9 +1,13 @@
 import { ChangeEvent, useMemo, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import exampleImage from '../assets/images/example.png';
 import UserHeader from '../components/UserHeader';
+import { themeColor } from '../store/themeColor';
 
 function UploadPage() {
+  const [themeState, setThemeColor] = useRecoilState(themeColor);
+
   const [introduce, setIntroduce] = useState<string>('');
 
   const textAreaHeight = useMemo(() => {
@@ -30,7 +34,7 @@ function UploadPage() {
               placeholder="사진에 대해 입력하세요"
             />
           </Content>
-          <UploadBtn>공유</UploadBtn>
+          <UploadBtn color={themeState}>공유</UploadBtn>
         </UploadContainer>
       </Container>
     </div>
@@ -87,7 +91,7 @@ const UploadBtn = styled.div`
   align-items: center;
   width: 100%;
   height: 40px;
-  background-color: #ff7f00;
+  background-color: ${props => props.color};
   color: #fff;
   border-radius: 10px;
   font-weight: bold;

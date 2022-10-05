@@ -1,8 +1,57 @@
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import bookMarkBtn from '../../assets/images/Bookmark.png';
-import commentBtn from '../../assets/images/Comment.png';
+import { ReactComponent as BookMarkBtn } from '../../assets/images/bookmark.svg';
+import { ReactComponent as CommentBtn } from '../../assets/images/comment.svg';
 import exampleDogImage from '../../assets/images/dog.png';
-import heartBtn from '../../assets/images/Heart.png';
+import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
+import { themeColor } from '../../store/themeColor';
+
+function Card() {
+  const [themeState, setThemeColor] = useRecoilState(themeColor);
+
+  return (
+    <CardContainer>
+      <HeaderContainer>
+        <UserContainer>
+          <UserImage />
+          <UserNickName>HELLOLOCA</UserNickName>
+        </UserContainer>
+      </HeaderContainer>
+      <CardImage />
+
+      <ButtonContainer>
+        <HeartCommentContainer>
+          <HeartBtn
+            width={'30px'}
+            height={'30px'}
+            fill={'#ffff'}
+            stroke={themeState}
+          />
+          <CommentBtn
+            width={'30px'}
+            height={'30px'}
+            fill={themeState}
+            stroke={themeState}
+          />
+        </HeartCommentContainer>
+        <BookMarkBtn width={'32px'} height={'32px'} fill={themeState} />
+      </ButtonContainer>
+      <HeartCount>좋아요 621개</HeartCount>
+      <TextContainer>
+        <UserNickName>HELLOLOCA</UserNickName>
+        <CardText>
+          반갑습니다 여러분 안녕하세요 하이하이 우리 멍멍이 참 귀엽죠 ? 더많은
+          사진을 보고싶으면 저를 팔로우 해주세요 !!!반갑습니다 여러분 안녕하세요
+          하이하이 우리 멍멍이 참 귀엽죠 ? 더많은 사진을 보고싶으면 저를 팔로우
+          해주세요 !!!진을 보고싶으면 저를 팔로우 해주세요 !!!반갑습니다 여러분
+          안
+        </CardText>
+      </TextContainer>
+      <CommentCount>댓글 11개</CommentCount>
+      <Date>2022년 2월 2일</Date>
+    </CardContainer>
+  );
+}
 
 const CardContainer = styled.div`
   display: flex;
@@ -53,19 +102,7 @@ const ButtonContainer = styled.div`
   padding: 10px 20px 10px 20px;
 `;
 const HeartCommentContainer = styled.div``;
-const HeartBtn = styled.img`
-  width: 25px;
-  height: 25px;
-  margin-right: 15px;
-`;
-const CommentBtn = styled.img`
-  width: 25px;
-  height: 25px;
-`;
-const BookMarkBtn = styled.img`
-  width: 27px;
-  height: 29px;
-`;
+
 const HeartCount = styled.div`
   font-size: 14px;
   font-weight: bold;
@@ -90,41 +127,5 @@ const Date = styled.div`
   padding-right: 20px;
   text-align: right;
 `;
-
-function Card() {
-  return (
-    <CardContainer>
-      <HeaderContainer>
-        <UserContainer>
-          <UserImage />
-          <UserNickName>HELLOLOCA</UserNickName>
-        </UserContainer>
-      </HeaderContainer>
-      <CardImage />
-
-      <ButtonContainer>
-        <HeartCommentContainer>
-          <HeartBtn src={heartBtn} />
-          <CommentBtn src={commentBtn} />
-        </HeartCommentContainer>
-
-        <BookMarkBtn src={bookMarkBtn} />
-      </ButtonContainer>
-      <HeartCount>좋아요 621개</HeartCount>
-      <TextContainer>
-        <UserNickName>HELLOLOCA</UserNickName>
-        <CardText>
-          반갑습니다 여러분 안녕하세요 하이하이 우리 멍멍이 참 귀엽죠 ? 더많은
-          사진을 보고싶으면 저를 팔로우 해주세요 !!!반갑습니다 여러분 안녕하세요
-          하이하이 우리 멍멍이 참 귀엽죠 ? 더많은 사진을 보고싶으면 저를 팔로우
-          해주세요 !!!진을 보고싶으면 저를 팔로우 해주세요 !!!반갑습니다 여러분
-          안
-        </CardText>
-      </TextContainer>
-      <CommentCount>댓글 11개</CommentCount>
-      <Date>2022년 2월 2일</Date>
-    </CardContainer>
-  );
-}
 
 export default Card;
