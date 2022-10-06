@@ -52,6 +52,7 @@ const AppContainer = styled.div`
 `;
 
 const MainContent = styled.div`
+  z-index: 2;
   position: relative;
   height: 100vh;
   width: 100%;

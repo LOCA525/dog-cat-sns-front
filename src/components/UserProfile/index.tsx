@@ -1,9 +1,11 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { themeColor } from '../../store/themeColor';
+import { modeState } from '../../store/themeColor';
 
 function UserProfile() {
-  const [themeState, setThemeColor] = useRecoilState(themeColor);
+  const current = useRecoilValue(modeState);
+  const buttonColor = current.buttonColor;
+  const hoverColor = current.hoverColor;
 
   return (
     <Container>
@@ -29,7 +31,9 @@ function UserProfile() {
         판매중이에요 살펴보고 가세요. 중고거래는 댓글남겨주세요 !
       </Introduce>
       <FollowBtnContainer>
-        <FollowBtn color={themeState}>팔로우</FollowBtn>
+        <FollowBtn color={buttonColor} hover={hoverColor}>
+          팔로우
+        </FollowBtn>
         {/* <FollowBtn>프로필편집</FollowBtn> */}
       </FollowBtnContainer>
     </Container>
@@ -86,7 +90,7 @@ const FollowBtnContainer = styled.div`
   width: 100%;
 `;
 
-const FollowBtn = styled.div`
+const FollowBtn = styled.div<{ hover: string }>`
   width: 100%;
   height: 30px;
   font-weight: bold;
@@ -98,6 +102,9 @@ const FollowBtn = styled.div`
   border-radius: 5px;
   margin-right: 30px;
   margin-top: 20px;
+  :hover {
+    background-color: ${props => props.hover};
+  }
 `;
 
 const Introduce = styled.div`

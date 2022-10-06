@@ -1,13 +1,14 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as BookMarkBtn } from '../../assets/images/bookmark.svg';
 import { ReactComponent as CommentBtn } from '../../assets/images/comment.svg';
-import exampleDogImage from '../../assets/images/dog.png';
+import exampleDogImage from '../../assets/images/example.jpeg';
 import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
-import { themeColor } from '../../store/themeColor';
+import { modeState } from '../../store/themeColor';
 
 function Card() {
-  const [themeState, setThemeColor] = useRecoilState(themeColor);
+  const current = useRecoilValue(modeState);
+  const buttonColor = current.buttonColor;
 
   return (
     <CardContainer>
@@ -25,16 +26,16 @@ function Card() {
             width={'30px'}
             height={'30px'}
             fill={'#ffff'}
-            stroke={themeState}
+            stroke={buttonColor}
           />
           <CommentBtn
             width={'30px'}
             height={'30px'}
-            fill={themeState}
-            stroke={themeState}
+            fill={buttonColor}
+            stroke={buttonColor}
           />
         </HeartCommentContainer>
-        <BookMarkBtn width={'32px'} height={'32px'} fill={themeState} />
+        <BookMarkBtn width={'32px'} height={'32px'} fill={buttonColor} />
       </ButtonContainer>
       <HeartCount>좋아요 621개</HeartCount>
       <TextContainer>
