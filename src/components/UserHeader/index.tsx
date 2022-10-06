@@ -1,18 +1,19 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as BackBtn } from '../../assets/images/back.svg';
-import { themeColor } from '../../store/themeColor';
+import { modeState } from '../../store/themeColor';
 
 function UserHeader() {
-  const [themeState, setThemeColor] = useRecoilState(themeColor);
+  const current = useRecoilValue(modeState);
+  const buttonColor = current.buttonColor;
 
   return (
     <Container>
       <BackBtn
         width={'60px'}
         height={'60px'}
-        fill={themeState}
-        stroke={themeState}
+        fill={buttonColor}
+        stroke={buttonColor}
       />
       <UserNickName>HELLOLOCA</UserNickName>
       <EmptyBtn />

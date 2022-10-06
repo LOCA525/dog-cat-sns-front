@@ -1,9 +1,9 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as HomeBtn } from '../../assets/images/home.svg';
 import { ReactComponent as SearchFeedBtn } from '../../assets/images/searchFeed.svg';
 import { ReactComponent as UploadBtn } from '../../assets/images/upload.svg';
-import { themeColor } from '../../store/themeColor';
+import { modeState } from '../../store/themeColor';
 
 const Container = styled.div`
   position: fixed;
@@ -19,12 +19,14 @@ const Container = styled.div`
   border-top: 1px solid rgb(223, 227, 232);
 `;
 function BottomNav() {
-  const [themeState, setThemeColor] = useRecoilState(themeColor);
+  const current = useRecoilValue(modeState);
+  const buttonColor = current.buttonColor;
+
   return (
     <Container>
-      <SearchFeedBtn width={'30px'} height={'30px'} stroke={themeState} />
-      <UploadBtn width={'33px'} height={'33px'} fill={themeState} />
-      <HomeBtn width={'25px'} height={'25px'} fill={themeState} />
+      <SearchFeedBtn width={'30px'} height={'30px'} stroke={buttonColor} />
+      <UploadBtn width={'33px'} height={'33px'} fill={buttonColor} />
+      <HomeBtn width={'25px'} height={'25px'} fill={buttonColor} />
     </Container>
   );
 }

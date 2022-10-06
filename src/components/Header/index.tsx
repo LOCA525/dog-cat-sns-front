@@ -1,35 +1,35 @@
 import { useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import catBtn from '../../assets/images/catBtn.png';
-import dogBtn from '../../assets/images/dogBtn.png';
+// import catBtn from '../../assets/images/catBtn.png';
+// import dogBtn from '../../assets/images/dogBtn.png';
 import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
 import { ReactComponent as SearchBtn } from '../../assets/images/search.svg';
-import { dogCatState } from '../../store/dogCatState';
-import { themeColor } from '../../store/themeColor';
+import { blueState, modeState, orangeState } from '../../store/themeColor';
 
 function Header() {
-  const [dogCatToggle, setDogCatToggle] = useRecoilState(dogCatState);
-  const [themeState, setThemeColor] = useRecoilState(themeColor);
-  console.log(themeState);
-  console.log('ww', dogCatToggle);
+  const [Theme, setTheme] = useRecoilState(modeState);
+  const orangemode = useRecoilValue(orangeState);
+  const bluemode = useRecoilValue(blueState);
 
   const themeChangeClick = () => {
-    console.log('click', dogCatToggle);
-    setDogCatToggle(!dogCatToggle);
-    dogCatToggle ? setThemeColor('#ff7f00') : setThemeColor('#5271ff');
+    if (Theme === orangemode) {
+      setTheme(bluemode);
+    } else {
+      setTheme(orangemode);
+    }
   };
+  const current = useRecoilValue(modeState);
+  const buttonColor = current.buttonColor;
+  const ttoggleBtnImage = current.toggleBtnImage;
   return (
     <div>
       <Container>
-        <ToggleBtn
-          onClick={themeChangeClick}
-          src={dogCatToggle ? dogBtn : catBtn}
-        />
+        <ToggleBtn onClick={themeChangeClick} src={ttoggleBtnImage} />
         <SearchForm>
           <SearchInput placeholder="search" />
           <SearchBtnContainer>
-            <SearchBtn width={'19px'} height={'17px'} fill={themeState} />
+            <SearchBtn width={'19px'} height={'17px'} fill={buttonColor} />
           </SearchBtnContainer>
         </SearchForm>
         <HeaderBtn>
@@ -37,7 +37,7 @@ function Header() {
             width={'25px'}
             height={'25px'}
             fill={'#ffff'}
-            stroke={themeState}
+            stroke={buttonColor}
           />
           <UserBtn />
         </HeaderBtn>
