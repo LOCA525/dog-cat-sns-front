@@ -4,10 +4,11 @@
     "es2021": true,
     "node": true
   },
-
   "settings": {
     "import/resolver": {
-      "typescript": { "directory": "./src" }
+      "typescript": {
+        "directory": "./src"
+      }
     },
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
@@ -16,7 +17,6 @@
       "lifeTime": "1200"
     }
   },
-
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -24,12 +24,8 @@
     },
     "ecmaVersion": 12,
     "sourceType": "module"
-    /* airbnb-typescript 적용을 위해 project를 설정해주는데 작업 경로를 기준으로 한다.
-      파싱 에러시 경로 관련 참고자료: https://bobbyhadz.com/blog/typescript-parsing-error-cannot-read-file 
-    */
-    // "project": "./tsconfig.json"
+    // 파싱 에러시 경로 관련 참고자료: https://bobbyhadz.com/blog/typescript-parsing-error-cannot-read-file
   },
-
   // eslint-plugin-{name}, 패키지에 미리 설정된 기본 규칙을 가져오는 옵션이다.
   "plugins": [
     "prettier",
@@ -39,25 +35,18 @@
     "import",
     "@typescript-eslint"
   ],
-
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx"], // Your TypeScript files extension
-
-      // As mentioned in the comments, you should extend TypeScript plugins here,
-      // instead of extending them outside the `overrides`.
-      // If you don't want to extend any rules, you don't need an `extends` attribute.
+      "files": ["*.ts", "*.tsx"],
       "extends": [
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking"
       ],
-
       "parserOptions": {
-        "project": ["./tsconfig.json"] // Specify it only for TypeScript files
+        "project": ["./tsconfig.json"]
       }
     }
   ],
-
   // eslint-config 또는 eslint-plugin에 대하여 기본 규칙을 확장하여 설정할 수 있다.
   "extends": [
     "prettier",
@@ -73,7 +62,6 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react/jsx-runtime"
   ],
-
   // extends보다 우선 적용되는 규칙
   "rules": {
     "no-shadow": 0,
@@ -83,21 +71,40 @@
     "prettier/prettier": 0,
     "jsx-a11y/no-noninteractive-element-interactions": 0,
     "react/prop-types": 0,
+    // 확장자 허용 설정
     "react/jsx-filename-extension": [
       2,
-      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
-    ], // 확장자 허용 설정
-    "arrow-parens": ["warn", "as-needed"], // 화살표 함수의 파라미터가 하나일 때 괄호 생략
-    "react/jsx-props-no-spreading": [1, { "custom": "ignore" }], // props spreading을 허용하지 않는 규칙 해제
-    "no-param-reassign": ["error", { "props": false }],
+      {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    ],
+    // 화살표 함수의 파라미터가 하나일 때 괄호 생략
+    "arrow-parens": ["warn", "as-needed"],
+    // props spreading을 허용하지 않는 규칙 해제
+    "react/jsx-props-no-spreading": [
+      1,
+      {
+        "html": "ignore",
+        "custom": "ignore"
+      }
+    ],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ],
     "import/named": 2,
     "import/namespace": 2,
     "import/default": 2,
     "import/export": 2,
     "import/extensions": 0,
     "import/no-unresolved": 0,
-    "import/no-extraneous-dependencies": 0, // 테스트 또는 개발환경을 구성하는 파일에서는 devDependency 사용을 허용
-    "import/prefer-default-export": 0, // export const 문을 쓸때 에러를 내는 규칙 해제
+    // 테스트 또는 개발환경을 구성하는 파일에서는 devDependency 사용을 허용
+    "import/no-extraneous-dependencies": 0,
+    // export const 문을 쓸때 에러를 내는 규칙 해제
+    "import/prefer-default-export": 0,
+    // import 정렬 규칙 설정
     "import/order": [
       "error",
       {
