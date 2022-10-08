@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as HomeBtn } from '../../assets/images/home.svg';
 import { ReactComponent as SearchFeedBtn } from '../../assets/images/searchFeed.svg';
