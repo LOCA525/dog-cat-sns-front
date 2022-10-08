@@ -3,9 +3,7 @@ import styled from 'styled-components';
 import { modeState } from '../../store/themeColor';
 
 function UserProfile() {
-  const current = useRecoilValue(modeState);
-  const buttonColor = current.buttonColor;
-  const hoverColor = current.hoverColor;
+  const { buttonColor, hoverColor } = useRecoilValue(modeState);
 
   return (
     <Container>
