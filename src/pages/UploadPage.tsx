@@ -6,8 +6,7 @@ import UserHeader from '../components/UserHeader';
 import { modeState } from '../store/themeColor';
 
 function UploadPage() {
-  const current = useRecoilValue(modeState);
-  const buttonColor = current.buttonColor;
+  const { buttonColor } = useRecoilValue(modeState);
   const [introduce, setIntroduce] = useState<string>('');
 
   const textAreaHeight = useMemo(() => {

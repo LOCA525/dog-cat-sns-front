@@ -19,13 +19,12 @@ const WallPaper = styled.img`
   z-index: 1;
 `;
 function Logo() {
-  const current = useRecoilValue(modeState);
-  const wallpaper = current.wallPaper;
+  const { wallPaper } = useRecoilValue(modeState);
 
   return (
     <LogoContainer>
       <LogoImage src={leftImage} />
-      <WallPaper src={wallpaper} />
+      <WallPaper src={wallPaper} />
     </LogoContainer>
   );
 }
