@@ -7,8 +7,7 @@ import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
 import { modeState } from '../../store/themeColor';
 
 function Card() {
-  const current = useRecoilValue(modeState);
-  const buttonColor = current.buttonColor;
+  const { buttonColor } = useRecoilValue(modeState);
 
   return (
     <CardContainer>
@@ -102,7 +101,11 @@ const ButtonContainer = styled.div`
   align-items: center;
   padding: 10px 20px 10px 20px;
 `;
-const HeartCommentContainer = styled.div``;
+const HeartCommentContainer = styled.div`
+  justify-content: space-between;
+  width: 70px;
+  display: flex;
+`;
 
 const HeartCount = styled.div`
   font-size: 14px;

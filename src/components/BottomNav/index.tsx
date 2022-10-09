@@ -19,14 +19,13 @@ const Container = styled.div`
   border-top: 1px solid rgb(223, 227, 232);
 `;
 function BottomNav() {
-  const current = useRecoilValue(modeState);
-  const buttonColor = current.buttonColor;
+  const { buttonColor } = useRecoilValue(modeState);
 
   return (
     <Container>
-      <SearchFeedBtn width={'30px'} height={'30px'} stroke={buttonColor} />
+      <SearchFeedBtn width={'32px'} height={'32px'} stroke={buttonColor} />
       <UploadBtn width={'33px'} height={'33px'} fill={buttonColor} />
-      <HomeBtn width={'25px'} height={'25px'} fill={buttonColor} />
+      <HomeBtn width={'27px'} height={'26px'} fill={buttonColor} />
     </Container>
   );
 }
