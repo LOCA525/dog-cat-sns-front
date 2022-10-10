@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
 import catWallPaper from '../assets/images/cat.png';
 import catBtn from '../assets/images/catBtn.png';
 import dogWallPaper from '../assets/images/dog.png';
@@ -16,6 +17,7 @@ import dogBtn from '../assets/images/dogBtn.png';
 // };
 
 // export default ThemeCss;
+const { persistAtom } = recoilPersist();
 
 export const orangeState = atom({
   key: 'oragne',
@@ -43,4 +45,5 @@ export const modeState = atom({
   //디폴드 모드는 오렌지테마
   key: 'isMode',
   default: orangeState,
+  effects_UNSTABLE: [persistAtom],
 });
