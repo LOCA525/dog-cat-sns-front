@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 import styled from 'styled-components';
 import './App.css';
 import Logo from './components/Logo';
@@ -17,27 +18,29 @@ function App() {
   return (
     <div>
       <GlobalStyle />
-      <AppContainer>
-        <Logo />
-        <BrowserRouter>
-          <MainContent>
-            <Routes>
-              <Route path="/join" element={<JoinPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/" element={<MainPage />} />
-              <Route path="/myPage" element={<MyPage />} />
-              <Route path="/유저닉네임" element={<UserFeedPage />} />
-              <Route path="/setting" element={<SettingPage />} />
-              <Route path="/accounts/edit" element={<ProfileEditPage />} />
-              <Route
-                path="/accounts/password/change"
-                element={<PasswordChangePage />}
-              />
-              <Route path="/upload" element={<UploadPage />} />
-            </Routes>
-          </MainContent>
-        </BrowserRouter>
-      </AppContainer>
+      <RecoilRoot>
+        <AppContainer>
+          <Logo />
+          <BrowserRouter>
+            <MainContent>
+              <Routes>
+                <Route path="/join" element={<JoinPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/" element={<MainPage />} />
+                <Route path="/myPage" element={<MyPage />} />
+                <Route path="/유저닉네임" element={<UserFeedPage />} />
+                <Route path="/setting" element={<SettingPage />} />
+                <Route path="/accounts/edit" element={<ProfileEditPage />} />
+                <Route
+                  path="/accounts/password/change"
+                  element={<PasswordChangePage />}
+                />
+                <Route path="/upload" element={<UploadPage />} />
+              </Routes>
+            </MainContent>
+          </BrowserRouter>
+        </AppContainer>
+      </RecoilRoot>
     </div>
   );
 }
