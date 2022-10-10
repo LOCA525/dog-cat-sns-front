@@ -1,7 +1,21 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { TextAreaProps } from '../../types/textareaTypes';
+import { ReactSetState, ReactTextAreaProps } from '../../types/reactTypes';
 
-function TextArea(props: TextAreaProps<string>) {
+export declare interface TextAreaProps extends ReactTextAreaProps {
+  // require
+  setValue: ReactSetState<any>;
+
+  // optional
+  WrappedComponent?: React.FunctionComponent<ReactTextAreaProps>;
+  placeholder?: string;
+  maxRows?: number;
+  limit?: number; // 글자수 제한
+
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
+}
+
+function TextArea(props: TextAreaProps) {
   const { value, WrappedComponent, limit, maxRows } = props;
   const { setValue, onChange } = props;
 
