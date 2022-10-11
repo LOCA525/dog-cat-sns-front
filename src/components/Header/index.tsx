@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-// import catBtn from '../../assets/images/catBtn.png';
-// import dogBtn from '../../assets/images/dogBtn.png';
 import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
 import { ReactComponent as SearchBtn } from '../../assets/images/search.svg';
 import { blueState, modeState, orangeState } from '../../store/themeColor';

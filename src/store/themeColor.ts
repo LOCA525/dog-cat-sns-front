@@ -15,8 +15,6 @@ import dogBtn from '../assets/images/dogBtn.png';
 //   // props 형태로 색깔 전달
 //   return <ThemeCss buttonColor={buttonColor} hoverColor={hoverColor} />;
 // };
-
-// export default ThemeCss;
 const { persistAtom } = recoilPersist();
 
 export const orangeState = atom({
