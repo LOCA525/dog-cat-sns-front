@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as BookMarkBtn } from '../../assets/images/bookmark.svg';
 import { ReactComponent as CommentBtn } from '../../assets/images/comment.svg';
