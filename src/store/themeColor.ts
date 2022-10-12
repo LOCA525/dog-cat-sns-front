@@ -15,12 +15,21 @@ import dogBtn from '../assets/images/dogBtn.png';
 //   // props 형태로 색깔 전달
 //   return <ThemeCss buttonColor={buttonColor} hoverColor={hoverColor} />;
 // };
+
 const { persistAtom } = recoilPersist();
 
-export const orangeState = atom({
-  key: 'oragne',
+export interface defaultState {
+  mode: string;
+  buttonColor: string;
+  hoverColor: string;
+  toggleBtnImage: string;
+  wallPaper: string;
+}
+
+export const orangeState = atom<defaultState>({
+  key: 'orange',
   default: {
-    mode: 'oragne',
+    mode: 'orange',
     buttonColor: '#ff7f00',
     hoverColor: '#fdbb79',
     toggleBtnImage: dogBtn,
@@ -28,7 +37,7 @@ export const orangeState = atom({
   },
 });
 
-export const blueState = atom({
+export const blueState = atom<defaultState>({
   key: 'blue',
   default: {
     mode: 'blue',
@@ -39,7 +48,7 @@ export const blueState = atom({
   },
 });
 
-export const modeState = atom({
+export const modeState = atom<defaultState>({
   //디폴드 모드는 오렌지테마
   key: 'isMode',
   default: orangeState,

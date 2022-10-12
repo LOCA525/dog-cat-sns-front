@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';

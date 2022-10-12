@@ -1,5 +1,5 @@
-import { ChangeEvent, useMemo, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import React, { ChangeEvent, useMemo, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import catBtn from '../assets/images/catBtn.png';
 import dogBtn from '../assets/images/dogBtn.png';
@@ -8,19 +8,18 @@ import UserHeader from '../components/UserHeader';
 import { modeState } from '../store/themeColor';
 
 function UploadPage() {
-  const [toggleDogCat, setToggleDogCat] = useState(true);
+  const [toggleDogCat, setToggleDogCat] = useState<boolean>(true);
   const { buttonColor, hoverColor } = useRecoilValue(modeState);
   const [upLoadImage, setUploadImage] = useState(exampleImage);
   const [introduce, setIntroduce] = useState<string>('');
 
-  // const handleFileChange = (e: any) => {
-  //   const reader = new FileReader();
-  //   const fileURLs = reader.readAsDataURL(e.target.files[0]);
-  //   reader.onload = () => {
-  //     fileURLs[0] = reader.result;
-  //     setUploadImage(fileURLs);
-  //   };
-  // };
+  const handleFileChange = (newFile: Blob) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(newFile);
+    reader.onload = () => {
+      setUploadImage(reader.result as string);
+    };
+  };
   const textAreaHeight = useMemo(() => {
     const paddingBottom = 8; // 0.5rem (8px)
     const lineHeight = 24; // line-height: 1rem (24px)
@@ -30,6 +29,7 @@ function UploadPage() {
 
   const handleChangeIntroduce = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setIntroduce(event.currentTarget.value);
+    console.log(introduce);
   };
   return (
     <div>
@@ -41,7 +41,9 @@ function UploadPage() {
               type="file"
               id="uploadInput"
               accept="image/jpg, image/png, image/jpeg"
-              // onChange={handleFileChange}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                handleFileChange(e.target.files![0]);
+              }}
             />
 
             <ShowImage upLoadImage={upLoadImage}></ShowImage>
@@ -120,7 +122,7 @@ const FileInput = styled.input`
 `;
 ///생성시 이미지 들어가는곳
 const ToggleBtn = styled.div``;
-const ShowImage = styled.div<{ upLoadImage: any }>`
+const ShowImage = styled.div<{ upLoadImage: string }>`
   width: 100%;
   padding-bottom: 100%;
   background-color: #000000;

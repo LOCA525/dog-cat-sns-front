@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as BackBtn } from '../../assets/images/back.svg';
 import { modeState } from '../../store/themeColor';
