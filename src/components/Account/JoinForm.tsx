@@ -1,22 +1,39 @@
 import { useState, MouseEvent } from 'react';
-// import isStrongPassword from 'validator/lib/isStrongPassword';
+import axios, { type AxiosError, type AxiosResponse } from 'axios';
+import { useNavigate } from 'react-router-dom';
+import usePostJoin from '../../hooks/usePostJoin';
 import { SignSubmitBtnStyled } from '../../styles/Account/BtnStyles';
 import { SignFormStyled } from '../../styles/Account/FormStyles';
 import { SignInputStyled } from '../../styles/Account/InputStyles';
 import Input from '../common/Input';
 
 function JoinForm() {
+  const navigate = useNavigate();
+  const mutateJoin = usePostJoin();
+
   const [email, setEmail] = useState<string>('');
-  const [name, setName] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
   function handleSubmit(event: MouseEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log('email:', email);
-    console.log('name:', name);
-    console.log('password:', password);
-
-    console.log('submit');
+    mutateJoin(
+      { email, username, password },
+      {
+        onSuccess: (response: AxiosResponse<string, unknown>) => {
+          alert(response?.data);
+          navigate('/');
+        },
+        onError: error => {
+          if (axios.isAxiosError(error)) {
+            const { response } = error as AxiosError;
+            alert(response?.data);
+          } else {
+            console.error(error);
+          }
+        },
+      },
+    );
   }
 
   return (
@@ -35,8 +52,8 @@ function JoinForm() {
         required
         notEnterSubmit
         type="text"
-        value={name}
-        setValue={setName}
+        value={username}
+        setValue={setUsername}
         RenderComponent={SignInputStyled}
         placeholder="사용자 이름(필수)"
         validator={/^[A-za-z]{1,}([A-za-z\d]){3,}$/}
