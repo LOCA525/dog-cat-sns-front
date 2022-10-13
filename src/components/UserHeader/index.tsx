@@ -1,20 +1,31 @@
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as BackBtn } from '../../assets/images/back.svg';
 import { modeState } from '../../store/themeColor';
 
-function UserHeader() {
-  const { buttonColor } = useRecoilValue(modeState);
+interface propsType {
+  headerTitle: string;
+}
 
+function UserHeader({ headerTitle }: propsType) {
+  const { buttonColor } = useRecoilValue(modeState);
+  const navigate = useNavigate();
   return (
     <Container>
-      <BackBtn
-        width={'60px'}
-        height={'60px'}
-        fill={buttonColor}
-        stroke={buttonColor}
-      />
-      <UserNickName>HELLOLOCA</UserNickName>
+      <BackBtnContainer>
+        <BackBtn
+          width={'60px'}
+          height={'60px'}
+          fill={buttonColor}
+          stroke={buttonColor}
+          onClick={() => {
+            navigate(-1);
+          }}
+        />
+      </BackBtnContainer>
+
+      <HeaderTitle>{headerTitle}</HeaderTitle>
       <EmptyBtn />
     </Container>
   );
@@ -30,8 +41,10 @@ const Container = styled.div`
   width: 100%;
   padding: 0 10px 0 10px;
 `;
-
-const UserNickName = styled.div`
+const BackBtnContainer = styled.div`
+  cursor: pointer;
+`;
+const HeaderTitle = styled.div`
   font-size: 20px;
   font-weight: bold;
 `;

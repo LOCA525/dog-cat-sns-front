@@ -41,8 +41,8 @@ export const blueState = atom<defaultState>({
   key: 'blue',
   default: {
     mode: 'blue',
-    buttonColor: '#5271ff',
-    hoverColor: '#38b6ff',
+    buttonColor: '#38b6ff',
+    hoverColor: '#5271ff',
     toggleBtnImage: catBtn,
     wallPaper: catWallPaper,
   },

@@ -7,7 +7,7 @@ import UserProfile from '../components/UserProfile';
 function MyPage() {
   return (
     <div>
-      <UserHeader />
+      <UserHeader headerTitle={'유저닉네임'} />
       <Container>
         <UserProfile />
         <UserFeeds />
