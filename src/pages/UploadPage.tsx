@@ -8,11 +8,16 @@ import UserHeader from '../components/UserHeader';
 import { modeState } from '../store/themeColor';
 
 function UploadPage() {
-  const [toggleDogCat, setToggleDogCat] = useState<boolean>(true);
+  const [isDog, setIsDog] = useState<boolean>(true);
+  const [isCat, setIsCat] = useState<boolean>(false);
   const { buttonColor, hoverColor } = useRecoilValue(modeState);
   const [upLoadImage, setUploadImage] = useState(exampleImage);
   const [introduce, setIntroduce] = useState<string>('');
 
+  const handleUploadSubmit = (event: SubmitEvent) => {
+    event.preventDefault();
+    console.log({ isDog: isDog, isCat: isCat, description: introduce });
+  };
   const handleFileChange = (newFile: Blob) => {
     const reader = new FileReader();
     reader.readAsDataURL(newFile);
@@ -33,10 +38,15 @@ function UploadPage() {
   };
   return (
     <div>
-      <UserHeader />
+      <UserHeader headerTitle={'새 게시글'} />
       <Container>
         <UploadContainer>
-          <UploadForm>
+          <UploadForm
+            typeof="submit"
+            onSubmit={() => {
+              handleUploadSubmit;
+            }}
+          >
             <FileInput
               type="file"
               id="uploadInput"
@@ -51,14 +61,11 @@ function UploadPage() {
               <BtnContainer>
                 <ToggleBtn
                   onClick={() => {
-                    setToggleDogCat(!toggleDogCat);
+                    setIsDog(!isDog);
+                    setIsCat(!isCat);
                   }}
                 >
-                  {toggleDogCat ? (
-                    <DogBtn src={dogBtn} />
-                  ) : (
-                    <CatBtn src={catBtn} />
-                  )}
+                  {isDog ? <DogBtn src={dogBtn} /> : <CatBtn src={catBtn} />}
                 </ToggleBtn>
                 관련 게시글 입니다.
               </BtnContainer>
@@ -175,7 +182,7 @@ const TextArea = styled.textarea`
     color: gray;
   }
 `;
-const UploadBtn = styled.div<{ hover: string }>`
+const UploadBtn = styled.button<{ hover: string }>`
   margin-top: 10px;
   display: flex;
   justify-content: center;

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as HomeBtn } from '../../assets/images/home.svg';
@@ -20,12 +21,26 @@ const Container = styled.div`
 `;
 function BottomNav() {
   const { buttonColor } = useRecoilValue(modeState);
-
+  const navigate = useNavigate();
   return (
     <Container>
       <SearchFeedBtn width={'32px'} height={'32px'} stroke={buttonColor} />
-      <UploadBtn width={'33px'} height={'33px'} fill={buttonColor} />
-      <HomeBtn width={'27px'} height={'26px'} fill={buttonColor} />
+      <UploadBtn
+        width={'33px'}
+        height={'33px'}
+        fill={buttonColor}
+        onClick={() => {
+          navigate('/upload');
+        }}
+      />
+      <HomeBtn
+        width={'27px'}
+        height={'26px'}
+        fill={buttonColor}
+        onClick={() => {
+          navigate('/');
+        }}
+      />
     </Container>
   );
 }
