@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FormStyled } from '../../styles/Account/FormStyles';
 import { MainInputStyled } from '../../styles/Account/InputStyles';
 import { TextAreaStyled } from '../../styles/Account/TextAreaStyles';
-import NameInput from '../common/Input/NameInput';
+import Input from '../common/Input';
 import TextArea from '../common/TextArea';
 import EditProfileImage from './EditProfileImage';
 
@@ -19,9 +19,10 @@ function ProfileEditForm() {
         </ProfileImageContainer>
         <InputContainer>
           <InputLabel>사용자 이름</InputLabel>
-          <NameInput
+          <Input
+            type="text"
             required
-            WrappedComponent={MainInputStyled}
+            RenderComponent={MainInputStyled}
             value={name}
             setValue={setName}
             placeholder="사용자 이름을 입력하세요(필수)"

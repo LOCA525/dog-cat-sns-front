@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { FormStyled } from '../../styles/Account/FormStyles';
 import { MainInputStyled } from '../../styles/Account/InputStyles';
-import PasswordInput from '../common/Input/PasswordInput';
+import Input from '../common/Input';
 
 function PasswordChangeForm() {
   const [currentPassword, setCurrentPassword] = useState<string>('');
@@ -13,14 +13,15 @@ function PasswordChangeForm() {
     <Container>
       <FormStyled>
         <Description>
-          비밀번호는 최소 6자 이상이어야 하며 숫자, 영문, 특수 문자를 포함해야
-          합니다.
+          비밀번호는 최소 6자 이상이어야 하며 숫자, 영문, 특수 문자(!@#$)를
+          포함해야 합니다.
         </Description>
         <InputContainer>
           <InputLabel>현재 비밀번호</InputLabel>
-          <PasswordInput
+          <Input
+            type="password"
             required
-            WrappedComponent={MainInputStyled}
+            RenderComponent={MainInputStyled}
             placeholder="현재 비밀번호를 입력해주세요"
             value={currentPassword}
             setValue={setCurrentPassword}
@@ -28,9 +29,10 @@ function PasswordChangeForm() {
         </InputContainer>
         <InputContainer>
           <InputLabel>새 비밀번호</InputLabel>
-          <PasswordInput
+          <Input
+            type="password"
             required
-            WrappedComponent={MainInputStyled}
+            RenderComponent={MainInputStyled}
             value={newPassword}
             setValue={setNewPassword}
             placeholder="새로운 비밀번호를 입력해주세요"
@@ -38,9 +40,10 @@ function PasswordChangeForm() {
         </InputContainer>
         <InputContainer>
           <InputLabel>새 비밀번호 확인</InputLabel>
-          <PasswordInput
+          <Input
+            type="password"
             required
-            WrappedComponent={MainInputStyled}
+            RenderComponent={MainInputStyled}
             value={confirmNewPassword}
             setValue={setConfirmNewPassword}
             placeholder="새로운 비밀번호 확인을 위해 한번 더 입력해주세요"

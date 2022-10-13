@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { SignSubmitBtnStyled } from '../../styles/Account/BtnStyles';
-import { SignFormStyled } from '../../styles/Account/FormStyled';
+import { SignFormStyled } from '../../styles/Account/FormStyles';
 import { SignInputStyled } from '../../styles/Account/InputStyles';
-import EmailInput from '../common/Input/EmailInput';
-import PasswordInput from '../common/Input/PasswordInput';
+import Input from '../common/Input';
 import LoginCheckbox from './LoginCheckbox';
 
 function LoginForm() {
@@ -12,16 +11,18 @@ function LoginForm() {
 
   return (
     <SignFormStyled>
-      <EmailInput
+      <Input
+        type="email"
         required
-        WrappedComponent={SignInputStyled}
+        RenderComponent={SignInputStyled}
         value={email}
         setValue={setEmail}
         placeholder="이메일"
       />
-      <PasswordInput
+      <Input
+        type="password"
         required
-        WrappedComponent={SignInputStyled}
+        RenderComponent={SignInputStyled}
         value={password}
         setValue={setPassword}
         placeholder="비밀번호"
