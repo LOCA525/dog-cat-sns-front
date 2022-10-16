@@ -76,7 +76,7 @@
     ],
     // https://github.com/prettier/eslint-plugin-prettier#options
     "prettier/prettier": [
-      "error",
+      "warn",
       {
         "trailingComma": "all",
         "tabWidth": 2,
