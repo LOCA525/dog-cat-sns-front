@@ -1,4 +1,4 @@
-import axios from '.';
+import api from '.';
 
 export declare interface JoinBody {
   email: string;
@@ -6,4 +6,4 @@ export declare interface JoinBody {
   username: string;
 }
 
-export const postJoin = (body: JoinBody) => axios.post('/account/join', body);
+export const postJoin = (body: JoinBody) => api.post('/account/join', body);
