@@ -7,3 +7,10 @@ export declare interface JoinBody {
 }
 
 export const postJoin = (body: JoinBody) => api.post('/account/join', body);
+
+export declare interface LoginBody {
+  email: string;
+  password: string;
+}
+
+export const postLogin = (body: LoginBody) => api.post('/account/login', body);
