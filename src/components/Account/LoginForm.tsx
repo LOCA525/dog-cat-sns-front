@@ -37,7 +37,11 @@ function LoginForm() {
         onError: error => {
           if (axios.isAxiosError(error)) {
             const { response } = error as AxiosError;
-            alert(response?.data);
+            if (response?.status === 401) {
+              alert('아이디 또는 비밀번호가 맞지 않습니다.');
+            } else {
+              alert('오류 발생');
+            }
           } else {
             console.error(error);
           }
