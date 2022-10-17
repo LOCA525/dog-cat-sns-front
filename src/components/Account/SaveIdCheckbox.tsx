@@ -19,7 +19,6 @@ function SaveIdCheckbox({ setUserId }: Props) {
       const savedUserId = getUserId();
       checkedSaveId && savedUserId && setUserId(savedUserId);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleCheckedSaveIdChange = () => {
