@@ -1,9 +1,44 @@
 {
   "env": {
     "browser": true,
-    "es2021": true,
-    "node": true
+    "es2021": true
   },
+  // eslint-config 또는 eslint-plugin에 대하여 기본 규칙을 확장하여 설정할 수 있다.
+  "extends": [
+    // prettier
+    "prettier",
+    "plugin:prettier/recommended",
+    // eslint react default
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    // import
+    "plugin:import/typescript",
+    "plugin:import/recommended",
+    "plugin:import/warnings",
+    "plugin:import/errors",
+    // https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#removing-unused-react-imports
+    "plugin:react/jsx-runtime"
+  ],
+  "overrides": [
+    {
+      // ts, tsx 파일에 대해서만 eslint가 작동되도록 설정
+      "files": ["*.ts", "*.tsx"],
+      "parserOptions": {
+        "project": ["./tsconfig.json"]
+      }
+    }
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  // eslint-plugin-{name}, 패키지에 미리 설정된 기본 규칙을 가져오는 옵션이다.
+  "plugins": ["prettier", "react", "@typescript-eslint"],
   "settings": {
     "import/resolver": {
       "typescript": {}
@@ -15,89 +50,13 @@
       "lifeTime": "1200"
     }
   },
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": 12,
-    "sourceType": "module"
-    // 파싱 에러시 경로 관련 참고자료: https://bobbyhadz.com/blog/typescript-parsing-error-cannot-read-file
-  },
-  // eslint-plugin-{name}, 패키지에 미리 설정된 기본 규칙을 가져오는 옵션이다.
-  "plugins": [
-    "prettier",
-    "react",
-    "react-hooks",
-    "jsx-a11y",
-    "@typescript-eslint"
-  ],
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx"],
-      "extends": [
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
-      ],
-      "parserOptions": {
-        "project": ["./tsconfig.json"]
-      }
-    }
-  ],
-  // eslint-config 또는 eslint-plugin에 대하여 기본 규칙을 확장하여 설정할 수 있다.
-  "extends": [
-    "prettier",
-    "eslint:recommended",
-    "plugin:import/typescript",
-    "plugin:import/recommended",
-    "plugin:import/warnings",
-    "plugin:import/errors",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:jsx-a11y/strict",
-    "plugin:prettier/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/jsx-runtime"
-  ],
+  // 파싱 에러시 경로 관련 참고자료: https://bobbyhadz.com/blog/typescript-parsing-error-cannot-read-file
+
   // extends보다 우선 적용되는 규칙
   "rules": {
-    "no-shadow": 0,
-    "no-use-before-define": 0,
-    "no-extra-semi": 1,
-    "linebreak-style": 0,
-    "prettier/prettier": 0,
-    "jsx-a11y/no-noninteractive-element-interactions": 0,
-    "react/prop-types": 0,
-    // 확장자 허용 설정
-    "react/jsx-filename-extension": [
-      2,
-      {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      }
-    ],
-    // 화살표 함수의 파라미터가 하나일 때 괄호 생략
-    "arrow-parens": ["warn", "as-needed"],
-    // props spreading을 허용하지 않는 규칙 해제
-    "react/jsx-props-no-spreading": [0],
-    "no-param-reassign": [
-      "error",
-      {
-        "props": false
-      }
-    ],
-    "import/named": 2,
-    "import/namespace": 2,
-    "import/default": 2,
-    "import/export": 2,
-    "import/extensions": 0,
-    "import/no-unresolved": 0,
-    // 테스트 또는 개발환경을 구성하는 파일에서는 devDependency 사용을 허용
-    "import/no-extraneous-dependencies": 0,
-    // export const 문을 쓸때 에러를 내는 규칙 해제
-    "import/prefer-default-export": 0,
-    // import 정렬 규칙 설정
+    // import 정렬 규칙 설정 https://github.com/import-js/eslint-plugin-import/blob/v2.26.0/docs/rules/order.md
     "import/order": [
-      "error",
+      "warn",
       {
         "groups": ["builtin", "external", "internal", "parent"],
         "pathGroups": [
@@ -113,6 +72,20 @@
           "order": "asc",
           "caseInsensitive": true
         }
+      }
+    ],
+    // https://github.com/prettier/eslint-plugin-prettier#options
+    "prettier/prettier": [
+      "warn",
+      {
+        "trailingComma": "all",
+        "tabWidth": 2,
+        "printWidth": 80,
+        "semi": true,
+        "singleQuote": true,
+        "arrowParens": "avoid",
+        "parser": "flow",
+        "endOfLine": "auto" // Delete `␍` prettier/prettier 문제를 해결하기 위한 옵션
       }
     ]
   }
