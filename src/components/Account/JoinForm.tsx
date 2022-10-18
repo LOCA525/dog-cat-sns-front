@@ -62,7 +62,6 @@ function JoinForm() {
       />
       <Input
         required
-        notEnterSubmit
         type="password"
         value={password}
         setValue={setPassword}

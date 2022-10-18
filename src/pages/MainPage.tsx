@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { getAccountData } from '../api/board';
+import { getAccountData, postLogin } from '../api/board';
 import Board from '../components/Board';
 import BottomNav from '../components/BottomNav';
 import Header from '../components/Header';
@@ -16,8 +16,20 @@ function MainPage() {
       console.log('에러', error);
     }
   };
+  const login = async () => {
+    try {
+      const res = await postLogin();
+      if (res.status === 200) {
+        const res = await postLogin();
+        console.log(res);
+      }
+    } catch (error) {
+      console.log('로그인에러', error);
+    }
+  };
 
   useEffect(() => {
+    login();
     getAccount();
   }, []);
   return (

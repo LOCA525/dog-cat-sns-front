@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { postJoin } from '../api/auth';
+import { postJoin } from '../api/account';
 
 function usePostJoin() {
   const queryClient = useQueryClient();
