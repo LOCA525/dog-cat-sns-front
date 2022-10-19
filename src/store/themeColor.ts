@@ -26,6 +26,11 @@ export interface defaultState {
   wallPaper: string;
 }
 
+export const userData = atom({
+  key: 'userData',
+  default: null,
+});
+
 export const orangeState = atom<defaultState>({
   key: 'orange',
   default: {
