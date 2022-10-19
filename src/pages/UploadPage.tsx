@@ -1,10 +1,13 @@
+import { upload } from '@testing-library/user-event/dist/upload';
 import React, { ChangeEvent, useMemo, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { photoApi, upLoadApi } from '../api/board';
 import catBtn from '../assets/images/catBtn.png';
 import dogBtn from '../assets/images/dogBtn.png';
 import exampleImage from '../assets/images/uploadExample.png';
 import UserHeader from '../components/UserHeader';
+import { loginUserData } from '../store/loginUser';
 import { modeState } from '../store/themeColor';
 
 function UploadPage() {
@@ -13,12 +16,46 @@ function UploadPage() {
   const { buttonColor, hoverColor } = useRecoilValue(modeState);
   const [upLoadImage, setUploadImage] = useState(exampleImage);
   const [introduce, setIntroduce] = useState<string>('');
+  const formData = new FormData();
+  const { id } = useRecoilValue(loginUserData);
 
-  const handleUploadSubmit = (event: SubmitEvent) => {
-    event.preventDefault();
-    console.log({ isDog: isDog, isCat: isCat, description: introduce });
+  const handleUploadSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (introduce !== '') {
+      console.log({ isDog: isDog, isCat: isCat, description: introduce });
+
+      try {
+        const res = await photoApi(formData);
+        if (res.status === 200) {
+          console.log('사진보내기성공!', res);
+          const photoId: number = res.data.id;
+          const uploadBody = {
+            isDog: isDog,
+            isCat: isCat,
+            description: introduce,
+            photo: photoId,
+            tag: '',
+          };
+          try {
+            const res = await upLoadApi(id, uploadBody);
+            if (res.status === 200) {
+              console.log('사진업로드 성공', res);
+            }
+          } catch (error) {
+            console.log('사진업로드에러', error);
+          }
+        }
+      } catch (error) {
+        console.log('error', error);
+      }
+    } else {
+      alert('내용을 입력하세요');
+    }
   };
   const handleFileChange = (newFile: Blob) => {
+    formData.append('전송할이미지', newFile);
+    console.log(formData);
+
     const reader = new FileReader();
     reader.readAsDataURL(newFile);
     reader.onload = () => {
@@ -43,8 +80,8 @@ function UploadPage() {
         <UploadContainer>
           <UploadForm
             typeof="submit"
-            onSubmit={() => {
-              handleUploadSubmit;
+            onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+              handleUploadSubmit(e);
             }}
           >
             <FileInput
