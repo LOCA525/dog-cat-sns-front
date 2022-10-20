@@ -23,7 +23,11 @@ export const getAccountData = async () => {
   return res;
 };
 export const photoApi = async (formData: any) => {
-  const res = await api.post('/photo', formData);
+  const res = await api.post('/photo', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
   return res;
 };
 export const upLoadApi = async (userId: number, uploadBody: uploadBody) => {

@@ -1,4 +1,3 @@
-import { upload } from '@testing-library/user-event/dist/upload';
 import React, { ChangeEvent, useMemo, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -16,15 +15,16 @@ function UploadPage() {
   const { buttonColor, hoverColor } = useRecoilValue(modeState);
   const [upLoadImage, setUploadImage] = useState(exampleImage);
   const [introduce, setIntroduce] = useState<string>('');
-  const formData = new FormData();
+  const [imageFile, setImageFile] = useState<any>();
   const { id } = useRecoilValue(loginUserData);
 
   const handleUploadSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (introduce !== '') {
       console.log({ isDog: isDog, isCat: isCat, description: introduce });
-
       try {
+        const formData = new FormData();
+        formData.append('url', imageFile);
         const res = await photoApi(formData);
         if (res.status === 200) {
           console.log('사진보내기성공!', res);
@@ -52,10 +52,8 @@ function UploadPage() {
       alert('내용을 입력하세요');
     }
   };
-  const handleFileChange = (newFile: Blob) => {
-    formData.append('전송할이미지', newFile);
-    console.log(formData);
-
+  const handleFileChange = (newFile: any) => {
+    setImageFile(newFile);
     const reader = new FileReader();
     reader.readAsDataURL(newFile);
     reader.onload = () => {
