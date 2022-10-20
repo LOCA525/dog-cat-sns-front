@@ -13,7 +13,6 @@ function MainPage() {
       const res = await getAccountData();
       if (res.status === 200) {
         const res = await getAccountData();
-        console.log(res.data);
         setUserData(res.data);
       }
     } catch (error) {
