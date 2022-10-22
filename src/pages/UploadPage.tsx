@@ -6,7 +6,7 @@ import catBtn from '../assets/images/catBtn.png';
 import dogBtn from '../assets/images/dogBtn.png';
 import exampleImage from '../assets/images/uploadExample.png';
 import UserHeader from '../components/UserHeader';
-import { loginUserData } from '../store/loginUser';
+import { loginUserId } from '../store/loginUser';
 import { modeState } from '../store/themeColor';
 
 function UploadPage() {
@@ -15,12 +15,12 @@ function UploadPage() {
   const { buttonColor, hoverColor } = useRecoilValue(modeState);
   const [upLoadImage, setUploadImage] = useState(exampleImage);
   const [introduce, setIntroduce] = useState<string>('');
-  const [imageFile, setImageFile] = useState<any>();
-  const { id } = useRecoilValue(loginUserData);
+  const [imageFile, setImageFile] = useState<any>(null);
+  const id = useRecoilValue(loginUserId);
 
   const handleUploadSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (introduce !== '') {
+    if (introduce !== '' && imageFile !== null) {
       console.log({ isDog: isDog, isCat: isCat, description: introduce });
       try {
         const formData = new FormData();
@@ -69,7 +69,6 @@ function UploadPage() {
 
   const handleChangeIntroduce = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setIntroduce(event.currentTarget.value);
-    console.log(introduce);
   };
   return (
     <div>
