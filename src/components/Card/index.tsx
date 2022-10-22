@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ReactComponent as BookMarkBtn } from '../../assets/images/bookmark.svg';
 import { ReactComponent as CommentBtn } from '../../assets/images/comment.svg';
 import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
+import { ReactComponent as MoreBtn } from '../../assets/images/more.svg';
 import { modeState } from '../../store/themeColor';
 
 function Card({ item }: any) {
@@ -22,8 +23,12 @@ function Card({ item }: any) {
     <CardContainer>
       <HeaderContainer>
         <UserContainer>
-          <UserImage />
-          <UserNickName>{item.User.username}</UserNickName>
+          <UserWrap>
+            <UserImage />
+            <UserNickName>{item.User.username}</UserNickName>
+          </UserWrap>
+
+          <MoreBtn width={'25px'} height={'25px'} fill={buttonColor} />
         </UserContainer>
       </HeaderContainer>
       <CardImage image={image} />
@@ -78,6 +83,11 @@ const HeaderContainer = styled.div`
 `;
 const UserContainer = styled.div`
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const UserWrap = styled.div`
+  display: flex;
   align-items: center;
 `;
 const UserImage = styled.div`
@@ -92,6 +102,7 @@ const UserNickName = styled.div`
   font-weight: bold;
   margin-bottom: 5px;
 `;
+
 const CardImage = styled.div<{ image: string }>`
   width: 100%;
   padding-bottom: 100%;
