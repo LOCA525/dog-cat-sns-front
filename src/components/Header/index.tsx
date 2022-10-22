@@ -2,27 +2,37 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
 import { ReactComponent as SearchBtn } from '../../assets/images/search.svg';
+import { cardState, catCards, dogCards } from '../../store/cardState';
 import { blueState, modeState, orangeState } from '../../store/themeColor';
 
 function Header() {
   const [Theme, setTheme] = useRecoilState(modeState);
+  const [card, setCard] = useRecoilState(cardState);
   const orangemode = useRecoilValue(orangeState);
   const bluemode = useRecoilValue(blueState);
+  const dogCard = useRecoilValue(dogCards);
+  const catCard = useRecoilValue(catCards);
 
   const themeChangeClick = () => {
+    document
+      .querySelector('.boardContainer')
+      ?.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     if (Theme === orangemode) {
       setTheme(bluemode);
+      setCard(catCard);
     } else {
       setTheme(orangemode);
+      setCard(dogCard);
     }
   };
+
   const current = useRecoilValue(modeState);
   const buttonColor = current.buttonColor;
-  const ttoggleBtnImage = current.toggleBtnImage;
+  const toggleBtnImage = current.toggleBtnImage;
   return (
     <div>
       <Container>
-        <ToggleBtn onClick={themeChangeClick} src={ttoggleBtnImage} />
+        <ToggleBtn onClick={themeChangeClick} src={toggleBtnImage} />
         <SearchForm>
           <SearchInput placeholder="search" />
           <SearchBtnContainer>

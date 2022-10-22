@@ -2,22 +2,31 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as BookMarkBtn } from '../../assets/images/bookmark.svg';
 import { ReactComponent as CommentBtn } from '../../assets/images/comment.svg';
-import exampleDogImage from '../../assets/images/example.jpeg';
 import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
 import { modeState } from '../../store/themeColor';
 
-function Card() {
+function Card({ item }: any) {
   const { buttonColor } = useRecoilValue(modeState);
+  const imageData: string = item.Photo.url;
+  const dateData: string = item.updatedAt;
+  const splitedData = imageData.split('/', 7);
+  const splitedDate = dateData.split('T');
+  const image = splitedData[6]; ///추출된 이미지 url
+  const date: string = splitedDate[0]; ///추출된 날짜
+  const year = date.split('-')[0];
+  const month = date.split('-')[1];
+  const day = date.split('-')[2];
 
+  console.log('item', item);
   return (
     <CardContainer>
       <HeaderContainer>
         <UserContainer>
           <UserImage />
-          <UserNickName>HELLOLOCA</UserNickName>
+          <UserNickName>{item.User.username}</UserNickName>
         </UserContainer>
       </HeaderContainer>
-      <CardImage />
+      <CardImage image={image} />
 
       <ButtonContainer>
         <HeartCommentContainer>
@@ -36,19 +45,15 @@ function Card() {
         </HeartCommentContainer>
         <BookMarkBtn width={'32px'} height={'32px'} fill={buttonColor} />
       </ButtonContainer>
-      <HeartCount>좋아요 621개</HeartCount>
+      <HeartCount>좋아요 {item.like.length}개</HeartCount>
       <TextContainer>
-        <UserNickName>HELLOLOCA</UserNickName>
-        <CardText>
-          반갑습니다 여러분 안녕하세요 하이하이 우리 멍멍이 참 귀엽죠 ? 더많은
-          사진을 보고싶으면 저를 팔로우 해주세요 !!!반갑습니다 여러분 안녕하세요
-          하이하이 우리 멍멍이 참 귀엽죠 ? 더많은 사진을 보고싶으면 저를 팔로우
-          해주세요 !!!진을 보고싶으면 저를 팔로우 해주세요 !!!반갑습니다 여러분
-          안
-        </CardText>
+        <UserNickName>{item.User.username}</UserNickName>
+        <CardText>{item.description}</CardText>
       </TextContainer>
-      <CommentCount>댓글 11개</CommentCount>
-      <Date>2022년 2월 2일</Date>
+      <CommentCount>댓글 1개</CommentCount>
+      <Date>
+        {year}년 {month}월 {day}일
+      </Date>
     </CardContainer>
   );
 }
@@ -85,11 +90,13 @@ const UserImage = styled.div`
 const UserNickName = styled.div`
   font-size: 14px;
   font-weight: bold;
+  margin-bottom: 5px;
 `;
-const CardImage = styled.div`
+const CardImage = styled.div<{ image: string }>`
   width: 100%;
   padding-bottom: 100%;
-  background-image: url(${exampleDogImage});
+  background-image: url(http://localhost:3030/api/image/${props =>
+    props.image}); //이거 왜 오류임 ??
   background-color: #000;
   background-position: center;
   background-size: contain;
