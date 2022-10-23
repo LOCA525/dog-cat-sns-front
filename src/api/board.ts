@@ -31,3 +31,8 @@ export const getBoardApi = async (userId: number) => {
   const res = await api.get(`/board/?userId=${userId}`);
   return res;
 };
+
+export const deleteCardApi = async (cardId: number) => {
+  const res = await api.delete(`/board/write/${cardId}`);
+  return res;
+};

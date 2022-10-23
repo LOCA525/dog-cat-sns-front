@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as BookMarkBtn } from '../../assets/images/bookmark.svg';
@@ -5,9 +6,14 @@ import { ReactComponent as CommentBtn } from '../../assets/images/comment.svg';
 import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
 import { ReactComponent as MoreBtn } from '../../assets/images/more.svg';
 import { modeState } from '../../store/themeColor';
+import ValidationModal from '../common/ValidationModal';
+import Modal from './Modal';
 
 function Card({ item }: any) {
   const { buttonColor } = useRecoilValue(modeState);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [validationModalOpen, setValidationModalOpen] =
+    useState<boolean>(false);
   const imageData: string = item.Photo.url;
   const dateData: string = item.updatedAt;
   const splitedData = imageData.split('/', 7);
@@ -17,49 +23,77 @@ function Card({ item }: any) {
   const year = date.split('-')[0];
   const month = date.split('-')[1];
   const day = date.split('-')[2];
-
-  console.log('item', item);
+  const showModal = () => {
+    setModalOpen(!modalOpen);
+  };
+  const showValidationModal = () => {
+    setValidationModalOpen(!validationModalOpen);
+  };
   return (
-    <CardContainer>
-      <HeaderContainer>
-        <UserContainer>
-          <UserWrap>
-            <UserImage />
-            <UserNickName>{item.User.username}</UserNickName>
-          </UserWrap>
-
-          <MoreBtn width={'25px'} height={'25px'} fill={buttonColor} />
-        </UserContainer>
-      </HeaderContainer>
-      <CardImage image={image} />
-
-      <ButtonContainer>
-        <HeartCommentContainer>
-          <HeartBtn
-            width={'30px'}
-            height={'30px'}
-            fill={'#ffff'}
-            stroke={buttonColor}
+    <div>
+      {validationModalOpen && (
+        <ValidationModal
+          showValidationModal={showValidationModal}
+          cardId={item.id}
+        />
+      )}
+      <CardContainer>
+        {modalOpen && (
+          <Modal
+            modalOpen={modalOpen}
+            setModalOpen={setModalOpen}
+            showModal={showModal}
+            showValidationModal={showValidationModal}
           />
-          <CommentBtn
-            width={'30px'}
-            height={'30px'}
-            fill={buttonColor}
-            stroke={buttonColor}
-          />
-        </HeartCommentContainer>
-        <BookMarkBtn width={'32px'} height={'32px'} fill={buttonColor} />
-      </ButtonContainer>
-      <HeartCount>좋아요 {item.like.length}개</HeartCount>
-      <TextContainer>
-        <UserNickName>{item.User.username}</UserNickName>
-        <CardText>{item.description}</CardText>
-      </TextContainer>
-      <CommentCount>댓글 1개</CommentCount>
-      <Date>
-        {year}년 {month}월 {day}일
-      </Date>
-    </CardContainer>
+        )}
+        <HeaderContainer>
+          <UserContainer>
+            <UserWrap>
+              <UserImage />
+              <UserNickName>{item.User.username}</UserNickName>
+            </UserWrap>
+
+            <MoreBtn
+              width={'25px'}
+              height={'25px'}
+              fill={buttonColor}
+              onClick={showModal}
+              cursor={'pointer'}
+            />
+          </UserContainer>
+        </HeaderContainer>
+        <CardImage image={image} />
+
+        <ButtonContainer>
+          <HeartCommentContainer>
+            <HeartBtn
+              width={'30px'}
+              height={'30px'}
+              fill={'#ffff'}
+              stroke={buttonColor}
+              cursor={'pointer'}
+            />
+            <CommentBtn
+              width={'30px'}
+              height={'30px'}
+              fill={buttonColor}
+              stroke={buttonColor}
+              cursor={'pointer'}
+            />
+          </HeartCommentContainer>
+          <BookMarkBtn width={'32px'} height={'32px'} fill={buttonColor} />
+        </ButtonContainer>
+        <HeartCount>좋아요 {item.like.length}개</HeartCount>
+        <TextContainer>
+          <UserNickName>{item.User.username}</UserNickName>
+          <CardText>{item.description}</CardText>
+        </TextContainer>
+        <CommentCount>댓글 1개</CommentCount>
+        <Date>
+          {year}년 {month}월 {day}일
+        </Date>
+      </CardContainer>
+    </div>
   );
 }
 
@@ -73,10 +107,11 @@ const CardContainer = styled.div`
   border-radius: 30px;
   background-color: #fff;
   padding-bottom: 20px;
+  position: relative;
 `;
 
 const HeaderContainer = styled.div`
-  padding: 9px;
+  padding: 9px 18px 9px 9px;
   width: 100%;
   height: 55px;
   border-bottom: 1px solid #e8e8e8;
@@ -96,11 +131,13 @@ const UserImage = styled.div`
   height: 37px;
   border-radius: 20px;
   background-color: red;
+  cursor: pointer;
 `;
 const UserNickName = styled.div`
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 5px;
+  cursor: pointer;
 `;
 
 const CardImage = styled.div<{ image: string }>`

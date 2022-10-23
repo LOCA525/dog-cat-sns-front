@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { getAccountData, getBoardApi } from '../api/board';
 import Board from '../components/Board';
 import BottomNav from '../components/BottomNav';
+import ValidationModal from '../components/common/ValidationModal';
 import Header from '../components/Header';
 import { catCards, dogCards } from '../store/cardState';
 import { loginUserId } from '../store/loginUser';
@@ -11,6 +12,7 @@ function MainPage() {
   const [id, setUserId] = useRecoilState(loginUserId);
   const [dogCard, setDogCard] = useRecoilState(dogCards);
   const [catCard, setCatCard] = useRecoilState(catCards);
+
   const getAccount = async () => {
     try {
       const res = await getAccountData();
@@ -29,7 +31,6 @@ function MainPage() {
         const res = await getBoardApi(id);
         console.log('게시글 조회 성공', res);
         const cards = res.data;
-        console.log('cards', cards);
         //get api로 받아온 카드들을 filter를 이용해 고양이/개 따로 나눠 변수에 담음
         const isDog = (item: any) => {
           if (item.type === 'DOG') {
@@ -56,6 +57,7 @@ function MainPage() {
     getAccount();
     getBoard();
   }, []);
+
   return (
     <div>
       <Header />
