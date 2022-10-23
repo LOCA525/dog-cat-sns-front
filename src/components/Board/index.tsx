@@ -1,10 +1,10 @@
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { cardState } from '../../store/cardState';
-import Card from '../Card';
+import Card from '../Card/Card';
 
 function Board() {
-  const currentCard = useRecoilValue(cardState);
+  const currentCard = useRecoilValue<any>(cardState);
   return (
     <BoardContainer className="boardContainer">
       {currentCard
@@ -23,6 +23,7 @@ const BoardContainer = styled.div`
   width: 100%;
   height: calc(100vh - 110px);
   background-color: #f5f6f7;
+  position: relative;
 `;
 
 export default Board;

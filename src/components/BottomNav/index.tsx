@@ -24,7 +24,12 @@ function BottomNav() {
   const navigate = useNavigate();
   return (
     <Container>
-      <SearchFeedBtn width={'32px'} height={'32px'} stroke={buttonColor} />
+      <SearchFeedBtn
+        width={'32px'}
+        height={'32px'}
+        stroke={buttonColor}
+        cursor={'pointer'}
+      />
       <UploadBtn
         width={'33px'}
         height={'33px'}
@@ -32,6 +37,7 @@ function BottomNav() {
         onClick={() => {
           navigate('/upload');
         }}
+        cursor={'pointer'}
       />
       <HomeBtn
         width={'27px'}
@@ -40,6 +46,7 @@ function BottomNav() {
         onClick={() => {
           navigate('/');
         }}
+        cursor={'pointer'}
       />
     </Container>
   );

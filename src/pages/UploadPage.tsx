@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useMemo, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { photoApi, upLoadApi } from '../api/board';
@@ -17,7 +18,7 @@ function UploadPage() {
   const [introduce, setIntroduce] = useState<string>('');
   const [imageFile, setImageFile] = useState<any>(null);
   const id = useRecoilValue(loginUserId);
-
+  const navigate = useNavigate();
   const handleUploadSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (introduce !== '' && imageFile !== null) {
@@ -40,6 +41,7 @@ function UploadPage() {
             const res = await upLoadApi(id, uploadBody);
             if (res.status === 200) {
               console.log('사진업로드 성공', res);
+              navigate('/');
             }
           } catch (error) {
             console.log('사진업로드에러', error);

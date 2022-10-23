@@ -2,7 +2,7 @@ import { type } from 'os';
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
-const { persistAtom } = recoilPersist();
+// const { persistAtom } = recoilPersist();
 
 export const dogCards = atom({
   key: 'dogCards',
@@ -16,5 +16,5 @@ export const catCards = atom({
 export const cardState = atom({
   key: 'iscardState',
   default: dogCards,
-  effects_UNSTABLE: [persistAtom],
+  // effects_UNSTABLE: [persistAtom],
 });
