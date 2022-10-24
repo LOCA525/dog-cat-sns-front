@@ -6,14 +6,14 @@ import { ReactComponent as CommentBtn } from '../../assets/images/comment.svg';
 import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
 import { ReactComponent as MoreBtn } from '../../assets/images/more.svg';
 import { modeState } from '../../store/themeColor';
-import ValidationModal from '../common/ValidationModal';
+import Alert from '../common/Alert';
 import Modal from './Modal';
+import ValidationModal from './ValidationModal';
 
 function Card({ item }: any) {
   const { buttonColor } = useRecoilValue(modeState);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [validationModalOpen, setValidationModalOpen] =
-    useState<boolean>(false);
+  const [validationModalOpen, setValidationModalOpen] = useState<boolean>(false);
   const imageData: string = item.Photo.url;
   const dateData: string = item.updatedAt;
   const splitedData = imageData.split('/', 7);
@@ -31,12 +31,7 @@ function Card({ item }: any) {
   };
   return (
     <div>
-      {validationModalOpen && (
-        <ValidationModal
-          showValidationModal={showValidationModal}
-          cardId={item.id}
-        />
-      )}
+      {validationModalOpen && <ValidationModal showValidationModal={showValidationModal} cardId={item.id} />}
       <CardContainer>
         {modalOpen && (
           <Modal
@@ -53,33 +48,15 @@ function Card({ item }: any) {
               <UserNickName>{item.User.username}</UserNickName>
             </UserWrap>
 
-            <MoreBtn
-              width={'25px'}
-              height={'25px'}
-              fill={buttonColor}
-              onClick={showModal}
-              cursor={'pointer'}
-            />
+            <MoreBtn width={'25px'} height={'25px'} fill={buttonColor} onClick={showModal} cursor={'pointer'} />
           </UserContainer>
         </HeaderContainer>
         <CardImage image={image} />
 
         <ButtonContainer>
           <HeartCommentContainer>
-            <HeartBtn
-              width={'30px'}
-              height={'30px'}
-              fill={'#ffff'}
-              stroke={buttonColor}
-              cursor={'pointer'}
-            />
-            <CommentBtn
-              width={'30px'}
-              height={'30px'}
-              fill={buttonColor}
-              stroke={buttonColor}
-              cursor={'pointer'}
-            />
+            <HeartBtn width={'30px'} height={'30px'} fill={'#ffff'} stroke={buttonColor} cursor={'pointer'} />
+            <CommentBtn width={'30px'} height={'30px'} fill={buttonColor} stroke={buttonColor} cursor={'pointer'} />
           </HeartCommentContainer>
           <BookMarkBtn width={'32px'} height={'32px'} fill={buttonColor} />
         </ButtonContainer>
@@ -143,8 +120,7 @@ const UserNickName = styled.div`
 const CardImage = styled.div<{ image: string }>`
   width: 100%;
   padding-bottom: 100%;
-  background-image: url(http://localhost:3030/api/image/${props =>
-    props.image}); //이거 왜 오류임 ??
+  background-image: url(http://localhost:3030/api/image/${props => props.image});
   background-color: #000;
   background-position: center;
   background-size: contain;

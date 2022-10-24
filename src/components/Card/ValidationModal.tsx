@@ -25,18 +25,10 @@ function ValidationModal({ showValidationModal, cardId }: any) {
         <ModalTitle>게시글 삭제</ModalTitle>
         <ModalContent>게시글을 정말로 삭제하시겠습니까?</ModalContent>
         <ModalBtnBox>
-          <ModalCancelBtn
-            color={buttonColor}
-            hover={hoverColor}
-            onClick={showValidationModal}
-          >
+          <ModalCancelBtn color={buttonColor} hover={hoverColor} onClick={showValidationModal}>
             취소
           </ModalCancelBtn>
-          <ModalOkBtn
-            color={buttonColor}
-            hover={hoverColor}
-            onClick={deleteCard}
-          >
+          <ModalOkBtn color={buttonColor} hover={hoverColor} onClick={deleteCard}>
             확인
           </ModalOkBtn>
         </ModalBtnBox>

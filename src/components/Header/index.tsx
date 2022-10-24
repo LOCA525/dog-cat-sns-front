@@ -4,6 +4,7 @@ import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
 import { ReactComponent as SearchBtn } from '../../assets/images/search.svg';
 import { cardState, catCards, dogCards } from '../../store/cardState';
 import { blueState, modeState, orangeState } from '../../store/themeColor';
+import Alert from '../common/Alert';
 
 function Header() {
   const [Theme, setTheme] = useRecoilState(modeState);
