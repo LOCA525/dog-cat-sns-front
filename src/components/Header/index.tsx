@@ -2,30 +2,26 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
 import { ReactComponent as SearchBtn } from '../../assets/images/search.svg';
-import { cardState, catCards, dogCards } from '../../store/cardState';
+import { cardFilterState } from '../../store/cardState';
 import { blueState, modeState, orangeState } from '../../store/themeColor';
-import Alert from '../common/Alert';
 
 function Header() {
   const [Theme, setTheme] = useRecoilState(modeState);
-  const [card, setCard] = useRecoilState(cardState);
   const orangemode = useRecoilValue(orangeState);
   const bluemode = useRecoilValue(blueState);
-  const dogCard = useRecoilValue(dogCards);
-  const catCard = useRecoilValue(catCards);
+  const [filter, setFilter] = useRecoilState(cardFilterState);
 
   const themeChangeClick = () => {
-    document
-      .querySelector('.boardContainer')
-      ?.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    document.querySelector('.boardContainer')?.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     if (Theme === orangemode) {
       setTheme(bluemode);
-      setCard(catCard);
+      setFilter('catState');
     } else {
       setTheme(orangemode);
-      setCard(dogCard);
+      setFilter('dogState');
     }
   };
+  console.log(filter);
 
   const current = useRecoilValue(modeState);
   const buttonColor = current.buttonColor;
@@ -41,12 +37,7 @@ function Header() {
           </SearchBtnContainer>
         </SearchForm>
         <HeaderBtn>
-          <HeartBtn
-            width={'25px'}
-            height={'25px'}
-            fill={'#ffff'}
-            stroke={buttonColor}
-          />
+          <HeartBtn width={'25px'} height={'25px'} fill={'#ffff'} stroke={buttonColor} />
           <UserBtn />
         </HeaderBtn>
       </Container>

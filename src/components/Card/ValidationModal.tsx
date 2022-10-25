@@ -1,11 +1,28 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { deleteCardApi } from '../../api/board';
-import { cardState } from '../../store/cardState';
+import { deleteCardApi, getBoardApi } from '../../api/board';
+import { cardList } from '../../store/cardState';
+import { loginUserId } from '../../store/loginUser';
 import { modeState } from '../../store/themeColor';
 
 function ValidationModal({ showValidationModal, cardId }: any) {
   const { buttonColor, hoverColor } = useRecoilValue(modeState);
+  const id = useRecoilValue<number>(loginUserId);
+  const [card, setCard] = useRecoilState(cardList);
+
+  const getBoard = async () => {
+    try {
+      const res = await getBoardApi(id);
+      if (res.status == 200) {
+        const res = await getBoardApi(id);
+        console.log('게시글 조회 성공', res);
+        const cards = res.data;
+        setCard(cards);
+      }
+    } catch (error) {
+      console.log('게시글조회에러', error);
+    }
+  };
 
   const deleteCard = async () => {
     try {
@@ -13,6 +30,7 @@ function ValidationModal({ showValidationModal, cardId }: any) {
       if (res.status === 200) {
         const res = await deleteCardApi(cardId);
         console.log('삭제성공', res);
+        getBoard();
         showValidationModal();
       }
     } catch (error) {
