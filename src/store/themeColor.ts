@@ -52,5 +52,5 @@ export const modeState = atom<defaultState>({
   //디폴드 모드는 오렌지테마
   key: 'isMode',
   default: orangeState,
-  effects_UNSTABLE: [persistAtom],
+  // effects_UNSTABLE: [persistAtom],
 });

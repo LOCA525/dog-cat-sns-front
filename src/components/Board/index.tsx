@@ -1,14 +1,26 @@
-import { useRecoilValue } from 'recoil';
+import { useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { cardState } from '../../store/cardState';
+import { cardFilterState, filteredCardState } from '../../store/cardState';
+// import { cardState, catCards, dogCards } from '../../store/cardState';
+import { modeState } from '../../store/themeColor';
 import Card from '../Card/Card';
 
 function Board() {
-  const currentCard = useRecoilValue<any>(cardState);
+  // const currentCard = useRecoilValue<any>(cardState);
+  // const dogCard = useRecoilValue(dogCards);
+  // const catCard = useRecoilValue(catCards);
+  // if (Theme.mode === 'orange') {
+  //   setCurrentCard(dogCard);
+  // } else {
+  //   setCurrentCard(catCard);
+  // }
+  const currentCard = useRecoilValue<any>(filteredCardState);
+
   return (
     <BoardContainer className="boardContainer">
       {currentCard
-        ?.slice(0) ///원본배열 변경하지않고 역순으로 map
+        .slice(0) ///원본배열 변경하지않고 역순으로 map
         .reverse()
         .map((item: any) => {
           return <Card item={item} key={item.id} />;

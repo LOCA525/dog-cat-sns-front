@@ -1,20 +1,33 @@
-import { type } from 'os';
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
-// const { persistAtom } = recoilPersist();
+const { persistAtom } = recoilPersist();
 
-export const dogCards = atom({
-  key: 'dogCards',
-  default: null,
+export const cardList = atom({
+  key: 'cardList',
+  default: [],
 });
-export const catCards = atom({
-  key: 'catCards',
-  default: null,
+
+export const cardFilterState = atom({
+  key: 'cardFilterState',
+  default: 'dogState',
 });
-///디폴트카드는 강아지 카드
-export const cardState = atom({
-  key: 'iscardState',
-  default: dogCards,
-  // effects_UNSTABLE: [persistAtom],
+
+export const filteredCardState = selector({
+  key: 'filteredCardState',
+  get: ({ get }) => {
+    const filter = get(cardFilterState);
+    const card = get(cardList);
+
+    switch (filter) {
+      case 'dogState':
+        return card.filter((item: any) => item.type === 'DOG');
+
+      case 'catState':
+        return card.filter((item: any) => item.type === 'CAT');
+
+      default:
+        return card;
+    }
+  },
 });

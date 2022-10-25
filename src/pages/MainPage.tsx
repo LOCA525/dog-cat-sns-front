@@ -1,17 +1,15 @@
-import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import { getAccountData, getBoardApi } from '../api/board';
 import Board from '../components/Board';
 import BottomNav from '../components/BottomNav';
 import Header from '../components/Header';
-import { catCards, dogCards } from '../store/cardState';
+import { cardList } from '../store/cardState';
 import { loginUserId } from '../store/loginUser';
 
 function MainPage() {
   const [id, setUserId] = useRecoilState(loginUserId);
-  const [dogCard, setDogCard] = useRecoilState(dogCards);
-  const [catCard, setCatCard] = useRecoilState(catCards);
-
+  const [card, setCard] = useRecoilState(cardList);
   const getAccount = async () => {
     try {
       const res = await getAccountData();
@@ -30,13 +28,7 @@ function MainPage() {
         const res = await getBoardApi(id);
         console.log('게시글 조회 성공', res);
         const cards = res.data;
-        //get api로 받아온 카드들을 filter를 이용해 고양이/개 따로 나눠 변수에 담음
-
-        //dog,cat 필터된 데이터들을 recoilState에 저장
-        const dogData = cards.filter((item: any) => item.type === 'DOG');
-        const catData = cards.filter((item: any) => item.type === 'CAT');
-        setDogCard(dogData);
-        setCatCard(catData);
+        setCard(cards);
       }
     } catch (error) {
       console.log('게시글조회에러', error);
