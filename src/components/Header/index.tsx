@@ -21,7 +21,6 @@ function Header() {
       setFilter('dogState');
     }
   };
-  console.log(filter);
 
   const current = useRecoilValue(modeState);
   const buttonColor = current.buttonColor;

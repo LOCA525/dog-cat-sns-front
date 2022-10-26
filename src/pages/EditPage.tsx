@@ -1,10 +1,10 @@
 import UploadEditUi from '../components/Board/UploadEditUi';
 
-function UploadPage() {
+function EditPage() {
   return (
     <div>
-      <UploadEditUi isEdit={false} />
+      <UploadEditUi isEdit={true} />
     </div>
   );
 }
-export default UploadPage;
+export default EditPage;

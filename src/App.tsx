@@ -11,9 +11,10 @@ import MyPage from './pages/MyPage';
 import PasswordChangePage from './pages/PasswordChangePage';
 import ProfileEditPage from './pages/ProfileEditPage';
 import SettingPage from './pages/SettingPage';
-import UploadPage from './pages/UploadPage';
+import UploadPage from './components/Board/UploadEditUi';
 import UserFeedPage from './pages/UserFeedPage';
 import GlobalStyle from './styles/GlobalStyle';
+import EditPage from './pages/EditPage';
 
 const queryClient = new QueryClient();
 
@@ -35,11 +36,9 @@ function App() {
                   <Route path="/유저닉네임" element={<UserFeedPage />} />
                   <Route path="/setting" element={<SettingPage />} />
                   <Route path="/accounts/edit" element={<ProfileEditPage />} />
-                  <Route
-                    path="/accounts/password/change"
-                    element={<PasswordChangePage />}
-                  />
+                  <Route path="/accounts/password/change" element={<PasswordChangePage />} />
                   <Route path="/upload" element={<UploadPage />} />
+                  <Route path="/edit" element={<EditPage />} />
                 </Routes>
               </MainContent>
             </BrowserRouter>

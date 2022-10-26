@@ -1,9 +1,14 @@
 import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { editCardImage, editCardItem } from '../../store/editCardItem';
 
-function Modal({ setModalOpen, showModal, showValidationModal }: any) {
+function Modal({ setModalOpen, showModal, showValidationModal, item, image }: any) {
   const modalRef = useRef<HTMLDivElement>(null);
-
+  const navigate = useNavigate();
+  const [, setEditCardData] = useRecoilState<any>(editCardItem);
+  const [, setEditCardImage] = useRecoilState<string>(editCardImage);
   useEffect(() => {
     const handler = (e: any) => {
       if (modalRef.current && !modalRef.current.contains(e.target)) {
@@ -22,7 +27,15 @@ function Modal({ setModalOpen, showModal, showValidationModal }: any) {
       <BtnContainer>
         <ProfileBtn>프로필</ProfileBtn>
         <EditDeleteWrap>
-          <EditBtn>수정</EditBtn>
+          <EditBtn
+            onClick={() => {
+              navigate('/edit');
+              setEditCardData(item);
+              setEditCardImage(image);
+            }}
+          >
+            수정
+          </EditBtn>
           <DeleteBtn onClick={showValidationModal}>삭제</DeleteBtn>
         </EditDeleteWrap>
         <CancelBtn onClick={showModal}>취소</CancelBtn>

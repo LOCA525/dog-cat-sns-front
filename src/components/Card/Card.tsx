@@ -6,7 +6,6 @@ import { ReactComponent as CommentBtn } from '../../assets/images/comment.svg';
 import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
 import { ReactComponent as MoreBtn } from '../../assets/images/more.svg';
 import { modeState } from '../../store/themeColor';
-import Alert from '../common/Alert';
 import Modal from './Modal';
 import ValidationModal from './ValidationModal';
 
@@ -18,7 +17,7 @@ function Card({ item }: any) {
   const dateData: string = item.updatedAt;
   const splitedData = imageData.split('/', 7);
   const splitedDate = dateData.split('T');
-  const image = splitedData[6]; ///추출된 이미지 url
+  const image: string = splitedData[6]; ///추출된 이미지 url
   const date: string = splitedDate[0]; ///추출된 날짜
   const year = date.split('-')[0];
   const month = date.split('-')[1];
@@ -39,6 +38,8 @@ function Card({ item }: any) {
             setModalOpen={setModalOpen}
             showModal={showModal}
             showValidationModal={showValidationModal}
+            item={item}
+            image={`http://localhost:3030/api/image/${image}`}
           />
         )}
         <HeaderContainer>
