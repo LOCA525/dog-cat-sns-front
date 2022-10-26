@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { getAccountData, getBoardApi } from '../api/board';
-import Board from '../components/Board';
+import Board from '../components/Board/Board';
 import BottomNav from '../components/BottomNav';
 import Header from '../components/Header';
 import { cardList } from '../store/cardState';
