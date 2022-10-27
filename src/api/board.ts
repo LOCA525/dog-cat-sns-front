@@ -7,6 +7,9 @@ interface uploadBody {
   tag: string;
   photo: number;
 }
+interface editBody {
+  description: string;
+}
 //현재 로그인 회원 id값, 정보 조회
 export const getAccountData = async () => {
   const res = await api.get('/account', { withCredentials: true });
@@ -31,8 +34,13 @@ export const getBoardApi = async (userId: number) => {
   const res = await api.get(`/board/?userId=${userId}`);
   return res;
 };
-
+//게시글 삭제
 export const deleteCardApi = async (cardId: number) => {
   const res = await api.delete(`/board/write/${cardId}`);
+  return res;
+};
+//게시글 수정
+export const editCardApi = async (cardId: number, editBody: editBody) => {
+  const res = await api.put(`/board/write/${cardId}`, editBody);
   return res;
 };
