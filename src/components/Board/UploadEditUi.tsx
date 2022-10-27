@@ -2,7 +2,7 @@ import React, { ChangeEvent, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { photoApi, upLoadApi } from '../../api/board';
+import { editCardApi, photoApi, upLoadApi } from '../../api/board';
 import catBtn from '../../assets/images/catBtn.png';
 import dogBtn from '../../assets/images/dogBtn.png';
 import exampleImage from '../../assets/images/uploadExample.png';
@@ -18,11 +18,11 @@ function UploadEditUi({ isEdit }: any) {
   const [isCat, setIsCat] = useState<boolean>(false);
   const { buttonColor, hoverColor } = useRecoilValue(modeState);
   const [upLoadImage, setUploadImage] = useState(exampleImage);
-  const [introduce, setIntroduce] = useState<string>(isEdit ? 'd' : '');
-  console.log(editCardData.id);
+  const [introduce, setIntroduce] = useState<string>(isEdit ? `${editCardData.description}` : '');
 
   const [imageFile, setImageFile] = useState<any>(null);
   const id = useRecoilValue(loginUserId);
+  const cardId = editCardData.id;
   const navigate = useNavigate();
 
   const handleUploadSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -60,6 +60,25 @@ function UploadEditUi({ isEdit }: any) {
       alert('내용을 입력하세요');
     }
   };
+
+  const handleEditSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (introduce !== '') {
+      console.log({ descriotion: introduce });
+      try {
+        const editData = { description: introduce };
+        const res = await editCardApi(cardId, editData);
+        if (res.status === 200) {
+          console.log('사진수정 성공', res);
+          navigate('/');
+        }
+      } catch (error) {
+        console.log('error', error);
+      }
+    } else {
+      alert('수정사항을 입력하세요');
+    }
+  };
   const handleFileChange = (newFile: any) => {
     setImageFile(newFile);
     const reader = new FileReader();
@@ -86,7 +105,9 @@ function UploadEditUi({ isEdit }: any) {
           <UploadForm
             typeof="submit"
             onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-              handleUploadSubmit(e);
+              {
+                isEdit ? handleEditSubmit(e) : handleUploadSubmit(e);
+              }
             }}
           >
             <FileInput
@@ -122,7 +143,7 @@ function UploadEditUi({ isEdit }: any) {
                 value={introduce}
                 style={{ height: textAreaHeight }}
                 onChange={handleChangeIntroduce}
-                placeholder="사진에 대해 입력하세요"
+                placeholder="사진에 대해 입력하세요.!!개와 고양이 관련 피드가 아닐시 관리자에 의해 게시글이 삭제될수 있습니다!"
               />
             </Content>
             <UploadBtn typeof="submit" color={buttonColor} hover={hoverColor}>

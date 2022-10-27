@@ -3,7 +3,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import styled from 'styled-components';
 import './App.css';
+import UploadPage from './components/Board/UploadEditUi';
 import Logo from './components/Logo';
+import EditPage from './pages/EditPage';
 import JoinPage from './pages/JoinPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
@@ -11,10 +13,8 @@ import MyPage from './pages/MyPage';
 import PasswordChangePage from './pages/PasswordChangePage';
 import ProfileEditPage from './pages/ProfileEditPage';
 import SettingPage from './pages/SettingPage';
-import UploadPage from './components/Board/UploadEditUi';
 import UserFeedPage from './pages/UserFeedPage';
 import GlobalStyle from './styles/GlobalStyle';
-import EditPage from './pages/EditPage';
 
 const queryClient = new QueryClient();
 

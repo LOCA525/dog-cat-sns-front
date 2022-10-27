@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 
 export const editCardItem = atom({
   key: 'editCardItem',
-  default: {},
+  default: { description: '', id: 1 },
 });
 
 export const editCardImage = atom({
