@@ -19,10 +19,8 @@ function UploadEditUi({ isEdit }: any) {
   const { buttonColor, hoverColor } = useRecoilValue(modeState);
   const [upLoadImage, setUploadImage] = useState(exampleImage);
   const [introduce, setIntroduce] = useState<string>(isEdit ? `${editCardData.description}` : '');
-
   const [imageFile, setImageFile] = useState<any>(null);
   const id = useRecoilValue(loginUserId);
-  const cardId = editCardData.id;
   const navigate = useNavigate();
 
   const handleUploadSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -64,16 +62,19 @@ function UploadEditUi({ isEdit }: any) {
   const handleEditSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (introduce !== '') {
-      console.log({ descriotion: introduce });
+      const editBody = { description: introduce };
+      const cardId = editCardData.id;
+      console.log('editBody', editBody);
+      console.log('cardId', cardId);
       try {
-        const editData = { description: introduce };
-        const res = await editCardApi(cardId, editData);
+        const res = await editCardApi(cardId, editBody);
         if (res.status === 200) {
-          console.log('사진수정 성공', res);
+          const res = await editCardApi(cardId, editBody);
+          console.log('수정 성공', res);
           navigate('/');
         }
       } catch (error) {
-        console.log('error', error);
+        console.log('카드수정실패!', error);
       }
     } else {
       alert('수정사항을 입력하세요');

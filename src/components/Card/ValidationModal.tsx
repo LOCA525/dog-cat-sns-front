@@ -8,7 +8,7 @@ import { modeState } from '../../store/themeColor';
 function ValidationModal({ showValidationModal, cardId }: any) {
   const { buttonColor, hoverColor } = useRecoilValue(modeState);
   const id = useRecoilValue<number>(loginUserId);
-  const [card, setCard] = useRecoilState(cardList);
+  const [, setCard] = useRecoilState(cardList);
 
   const getBoard = async () => {
     try {
