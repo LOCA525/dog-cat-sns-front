@@ -44,3 +44,13 @@ export const editCardApi = async (cardId: number, editBody: editBody) => {
   const res = await api.put(`/board/write/${cardId}`, editBody);
   return res;
 };
+//게시글 좋아요
+export const likeCardApi = async () => {
+  const res = await api.post('/board/like');
+  return res;
+};
+//게시글 좋아요 취소
+export const disLikeCardApi = async () => {
+  const res = await api.delete('/board/like');
+  return res;
+};

@@ -13,6 +13,7 @@ function Card({ item }: any) {
   const { buttonColor } = useRecoilValue(modeState);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [validationModalOpen, setValidationModalOpen] = useState<boolean>(false);
+  const [heartState, setHeartState] = useState<boolean>(true);
   const imageData: string = item.Photo.url;
   const dateData: string = item.updatedAt;
   const splitedData = imageData.split('/', 7);
@@ -27,6 +28,11 @@ function Card({ item }: any) {
   };
   const showValidationModal = () => {
     setValidationModalOpen(!validationModalOpen);
+  };
+  console.log(item);
+
+  const handleHaertClick = () => {
+    setHeartState(!heartState);
   };
   return (
     <div>
@@ -56,7 +62,14 @@ function Card({ item }: any) {
 
         <ButtonContainer>
           <HeartCommentContainer>
-            <HeartBtn width={'30px'} height={'30px'} fill={'#ffff'} stroke={buttonColor} cursor={'pointer'} />
+            <HeartBtn
+              onClick={handleHaertClick}
+              width={'30px'}
+              height={'30px'}
+              fill={heartState ? 'red' : '#ffffff'}
+              stroke={heartState ? 'red' : buttonColor}
+              cursor={'pointer'}
+            />
             <CommentBtn width={'30px'} height={'30px'} fill={buttonColor} stroke={buttonColor} cursor={'pointer'} />
           </HeartCommentContainer>
           <BookMarkBtn width={'32px'} height={'32px'} fill={buttonColor} />
