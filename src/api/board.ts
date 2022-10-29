@@ -59,8 +59,8 @@ export const likeCardApi = async (likeBody: likeBody) => {
   const res = await api.post('/board/like', likeBody);
   return res;
 };
-//게시글 좋아요 취소
+//게시글 좋아요 취소//
 export const disLikeCardApi = async (likeBody: likeBody) => {
-  const res = await api.delete('/board/like', likeBody);
+  const res = await api.delete('/board/like', { data: likeBody });
   return res;
 };
