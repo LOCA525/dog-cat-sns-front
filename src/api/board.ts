@@ -10,6 +10,11 @@ interface uploadBody {
 interface editBody {
   description: string;
 }
+interface likeBody {
+  board_id: number;
+  user_id: number;
+}
+
 //현재 로그인 회원 id값, 정보 조회
 export const getAccountData = async () => {
   const res = await api.get('/account', { withCredentials: true });
@@ -44,13 +49,18 @@ export const editCardApi = async (cardId: number, editBody: editBody) => {
   const res = await api.put(`/board/write/${cardId}`, editBody);
   return res;
 };
+//카드 조회
+export const getCardApi = async (cardId: number) => {
+  const res = await api.get(`/board/write/${cardId}`);
+  return res;
+};
 //게시글 좋아요
-export const likeCardApi = async () => {
-  const res = await api.post('/board/like');
+export const likeCardApi = async (likeBody: likeBody) => {
+  const res = await api.post('/board/like', likeBody);
   return res;
 };
 //게시글 좋아요 취소
-export const disLikeCardApi = async () => {
-  const res = await api.delete('/board/like');
+export const disLikeCardApi = async (likeBody: likeBody) => {
+  const res = await api.delete('/board/like', likeBody);
   return res;
 };
