@@ -1,19 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { disLikeCardApi, getCardApi, likeCardApi } from '../../api/board';
 import { ReactComponent as BookMarkBtn } from '../../assets/images/bookmark.svg';
 import { ReactComponent as CommentBtn } from '../../assets/images/comment.svg';
 import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
 import { ReactComponent as MoreBtn } from '../../assets/images/more.svg';
+import { loginUserId } from '../../store/loginUser';
 import { modeState } from '../../store/themeColor';
 import Modal from './Modal';
 import ValidationModal from './ValidationModal';
 
 function Card({ item }: any) {
+  const userId = useRecoilValue(loginUserId);
   const { buttonColor } = useRecoilValue(modeState);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [validationModalOpen, setValidationModalOpen] = useState<boolean>(false);
-  const [heartState, setHeartState] = useState<boolean>(true);
+  const [heartState, setHeartState] = useState<boolean>(false);
   const imageData: string = item.Photo.url;
   const dateData: string = item.updatedAt;
   const splitedData = imageData.split('/', 7);
@@ -23,17 +26,65 @@ function Card({ item }: any) {
   const year = date.split('-')[0];
   const month = date.split('-')[1];
   const day = date.split('-')[2];
+  // 카드 우측상단 more버튼 클릭시 뜨는 모달창
   const showModal = () => {
     setModalOpen(!modalOpen);
   };
+  // 카드삭제 클릭시 확인창
   const showValidationModal = () => {
     setValidationModalOpen(!validationModalOpen);
   };
-  console.log(item);
-
-  const handleHaertClick = () => {
-    setHeartState(!heartState);
+  //좋아요 버튼 클릭
+  const handleHaertClick = async () => {
+    const heartBody = {
+      board_id: item.id,
+      user_id: userId,
+    };
+    if (heartState === false) {
+      try {
+        const res = await likeCardApi(heartBody);
+        if (res.status == 200) {
+          const res = await likeCardApi(heartBody);
+          console.log('좋아요 성공', res);
+          setHeartState(true);
+        }
+      } catch (error) {
+        console.log('좋아요에러', error);
+      }
+    } else {
+      try {
+        const res = await disLikeCardApi(heartBody);
+        if (res.status == 200) {
+          const res = await disLikeCardApi(heartBody);
+          console.log('좋아요취소 성공', res);
+          setHeartState(false);
+        }
+      } catch (error) {
+        console.log('좋아요취소에러', error);
+      }
+    }
   };
+
+  const getCard = async () => {
+    try {
+      const res = await getCardApi(item.id);
+      if (res.status === 200) {
+        const res = await getCardApi(item.id);
+        console.log('카드조회성공', res);
+        //Card내 좋아요한 유저 리스트 중 내아이디값과 같은 상태인지 체크한후 좋아요 표시
+        const likeList = res.data.like;
+        const isLike = likeList.some((item: { user_id: number }) => item.user_id === userId);
+        setHeartState(isLike);
+      }
+    } catch (error) {
+      console.log('카드조회실패', error);
+    }
+  };
+
+  useEffect(() => {
+    getCard();
+  }, []);
+
   return (
     <div>
       {validationModalOpen && <ValidationModal showValidationModal={showValidationModal} cardId={item.id} />}
