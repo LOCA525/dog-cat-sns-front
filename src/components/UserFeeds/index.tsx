@@ -10,7 +10,6 @@ function UserFeeds() {
         <Card />
         <Card />
         <Card />
-
         <Card />
       </Container>
     </div>

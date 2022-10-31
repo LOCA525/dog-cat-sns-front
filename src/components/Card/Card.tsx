@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { disLikeCardApi, getCardApi, likeCardApi } from '../../api/board';
 import { ReactComponent as BookMarkBtn } from '../../assets/images/bookmark.svg';
 import { ReactComponent as CommentBtn } from '../../assets/images/comment.svg';
 import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
 import { ReactComponent as MoreBtn } from '../../assets/images/more.svg';
+import { cardUserId } from '../../store/cardUserId';
 import { loginUserId } from '../../store/loginUser';
 import { modeState } from '../../store/themeColor';
 import Modal from './Modal';
@@ -17,6 +19,8 @@ function Card({ item }: any) {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [validationModalOpen, setValidationModalOpen] = useState<boolean>(false);
   const [heartState, setHeartState] = useState<boolean>(false);
+  const [cardClick, setCardClick] = useRecoilState(cardUserId);
+  const navigate = useNavigate();
   const imageData: string = item.Photo.url;
   const dateData: string = item.updatedAt;
   const splitedData = imageData.split('/', 7);
@@ -81,6 +85,13 @@ function Card({ item }: any) {
     }
   };
 
+  const navigateUserPage = () => {
+    navigate(`/mypage/${item.User.username}`);
+    setCardClick(item.User.id);
+    //클릭시 현재 카드 item recoilState 담김.
+    // 그 스테이트를 유저페이지 컴포넌트에서 뿌리기.
+    //유저 아이디값 비교로 프로필편집버튼 or 팔로우버튼 둘중하나로 보이도록하기.
+  };
   useEffect(() => {
     getCard();
   }, []);
@@ -102,8 +113,8 @@ function Card({ item }: any) {
         <HeaderContainer>
           <UserContainer>
             <UserWrap>
-              <UserImage />
-              <UserNickName>{item.User.username}</UserNickName>
+              <UserImage onClick={navigateUserPage} />
+              <UserNickName onClick={navigateUserPage}>{item.User.username}</UserNickName>
             </UserWrap>
 
             <MoreBtn width={'25px'} height={'25px'} fill={buttonColor} onClick={showModal} cursor={'pointer'} />
