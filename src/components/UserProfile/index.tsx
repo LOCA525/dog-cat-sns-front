@@ -1,38 +1,51 @@
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { loginUserId } from '../../store/loginUser';
 import { modeState } from '../../store/themeColor';
 
-function UserProfile() {
+function UserProfile({ userData, userId }: any) {
   const { buttonColor, hoverColor } = useRecoilValue(modeState);
+  const loginId = useRecoilValue(loginUserId);
+  const [isYours, setIsYours] = useState(false);
 
+  useEffect(() => {
+    if (userId === loginId) {
+      setIsYours(true);
+    } else {
+      setIsYours(false);
+    }
+  }, []);
   return (
     <Container>
       <ProfileContainer>
         <UserImage />
         <CountContainer>
           <FeedCount>
-            <span>17</span>
+            <span>{userData.BoardList?.length}</span>
             <div>게시물</div>
           </FeedCount>
           <FollowerCount>
-            <span>195</span>
+            <span>{userData.follower}</span>
             <div>팔로워</div>
           </FollowerCount>
           <FollowingCount>
-            <span>31</span>
+            <span>{userData.following}</span>
             <div>팔로잉</div>
           </FollowingCount>
         </CountContainer>
       </ProfileContainer>
-      <Introduce>
-        귀여운 강아지와 고양이를 좋아하는 사람입니다. 애견 용품도 중고
-        판매중이에요 살펴보고 가세요. 중고거래는 댓글남겨주세요 !
-      </Introduce>
+      <Introduce>{userData.intro}</Introduce>
       <FollowBtnContainer>
-        <FollowBtn color={buttonColor} hover={hoverColor}>
-          팔로우
-        </FollowBtn>
-        {/* <FollowBtn>프로필편집</FollowBtn> */}
+        {isYours ? (
+          <FollowBtn color={buttonColor} hover={hoverColor}>
+            프로필편집
+          </FollowBtn>
+        ) : (
+          <FollowBtn color={buttonColor} hover={hoverColor}>
+            팔로우
+          </FollowBtn>
+        )}
       </FollowBtnContainer>
     </Container>
   );
