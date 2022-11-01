@@ -1,16 +1,25 @@
 import styled from 'styled-components';
-import exampleDogImage from '../../assets/images/example.png';
-function UserFeeds() {
+function UserFeeds({ userData }: any) {
+  const boardList = userData.BoardList;
+
+  const urlList = boardList?.map((item: any) => {
+    const urls = item.Photo.url;
+    const splitedUrl = urls.split('/', 7);
+    const image = splitedUrl[6];
+    return image;
+  }); //부모컴포넌트에서 api 통신으로 받아온 url을 split하여 미리보기url 주소로 바꾸기 위해 쪼갬
+  console.log(boardList);
+  console.log(urlList);
+
   return (
     <div>
       <Container>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {urlList
+          ?.slice(0)
+          .reverse()
+          .map((item: any) => {
+            return <Card key={item.id} item={item} />;
+          })}
       </Container>
     </div>
   );
@@ -23,11 +32,11 @@ const Container = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(30%, auto));
 `;
 
-const Card = styled.div`
+const Card = styled.div<{ item: string }>`
   width: 100%;
   height: 100%;
   background-color: #000;
-  background-image: url(${exampleDogImage});
+  background-image: url(http://localhost:3030/api/image/${props => props.item});
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;

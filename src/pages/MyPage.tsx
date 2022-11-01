@@ -11,7 +11,6 @@ import { cardUserId } from '../store/cardUserId';
 function MyPage() {
   const userId = useRecoilValue<number>(cardUserId);
   const [userData, setUserData] = useState<any>('');
-
   const getMypage = async () => {
     try {
       const res = await getMypageData(userId);
@@ -27,14 +26,13 @@ function MyPage() {
   };
   useEffect(() => {
     getMypage();
-    console.log('userData', userData);
   }, []);
   return (
     <div>
       <UserHeader headerTitle={userData.username} />
       <Container>
         <UserProfile userData={userData} userId={userId} />
-        <UserFeeds />
+        <UserFeeds userData={userData} />
       </Container>
       <BottomNav />
     </div>
