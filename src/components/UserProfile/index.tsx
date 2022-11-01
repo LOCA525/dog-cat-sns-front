@@ -99,11 +99,12 @@ const FollowingCount = styled.div`
 
 const FollowBtnContainer = styled.div`
   width: 100%;
+  cursor: pointer;
 `;
 
 const FollowBtn = styled.div<{ hover: string }>`
   width: 100%;
-  height: 30px;
+  height: 40px;
   font-weight: bold;
   color: #ffff;
   background-color: ${props => props.color};
