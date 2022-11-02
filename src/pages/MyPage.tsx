@@ -11,6 +11,8 @@ import { cardUserId } from '../store/cardUserId';
 function MyPage() {
   const userId = useRecoilValue<number>(cardUserId);
   const [userData, setUserData] = useState<any>('');
+  const [isFollow, setIsFollow] = useState(false);
+
   const getMypage = async () => {
     try {
       const res = await getMypageData(userId);
@@ -19,11 +21,18 @@ function MyPage() {
         console.log('가져오기성공', res);
         const data = res.data;
         setUserData(data);
+        //이 유저를 팔로우 했는지 아닌지 체크 하고 isfollow 값 변경
+        if (data.checkFollower.length === 0) {
+          setIsFollow(false);
+        } else if (data.checkFollower.length === 1) {
+          setIsFollow(true);
+        }
       }
     } catch (error) {
       console.log('마이페이지가져오기에러', error);
     }
   };
+
   useEffect(() => {
     getMypage();
   }, []);
@@ -31,7 +40,13 @@ function MyPage() {
     <div>
       <UserHeader headerTitle={userData.username} />
       <Container>
-        <UserProfile userData={userData} userId={userId} />
+        <UserProfile
+          userData={userData}
+          userId={userId}
+          isFollow={isFollow}
+          setIsFollow={setIsFollow}
+          getMyPage={getMypage}
+        />
         <UserFeeds userData={userData} />
       </Container>
       <BottomNav />
