@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { deleteFollowApi, postFollowApi } from '../../api/account';
 import { loginUserId } from '../../store/loginUser';
 import { modeState } from '../../store/themeColor';
 
-function UserProfile({ userData, userId }: any) {
-  const { buttonColor, hoverColor } = useRecoilValue(modeState);
+function UserProfile({ userData, userId, isFollow, setIsFollow, getMyPage }: any) {
+  const logInUserId = useRecoilValue(loginUserId);
   const loginId = useRecoilValue(loginUserId);
   const [isYours, setIsYours] = useState(false);
+  const { buttonColor, hoverColor } = useRecoilValue(modeState);
 
   useEffect(() => {
     if (userId === loginId) {
@@ -16,6 +18,37 @@ function UserProfile({ userData, userId }: any) {
       setIsYours(false);
     }
   }, []);
+
+  const handleFollowClick = async () => {
+    const followBody = {
+      from: logInUserId, //로그인중인 유저 아이디
+      to: userId, //팔로우하려는 유저 아이디
+    };
+    if (isFollow === false) {
+      try {
+        const res = await postFollowApi(logInUserId, followBody);
+        if (res.status === 200) {
+          const res = await postFollowApi(logInUserId, followBody);
+          console.log('팔로우성공', res);
+          getMyPage();
+        }
+      } catch (error) {
+        console.log('팔로우실패', error);
+      }
+    } else {
+      try {
+        const res = await deleteFollowApi(logInUserId, followBody);
+        if (res.status === 200) {
+          const res = await deleteFollowApi(logInUserId, followBody);
+          console.log('팔로우취소성공', res);
+          getMyPage();
+        }
+      } catch (error) {
+        console.log('팔로우취소실패', error);
+      }
+    }
+  };
+
   return (
     <Container>
       <ProfileContainer>
@@ -42,8 +75,8 @@ function UserProfile({ userData, userId }: any) {
             프로필편집
           </FollowBtn>
         ) : (
-          <FollowBtn color={buttonColor} hover={hoverColor}>
-            팔로우
+          <FollowBtn onClick={handleFollowClick} color={buttonColor} hover={hoverColor}>
+            {isFollow ? '팔로우 취소' : '팔로우'}
           </FollowBtn>
         )}
       </FollowBtnContainer>
