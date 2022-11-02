@@ -20,6 +20,7 @@ function Card({ item }: any) {
   const [validationModalOpen, setValidationModalOpen] = useState<boolean>(false);
   const [heartState, setHeartState] = useState<boolean>(false);
   const [cardClick, setCardClick] = useRecoilState(cardUserId);
+  const [likeLength, setLikeLength] = useState('');
   const navigate = useNavigate();
   const imageData: string = item.Photo.url;
   const dateData: string = item.updatedAt;
@@ -51,6 +52,7 @@ function Card({ item }: any) {
           const res = await likeCardApi(heartBody);
           console.log('좋아요 성공', res);
           setHeartState(true);
+          getCard();
         }
       } catch (error) {
         console.log('좋아요에러', error);
@@ -62,6 +64,7 @@ function Card({ item }: any) {
           const res = await disLikeCardApi(heartBody);
           console.log('좋아요취소 성공', res);
           setHeartState(false);
+          getCard();
         }
       } catch (error) {
         console.log('좋아요취소에러', error);
@@ -77,6 +80,7 @@ function Card({ item }: any) {
         console.log('카드조회성공', res);
         //Card내 좋아요한 유저 리스트 중 내아이디값과 같은 상태인지 체크한후 좋아요 표시
         const likeList = res.data.like;
+        setLikeLength(likeList.length);
         const isLike = likeList.some((item: { user_id: number }) => item.user_id === userId);
         setHeartState(isLike);
       }
@@ -136,7 +140,7 @@ function Card({ item }: any) {
           </HeartCommentContainer>
           <BookMarkBtn width={'32px'} height={'32px'} fill={buttonColor} />
         </ButtonContainer>
-        <HeartCount>좋아요 {item.like.length}개</HeartCount>
+        <HeartCount>좋아요 {likeLength}개</HeartCount>
         <TextContainer>
           <UserNickName>{item.User.username}</UserNickName>
           <CardText>{item.description}</CardText>
