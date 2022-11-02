@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
+import { ReactComponent as BellBtn } from '../../assets/images/Bell.svg';
 import { ReactComponent as SearchBtn } from '../../assets/images/search.svg';
 import { cardFilterState } from '../../store/cardState';
 import { blueState, modeState, orangeState } from '../../store/themeColor';
@@ -38,7 +38,7 @@ function Header() {
           </SearchBtnContainer>
         </SearchForm>
         <HeaderBtn>
-          <HeartBtn width={'25px'} height={'25px'} fill={'#ffff'} stroke={buttonColor} />
+          <BellBtn width={'28px'} height={'28px'} fill={'#ffff'} stroke={buttonColor} />
           <UserBtn
             onClick={() => {
               setModalOpen(true);
