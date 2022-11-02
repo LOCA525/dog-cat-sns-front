@@ -38,7 +38,7 @@ function UserModal({ setModalOpen }: any) {
       <BtnContainer>
         <ProfileBtn onClick={goProfile}>
           <UserImageContainer>
-            <UserBtn width={'15px'} height={'15px'} />
+            <UserBtn width={'15px'} height={'15px'} fill={buttonColor} />
           </UserImageContainer>
           프로필
         </ProfileBtn>
@@ -48,13 +48,13 @@ function UserModal({ setModalOpen }: any) {
           }}
         >
           <SettingIconContainer>
-            <SettingIcon width={'15px'} height={'15px'} />
+            <SettingIcon width={'15px'} height={'15px'} fill={buttonColor} />
           </SettingIconContainer>
           설정
         </SettingBtn>
         <LogOutBtn>
           <OutImageContainer>
-            <OutBtn width={'15px'} height={'15px'} />
+            <OutBtn width={'15px'} height={'15px'} stroke={buttonColor} />
           </OutImageContainer>
           로그아웃
         </LogOutBtn>
@@ -82,9 +82,9 @@ const BtnContainer = styled.div`
   width: 80px;
   height: 100%;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   text-align: center;
-  color: #4e4e4e;
+  color: #3e3e3e;
   box-shadow: 0px 6px 6px 0px #00000040;
   background-color: #ffff;
   border-radius: 5px;
