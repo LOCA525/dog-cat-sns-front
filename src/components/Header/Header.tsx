@@ -1,16 +1,18 @@
+import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
 import { ReactComponent as SearchBtn } from '../../assets/images/search.svg';
 import { cardFilterState } from '../../store/cardState';
 import { blueState, modeState, orangeState } from '../../store/themeColor';
+import UserModal from './UserModal';
 
 function Header() {
   const [Theme, setTheme] = useRecoilState(modeState);
   const orangemode = useRecoilValue(orangeState);
   const bluemode = useRecoilValue(blueState);
-  const [filter, setFilter] = useRecoilState(cardFilterState);
-
+  const [, setFilter] = useRecoilState(cardFilterState);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const themeChangeClick = () => {
     document.querySelector('.boardContainer')?.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     if (Theme === orangemode) {
@@ -37,7 +39,12 @@ function Header() {
         </SearchForm>
         <HeaderBtn>
           <HeartBtn width={'25px'} height={'25px'} fill={'#ffff'} stroke={buttonColor} />
-          <UserBtn />
+          <UserBtn
+            onClick={() => {
+              setModalOpen(true);
+            }}
+          />
+          {modalOpen && <UserModal modalOpen={modalOpen} setModalOpen={setModalOpen} />}
         </HeaderBtn>
       </Container>
     </div>
@@ -101,6 +108,7 @@ const UserBtn = styled.div`
   border-radius: 30px;
   margin-right: 10px;
   margin-left: 10px;
+  cursor: pointer;
 `;
 
 export default Header;

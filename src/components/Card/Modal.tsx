@@ -1,14 +1,17 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { editCardImage, editCardItem } from '../../store/editCardItem';
+import { modeState } from '../../store/themeColor';
 
 function Modal({ setModalOpen, showModal, showValidationModal, item, image }: any) {
   const modalRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const [, setEditCardData] = useRecoilState<any>(editCardItem);
   const [, setEditCardImage] = useRecoilState<string>(editCardImage);
+  const { buttonColor } = useRecoilValue(modeState);
+
   useEffect(() => {
     const handler = (e: any) => {
       if (modalRef.current && !modalRef.current.contains(e.target)) {
@@ -22,7 +25,7 @@ function Modal({ setModalOpen, showModal, showValidationModal, item, image }: an
   });
 
   return (
-    <ModalContainer ref={modalRef}>
+    <ModalContainer ref={modalRef} buttonColor={buttonColor}>
       <div className="triangle"></div>
       <BtnContainer>
         <ProfileBtn>프로필</ProfileBtn>
@@ -43,7 +46,7 @@ function Modal({ setModalOpen, showModal, showValidationModal, item, image }: an
     </ModalContainer>
   );
 }
-const ModalContainer = styled.div`
+const ModalContainer = styled.div<{ buttonColor: string }>`
   position: absolute;
   right: 6px;
   top: 40px;
@@ -51,7 +54,7 @@ const ModalContainer = styled.div`
     right: 12px;
     top: -5px;
     width: 10px;
-    background-color: black;
+    background-color: ${props => props.buttonColor};
     height: 30px;
     border-radius: 1px;
     transform: rotate(135deg);
@@ -59,7 +62,7 @@ const ModalContainer = styled.div`
   }
 `;
 const BtnContainer = styled.div`
-  width: 50px;
+  width: 70px;
   height: 100%;
   font-size: 14px;
   font-weight: bold;
