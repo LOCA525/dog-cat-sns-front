@@ -1,23 +1,53 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import HomeBtn from '../common/HomeBtn';
-import SearchFeedBtn from '../common/SearchFeedBtn';
-import UploadBtn from '../common/UploadBtn';
+import { ReactComponent as HomeBtn } from '../../assets/images/home.svg';
+import { ReactComponent as SearchFeedBtn } from '../../assets/images/searchFeed.svg';
+import { ReactComponent as UploadBtn } from '../../assets/images/upload.svg';
+import { modeState } from '../../store/themeColor';
 
 const Container = styled.div`
+  position: fixed;
+  z-index: 99;
+  background-color: #fff;
+  bottom: 0;
   display: flex;
   align-items: center;
   justify-content: space-around;
+  max-width: 500px;
   width: 100%;
   height: 50px;
   border-top: 1px solid rgb(223, 227, 232);
 `;
 function BottomNav() {
+  const { buttonColor } = useRecoilValue(modeState);
+  const navigate = useNavigate();
   return (
     <Container>
-      <SearchFeedBtn />
-      <UploadBtn />
-      <HomeBtn />
+      <SearchFeedBtn
+        width={'32px'}
+        height={'32px'}
+        stroke={buttonColor}
+        cursor={'pointer'}
+      />
+      <UploadBtn
+        width={'33px'}
+        height={'33px'}
+        fill={buttonColor}
+        onClick={() => {
+          navigate('/upload');
+        }}
+        cursor={'pointer'}
+      />
+      <HomeBtn
+        width={'27px'}
+        height={'26px'}
+        fill={buttonColor}
+        onClick={() => {
+          navigate('/');
+        }}
+        cursor={'pointer'}
+      />
     </Container>
   );
 }
