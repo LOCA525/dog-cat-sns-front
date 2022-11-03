@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as HomeBtn } from '../../assets/images/home.svg';
 import { ReactComponent as SearchFeedBtn } from '../../assets/images/searchFeed.svg';
 import { ReactComponent as UploadBtn } from '../../assets/images/upload.svg';
+import { cardFollowState } from '../../store/cardState';
 import { modeState } from '../../store/themeColor';
 
 const Container = styled.div`
@@ -21,7 +22,9 @@ const Container = styled.div`
 `;
 function BottomNav() {
   const { buttonColor } = useRecoilValue(modeState);
+  const [isfollowPage, setIsFollowPage] = useRecoilState(cardFollowState);
   const navigate = useNavigate();
+
   return (
     <Container>
       <SearchFeedBtn
@@ -29,6 +32,11 @@ function BottomNav() {
         height={'32px'}
         stroke={buttonColor}
         cursor={'pointer'}
+        onClick={() => {
+          navigate('/');
+          setIsFollowPage('all');
+          document.querySelector('.boardContainer')?.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        }}
       />
       <UploadBtn
         width={'33px'}
@@ -43,10 +51,12 @@ function BottomNav() {
         width={'27px'}
         height={'26px'}
         fill={buttonColor}
+        cursor={'pointer'}
         onClick={() => {
           navigate('/');
+          setIsFollowPage('follow');
+          document.querySelector('.boardContainer')?.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         }}
-        cursor={'pointer'}
       />
     </Container>
   );
