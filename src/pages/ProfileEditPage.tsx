@@ -1,5 +1,5 @@
 import ProfileEditForm from '../components/Account/ProfileEditForm';
-import BottomNav from '../components/BottomNav';
+import BottomNav from '../components/BottomNav/BottomNav';
 import Header from '../components/Header/Header';
 
 function ProfileEditPage() {

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as KeyIcon } from '../assets/images/icons/keyIcon.svg';
 import { ReactComponent as ProfileIcon } from '../assets/images/icons/profileIcon.svg';
-import BottomNav from '../components/BottomNav';
+import BottomNav from '../components/BottomNav/BottomNav';
 import Header from '../components/Header/Header';
 
 function SettingPage() {
