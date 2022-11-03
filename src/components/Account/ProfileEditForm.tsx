@@ -59,7 +59,6 @@ function ProfileEditForm() {
         formData.append('url', profileUploadFile);
         const photoResponse = await photoApi(formData);
         if (photoResponse.status === 200) {
-          console.log(photoResponse.data);
           photoId = photoResponse.data.id;
         }
       }
@@ -70,11 +69,12 @@ function ProfileEditForm() {
           photo: photoId,
         });
         if (updateAccountResponse.status === 200) {
-          console.log(updateAccountResponse.data);
+          alert('프로필 정보가 수정되었습니다.');
         }
       }
     } catch (error) {
       console.error(error);
+      alert('프로필 수정 실패');
     }
   }
 
