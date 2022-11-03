@@ -1,5 +1,11 @@
-import { useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { getAccount, getMyPage, putUpdateAccount } from '../../api/account';
+import { photoApi } from '../../api/board';
+import { profileThumbnailImgState, profileUploadFileState } from '../../store/profileEdit';
+import { SignSubmitBtnStyled } from '../../styles/Account/BtnStyles';
 import { FormStyled } from '../../styles/Account/FormStyles';
 import { MainInputStyled } from '../../styles/Account/InputStyles';
 import { TextAreaStyled } from '../../styles/Account/TextAreaStyles';
@@ -8,8 +14,69 @@ import TextArea from '../common/TextArea';
 import EditProfileImage from './EditProfileImage';
 
 function ProfileEditForm() {
+  const navigate = useNavigate();
+  const [userId, setUserId] = useState<number>(-1);
   const [name, setName] = useState<string>('');
   const [introduce, setIntroduce] = useState<string>('');
+  const profileUploadFile = useRecoilValue(profileUploadFileState);
+  const setProfileThumbnailImgState = useSetRecoilState(profileThumbnailImgState);
+
+  useEffect(() => {
+    getLoginChecked();
+  }, []);
+
+  async function getLoginChecked() {
+    try {
+      // 로그인 확인 및 유저 데이터 받아옴, 로그인이 아니면 throw
+      const accountResponse = await getAccount();
+      const accountData = accountResponse.data;
+      setName(accountData.username);
+      setIntroduce(accountData.intro);
+      setUserId(accountData.id);
+
+      // 마이 페이지 조회 데이터를 받아와 데이터 갱신
+      const myPageResponse = await getMyPage(accountData.id);
+      if (myPageResponse.status === 200) {
+        const myPageData = myPageResponse.data;
+        const { url } = myPageData.Profile;
+        const fileName = url.substring(url.lastIndexOf('\\') + 1, url.length);
+        setProfileThumbnailImgState(`http://${location.hostname}:3030/api/image/${fileName}`);
+      }
+    } catch (error) {
+      console.error(error);
+      alert('로그인이 필요합니다! 로그인 화면으로 이동합니다.');
+      navigate('/login');
+    }
+  }
+
+  /** 수정 버튼 클릭 이벤트 */
+  async function handleClickSubmit(event: MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    try {
+      let photoId = -1;
+      if (profileUploadFile) {
+        const formData = new FormData();
+        formData.append('url', profileUploadFile);
+        const photoResponse = await photoApi(formData);
+        if (photoResponse.status === 200) {
+          console.log(photoResponse.data);
+          photoId = photoResponse.data.id;
+        }
+      }
+      if (userId) {
+        const updateAccountResponse = await putUpdateAccount({
+          userId,
+          intro: introduce,
+          photo: photoId,
+        });
+        if (updateAccountResponse.status === 200) {
+          console.log(updateAccountResponse.data);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <Container>
@@ -21,7 +88,7 @@ function ProfileEditForm() {
           <InputLabel>사용자 이름</InputLabel>
           <Input
             type="text"
-            required
+            // required
             RenderComponent={MainInputStyled}
             value={name}
             setValue={setName}
@@ -37,6 +104,7 @@ function ProfileEditForm() {
             placeholder="소개를 입력하세요"
           />
         </InputContainer>
+        <Confirm onClick={handleClickSubmit}>수정</Confirm>
       </FormStyled>
     </Container>
   );
@@ -64,4 +132,9 @@ const InputLabel = styled.label`
   margin-bottom: 0.5rem;
   font-size: 0.8rem;
   color: gray;
+`;
+
+const Confirm = styled(SignSubmitBtnStyled)`
+  align-self: center;
+  width: 30%;
 `;
