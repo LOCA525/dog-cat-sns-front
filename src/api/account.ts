@@ -15,6 +15,10 @@ export declare interface LoginBody {
 
 export const postLogin = (body: LoginBody) => api.post('/account/login', body);
 
+export const postLogOut = async () => {
+  const res = await api.post('/account/logout');
+  return res;
+};
 interface followBody {
   from: number;
   to: number;
