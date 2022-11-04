@@ -1,11 +1,11 @@
 import ProfileEditForm from '../components/Account/ProfileEditForm';
 import BottomNav from '../components/BottomNav/BottomNav';
-import Header from '../components/Header/Header';
+import UserHeader from '../components/UserHeader';
 
 function ProfileEditPage() {
   return (
     <>
-      <Header />
+      <UserHeader headerTitle="프로필 편집" />
       <ProfileEditForm />
       <BottomNav />
     </>

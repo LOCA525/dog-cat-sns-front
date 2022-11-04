@@ -22,6 +22,8 @@ function MainPage() {
       const res = await getAccountData();
       if (res.status === 200) {
         const res = await getAccountData();
+        console.log('로그인정보', res);
+
         setUserId(res.data.id); ///로그인 조회 api 사용후 id값을 recoilState 저장
         return true;
       }

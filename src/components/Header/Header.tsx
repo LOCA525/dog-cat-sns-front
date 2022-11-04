@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as BellBtn } from '../../assets/images/Bell.svg';
+import profileImage from '../../assets/images/profile2.png';
 import { ReactComponent as SearchBtn } from '../../assets/images/search.svg';
 import { cardFilterState } from '../../store/cardState';
 import { blueState, modeState, orangeState } from '../../store/themeColor';
 import UserModal from './UserModal';
-
 function Header() {
   const [Theme, setTheme] = useRecoilState(modeState);
   const orangemode = useRecoilValue(orangeState);
@@ -43,6 +43,7 @@ function Header() {
             onClick={() => {
               setModalOpen(true);
             }}
+            profileImage={profileImage}
           />
           {modalOpen && <UserModal modalOpen={modalOpen} setModalOpen={setModalOpen} />}
         </HeaderBtn>
@@ -101,10 +102,13 @@ const HeaderBtn = styled.div`
 //   height: 24px;
 //   margin-right: 10px;
 // `;
-const UserBtn = styled.div`
-  width: 24px;
-  height: 24px;
-  background-color: red;
+const UserBtn = styled.div<{ profileImage: string }>`
+  width: 35px;
+  height: 35px;
+  background-image: url(${props => props.profileImage});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
   border-radius: 30px;
   margin-right: 10px;
   margin-left: 10px;

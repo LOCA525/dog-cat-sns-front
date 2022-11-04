@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { ReactComponent as KeyIcon } from '../assets/images/icons/keyIcon.svg';
 import { ReactComponent as ProfileIcon } from '../assets/images/icons/profileIcon.svg';
 import BottomNav from '../components/BottomNav/BottomNav';
-import Header from '../components/Header/Header';
+import UserHeader from '../components/UserHeader';
 
 function SettingPage() {
   return (
     <>
-      <Header />
+      <UserHeader headerTitle="설정" />
       <MainContainer>
         <LinkStyled to="/accounts/edit">
           <ProfileIconStyled />
