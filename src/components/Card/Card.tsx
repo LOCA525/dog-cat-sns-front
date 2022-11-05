@@ -19,7 +19,7 @@ function Card({ item }: any) {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [validationModalOpen, setValidationModalOpen] = useState<boolean>(false);
   const [heartState, setHeartState] = useState<boolean>(false);
-  const [setCardClick] = useRecoilState(cardUserId);
+  const [cardClick, setCardClick] = useRecoilState(cardUserId);
   const [likeLength, setLikeLength] = useState('');
   const navigate = useNavigate();
   const imageData: string = item.Photo.url;
