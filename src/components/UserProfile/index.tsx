@@ -3,14 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { deleteFollowApi, postFollowApi } from '../../api/account';
+import noProfileImage from '../../assets/images/profile3.png';
 import { loginUserId } from '../../store/loginUser';
 import { modeState } from '../../store/themeColor';
 
-function UserProfile({ userData, userId, isFollow, setIsFollow, getMyPage }: any) {
+function UserProfile({ userData, userId, isFollow, getMyPage, isProfileImage }: any) {
   const logInUserId = useRecoilValue(loginUserId);
   const loginId = useRecoilValue(loginUserId);
   const [isYours, setIsYours] = useState(false);
   const { buttonColor, hoverColor } = useRecoilValue(modeState);
+
   const navigate = useNavigate();
   useEffect(() => {
     if (userId === loginId) {
@@ -53,7 +55,11 @@ function UserProfile({ userData, userId, isFollow, setIsFollow, getMyPage }: any
   return (
     <Container>
       <ProfileContainer>
-        <UserImage />
+        <UserImageContainer>
+          <UserImage
+            src={isProfileImage ? `http://localhost:3030/api/image/${userData.Profile?.url}` : noProfileImage}
+          />
+        </UserImageContainer>
         <CountContainer>
           <FeedCount>
             <span>{userData.BoardList?.length}</span>
@@ -112,11 +118,15 @@ const CountContainer = styled.div`
   justify-content: space-around;
   display: flex;
 `;
-const UserImage = styled.div`
+const UserImageContainer = styled.div`
   width: 90px;
   height: 90px;
   border-radius: 50px;
-  background-color: red;
+`;
+const UserImage = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 50px;
 `;
 
 const FeedCount = styled.div`

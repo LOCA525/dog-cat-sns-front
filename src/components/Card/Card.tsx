@@ -107,7 +107,6 @@ function Card({ item }: any) {
       setIsProfileImage(true);
     }
   }, []);
-  console.log('cardItem', item.User.Profile?.url);
 
   return (
     <div>
@@ -126,9 +125,8 @@ function Card({ item }: any) {
         <HeaderContainer>
           <UserContainer>
             <UserWrap>
-              <UserImageContainer>
+              <UserImageContainer onClick={navigateUserPage}>
                 <UserImage
-                  onClick={navigateUserPage}
                   src={isProfileImage ? `http://localhost:3030/api/image/${item.User.Profile.url}` : noProfileImage}
                 />
               </UserImageContainer>
