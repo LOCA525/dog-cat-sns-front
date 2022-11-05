@@ -2,6 +2,7 @@ import { ChangeEvent, createRef, MouseEvent, useEffect, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 import { profileThumbnailImgState, profileUploadFileState } from '../../store/profileEdit';
+import profile2Image from '../../assets/images/profile2.png';
 
 function EditProfileImage() {
   const fileInput = createRef<HTMLInputElement>();
@@ -38,8 +39,8 @@ function EditProfileImage() {
 
   return (
     <>
-      <ProfileImageContainer profileImage={profileThumbnailImg}>
-        {profileThumbnailImg && <ProfileImage src={profileThumbnailImg} />}
+      <ProfileImageContainer>
+        {profileThumbnailImg ? <ProfileImage src={profileThumbnailImg} /> : <ProfileImage src={profile2Image} />}
       </ProfileImageContainer>
       <ProfileChangeBtn onClick={handleClickProfileChangeBtn}>프로필 사진 변경</ProfileChangeBtn>
       <input ref={fileInput} type="file" onChange={handleChangeFileInput} style={{ display: 'none' }} />
@@ -49,23 +50,11 @@ function EditProfileImage() {
 
 export default EditProfileImage;
 
-interface ProfileImageContainerProps {
-  profileImage: string;
-}
-
-const ProfileImageContainer = styled.div<ProfileImageContainerProps>`
+const ProfileImageContainer = styled.div`
   width: 90px;
   height: 90px;
   margin-bottom: 1rem;
   border-radius: 50px;
-  ${props =>
-    props.profileImage
-      ? css`
-          background-color: none;
-        `
-      : css`
-          background-color: red;
-        `}
 `;
 
 const ProfileImage = styled.img`

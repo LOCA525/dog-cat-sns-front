@@ -1,8 +1,7 @@
 import { MouseEvent, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { getAccount, getMyPage, putUpdateAccount } from '../../api/account';
+import { getMyPage, putUpdateAccount } from '../../api/account';
 import { photoApi } from '../../api/board';
 import { profileThumbnailImgState, profileUploadFileState } from '../../store/profileEdit';
 import { SignSubmitBtnStyled } from '../../styles/Account/BtnStyles';
@@ -13,8 +12,11 @@ import Input from '../common/Input';
 import TextArea from '../common/TextArea';
 import EditProfileImage from './EditProfileImage';
 
-function ProfileEditForm() {
-  const navigate = useNavigate();
+interface Props {
+  account: any;
+}
+
+function ProfileEditForm({ account }: Props) {
   const [userId, setUserId] = useState<number>(-1);
   const [name, setName] = useState<string>('');
   const [introduce, setIntroduce] = useState<string>('');
@@ -22,30 +24,37 @@ function ProfileEditForm() {
   const setProfileThumbnailImgState = useSetRecoilState(profileThumbnailImgState);
 
   useEffect(() => {
-    getLoginChecked();
-  }, []);
+    loginChecked();
+  }, [account]);
 
-  async function getLoginChecked() {
+  async function loginChecked() {
     try {
-      // 로그인 확인 및 유저 데이터 받아옴, 로그인이 아니면 throw
-      const accountResponse = await getAccount();
-      const accountData = accountResponse.data;
-      setName(accountData.username);
-      setIntroduce(accountData.intro);
-      setUserId(accountData.id);
+      if (!account) {
+        return null;
+      }
 
       // 마이 페이지 조회 데이터를 받아와 데이터 갱신
-      const myPageResponse = await getMyPage(accountData.id);
+      const myPageResponse = await getMyPage(account.id);
       if (myPageResponse.status === 200) {
         const myPageData = myPageResponse.data;
-        const { url } = myPageData.Profile;
-        const fileName = url.substring(url.lastIndexOf('\\') + 1, url.length);
-        setProfileThumbnailImgState(`http://${location.hostname}:3030/api/image/${fileName}`);
+        setUserId(myPageData.id);
+        setName(myPageData.username);
+
+        // 소개글이 있는 경우
+        if (myPageData.intro) {
+          setIntroduce(myPageData.intro);
+        }
+
+        // 프로필 이미지가 있는 경우
+        if (myPageData.Profile) {
+          const { url } = myPageData.Profile;
+          const fileName = url.substring(url.lastIndexOf('\\') + 1, url.length);
+          setProfileThumbnailImgState(`http://${location.hostname}:3030/api/image/${fileName}`);
+        }
       }
     } catch (error) {
       console.error(error);
-      alert('로그인이 필요합니다! 로그인 화면으로 이동합니다.');
-      navigate('/login');
+      alert('마이페이지 데이터 조회 실패');
     }
   }
 
@@ -53,15 +62,18 @@ function ProfileEditForm() {
   async function handleClickSubmit(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     try {
-      let photoId = -1;
+      let photoId = null;
+      // 업로드 파일이 있는 경우
       if (profileUploadFile) {
         const formData = new FormData();
         formData.append('url', profileUploadFile);
         const photoResponse = await photoApi(formData);
+        console.log(photoResponse);
         if (photoResponse.status === 200) {
           photoId = photoResponse.data.id;
         }
       }
+      // 유저 아이디가 있는 경우
       if (userId) {
         const updateAccountResponse = await putUpdateAccount({
           userId,
