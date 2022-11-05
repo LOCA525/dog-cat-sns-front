@@ -24,11 +24,8 @@ function Card({ item }: any) {
   const [likeLength, setLikeLength] = useState('');
   const [isProfileImage, setIsProfileImage] = useState(false); //카드 유저의 프로필 이미지가 있는지 없는지 체크하는 스테이트
   const navigate = useNavigate();
-  const imageData: string = item.Photo.url;
   const dateData: string = item.updatedAt;
-  const splitedData = imageData.split('/', 7);
   const splitedDate = dateData.split('T');
-  const image: string = splitedData[6]; ///추출된 이미지 url
   const date: string = splitedDate[0]; ///추출된 날짜
   const year = date.split('-')[0];
   const month = date.split('-')[1];
@@ -117,7 +114,7 @@ function Card({ item }: any) {
             showModal={showModal}
             showValidationModal={showValidationModal}
             item={item}
-            image={`http://localhost:3030/api/image/${image}`}
+            image={`http://localhost:3030/api/image/${item.Photo.url}`}
           />
         )}
         <HeaderContainer>
@@ -135,7 +132,7 @@ function Card({ item }: any) {
             <MoreBtn width={'25px'} height={'25px'} fill={buttonColor} onClick={showModal} cursor={'pointer'} />
           </UserContainer>
         </HeaderContainer>
-        <CardImage image={image} />
+        <CardImage image={item.Photo.url} />
 
         <ButtonContainer>
           <HeartCommentContainer>
