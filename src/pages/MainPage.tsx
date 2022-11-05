@@ -15,6 +15,8 @@ function MainPage() {
   const [id, setUserId] = useRecoilState(loginUserId);
   const [, setCard] = useRecoilState(cardList);
   const [follow, setFollowList] = useRecoilState(followList);
+  const [isProfileImage, setIsProfileImage] = useState(false);
+  const [userProfileImage, setUserProfileImage] = useState('');
   const navigate = useNavigate();
 
   const getAccount = async () => {
@@ -23,8 +25,13 @@ function MainPage() {
       if (res.status === 200) {
         const res = await getAccountData();
         console.log('로그인정보', res);
-
         setUserId(res.data.id); ///로그인 조회 api 사용후 id값을 recoilState 저장
+        if (res.data.Profile === null) {
+          setIsProfileImage(false);
+        } else {
+          setIsProfileImage(true);
+          setUserProfileImage(`http://localhost:3030/api/image/${res.data?.profile.url}`);
+        }
         return true;
       }
     } catch (error) {
@@ -77,7 +84,7 @@ function MainPage() {
 
   return (
     <div>
-      <Header />
+      <Header isProfileImage={isProfileImage} userProfileImage={userProfileImage} />
       <Board />
       <BottomNav />
     </div>

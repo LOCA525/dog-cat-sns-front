@@ -16,7 +16,7 @@ function UserFeeds({ userData }: any) {
           ?.slice(0)
           .reverse()
           .map((item: any) => {
-            return <Card key={item.id} item={item} />;
+            return <Card key={item?.id} item={item} />;
           })}
       </Container>
     </div>

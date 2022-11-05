@@ -7,6 +7,7 @@ import { ReactComponent as BookMarkBtn } from '../../assets/images/bookmark.svg'
 import { ReactComponent as CommentBtn } from '../../assets/images/comment.svg';
 import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
 import { ReactComponent as MoreBtn } from '../../assets/images/more.svg';
+import noProfileImage from '../../assets/images/profile3.png';
 import { cardUserId } from '../../store/cardUserId';
 import { loginUserId } from '../../store/loginUser';
 import { modeState } from '../../store/themeColor';
@@ -21,6 +22,7 @@ function Card({ item }: any) {
   const [heartState, setHeartState] = useState<boolean>(false);
   const [cardClick, setCardClick] = useRecoilState(cardUserId);
   const [likeLength, setLikeLength] = useState('');
+  const [isProfileImage, setIsProfileImage] = useState(false); //카드 유저의 프로필 이미지가 있는지 없는지 체크하는 스테이트
   const navigate = useNavigate();
   const imageData: string = item.Photo.url;
   const dateData: string = item.updatedAt;
@@ -97,6 +99,11 @@ function Card({ item }: any) {
   };
   useEffect(() => {
     getCard();
+    if (item.User.Profile === null) {
+      setIsProfileImage(false);
+    } else {
+      setIsProfileImage(true);
+    }
   }, []);
 
   return (
@@ -116,7 +123,12 @@ function Card({ item }: any) {
         <HeaderContainer>
           <UserContainer>
             <UserWrap>
-              <UserImage onClick={navigateUserPage} />
+              <UserImageContainer onClick={navigateUserPage}>
+                <UserImage
+                  src={isProfileImage ? `http://localhost:3030/api/image/${item.User.Profile.url}` : noProfileImage}
+                />
+              </UserImageContainer>
+
               <UserNickName onClick={navigateUserPage}>{item.User.username}</UserNickName>
             </UserWrap>
 
@@ -181,12 +193,16 @@ const UserWrap = styled.div`
   display: flex;
   align-items: center;
 `;
-const UserImage = styled.div`
-  margin-right: 12px;
+const UserImageContainer = styled.div`
   width: 37px;
   height: 37px;
-  border-radius: 20px;
-  background-color: red;
+  border-radius: 50px;
+  margin-right: 12px;
+`;
+const UserImage = styled.img`
+  border-radius: 50px;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
 `;
 const UserNickName = styled.div`
