@@ -1,11 +1,29 @@
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as KeyIcon } from '../assets/images/icons/keyIcon.svg';
 import { ReactComponent as ProfileIcon } from '../assets/images/icons/profileIcon.svg';
 import BottomNav from '../components/BottomNav/BottomNav';
 import UserHeader from '../components/UserHeader';
+import useGetAccount from '../hooks/ussGetAccount';
 
 function SettingPage() {
+  const navigator = useNavigate();
+  const [account, setAccount] = useState<any>(null);
+  const getAccount = useGetAccount(setAccount);
+
+  async function loginChecked() {
+    const data = await getAccount();
+    if (!data) {
+      alert('로그인이 필요합니다! 로그인 화면으로 이동합니다.');
+      navigator('/login');
+    }
+  }
+
+  useEffect(() => {
+    loginChecked();
+  }, []);
+
   return (
     <>
       <UserHeader headerTitle="설정" />
