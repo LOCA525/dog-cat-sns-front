@@ -7,12 +7,14 @@ import { ReactComponent as SearchBtn } from '../../assets/images/search.svg';
 import { cardFilterState } from '../../store/cardState';
 import { blueState, modeState, orangeState } from '../../store/themeColor';
 import UserModal from './UserModal';
-function Header() {
+
+function Header({ isProfileImage, userProfileImage }: any) {
   const [Theme, setTheme] = useRecoilState(modeState);
   const orangemode = useRecoilValue(orangeState);
   const bluemode = useRecoilValue(blueState);
   const [, setFilter] = useRecoilState(cardFilterState);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+
   const themeChangeClick = () => {
     document.querySelector('.boardContainer')?.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     if (Theme === orangemode) {
@@ -27,6 +29,7 @@ function Header() {
   const current = useRecoilValue(modeState);
   const buttonColor = current.buttonColor;
   const toggleBtnImage = current.toggleBtnImage;
+
   return (
     <div>
       <Container>
@@ -39,12 +42,14 @@ function Header() {
         </SearchForm>
         <HeaderBtn>
           <BellBtn width={'28px'} height={'28px'} fill={'#ffff'} stroke={buttonColor} />
-          <UserBtn
+          <UserBtnContainer
             onClick={() => {
               setModalOpen(true);
             }}
-            profileImage={noProfileImage}
-          />
+          >
+            <UserBtn src={isProfileImage ? userProfileImage : noProfileImage} />
+          </UserBtnContainer>
+
           {modalOpen && <UserModal modalOpen={modalOpen} setModalOpen={setModalOpen} />}
         </HeaderBtn>
       </Container>
@@ -102,17 +107,18 @@ const HeaderBtn = styled.div`
 //   height: 24px;
 //   margin-right: 10px;
 // `;
-const UserBtn = styled.div<{ profileImage: string }>`
+const UserBtnContainer = styled.div`
   width: 35px;
   height: 35px;
-  background-image: url(${props => props.profileImage});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
   border-radius: 30px;
   margin-right: 10px;
   margin-left: 10px;
   cursor: pointer;
+`;
+const UserBtn = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
 `;
 
 export default Header;

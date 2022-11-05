@@ -80,8 +80,6 @@ function Card({ item }: any) {
       if (res.status === 200) {
         const res = await getCardApi(item.id);
         //Card내 좋아요한 유저 리스트 중 내아이디값과 같은 상태인지 체크한후 좋아요 표시
-        console.log('getCard', res);
-
         const likeList = res.data.like;
         setLikeLength(likeList.length);
         const isLike = likeList.some((item: { user_id: number }) => item.user_id === userId);
