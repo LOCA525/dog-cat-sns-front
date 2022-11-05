@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { postLogOut } from '../../api/account';
 import { ReactComponent as OutBtn } from '../../assets/images/logOut.svg';
 import { ReactComponent as SettingIcon } from '../../assets/images/setting2.svg';
 import { ReactComponent as UserBtn } from '../../assets/images/User.svg';
@@ -32,6 +33,19 @@ function UserModal({ setModalOpen }: any) {
     navigate(`/mypage/profile`);
   };
 
+  const logOut = async () => {
+    try {
+      const res = await postLogOut();
+      if (res.status === 200) {
+        const res = await postLogOut();
+        console.log('로그아웃', res);
+        navigate('/login');
+      }
+    } catch (error) {
+      console.log('로그아웃실패', error);
+    }
+  };
+
   return (
     <ModalContainer ref={modalRef} buttonColor={buttonColor}>
       <div className="triangle"></div>
@@ -52,7 +66,7 @@ function UserModal({ setModalOpen }: any) {
           </SettingIconContainer>
           설정
         </SettingBtn>
-        <LogOutBtn>
+        <LogOutBtn onClick={logOut}>
           <OutImageContainer>
             <OutBtn width={'15px'} height={'15px'} stroke={buttonColor} />
           </OutImageContainer>

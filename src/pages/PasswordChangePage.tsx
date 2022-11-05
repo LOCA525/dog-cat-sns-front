@@ -1,5 +1,5 @@
 import PasswordChangeForm from '../components/Account/PasswordChangeForm';
-import BottomNav from '../components/BottomNav';
+import BottomNav from '../components/BottomNav/BottomNav';
 import Header from '../components/Header/Header';
 
 function PasswordChangePage() {

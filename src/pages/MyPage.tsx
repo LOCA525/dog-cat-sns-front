@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { getMypageData } from '../api/myPage';
-import BottomNav from '../components/BottomNav';
+import BottomNav from '../components/BottomNav/BottomNav';
 import UserFeeds from '../components/UserFeeds';
 import UserHeader from '../components/UserHeader';
 import UserProfile from '../components/UserProfile';

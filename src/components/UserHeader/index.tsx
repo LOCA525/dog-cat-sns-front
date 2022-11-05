@@ -15,7 +15,7 @@ function UserHeader({ headerTitle }: propsType) {
     <Container>
       <BackBtnContainer>
         <BackBtn
-          width={'60px'}
+          width={'50px'}
           height={'60px'}
           fill={buttonColor}
           stroke={buttonColor}
@@ -39,7 +39,6 @@ const Container = styled.div`
   justify-content: space-between;
   height: 60px;
   width: 100%;
-  padding: 0 10px 0 10px;
 `;
 const BackBtnContainer = styled.div`
   cursor: pointer;

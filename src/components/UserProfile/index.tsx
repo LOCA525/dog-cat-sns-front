@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { deleteFollowApi, postFollowApi } from '../../api/account';
@@ -10,7 +11,7 @@ function UserProfile({ userData, userId, isFollow, setIsFollow, getMyPage }: any
   const loginId = useRecoilValue(loginUserId);
   const [isYours, setIsYours] = useState(false);
   const { buttonColor, hoverColor } = useRecoilValue(modeState);
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (userId === loginId) {
       setIsYours(true);
@@ -71,7 +72,13 @@ function UserProfile({ userData, userId, isFollow, setIsFollow, getMyPage }: any
       <Introduce>{userData.intro}</Introduce>
       <FollowBtnContainer>
         {isYours ? (
-          <FollowBtn color={buttonColor} hover={hoverColor}>
+          <FollowBtn
+            color={buttonColor}
+            hover={hoverColor}
+            onClick={() => {
+              navigate('/accounts/edit');
+            }}
+          >
             프로필편집
           </FollowBtn>
         ) : (

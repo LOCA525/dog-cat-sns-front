@@ -1,8 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { cardUserId } from '../../store/cardUserId';
 import { editCardImage, editCardItem } from '../../store/editCardItem';
+import { loginUserId } from '../../store/loginUser';
 import { modeState } from '../../store/themeColor';
 
 function Modal({ setModalOpen, showModal, showValidationModal, item, image }: any) {
@@ -11,8 +13,17 @@ function Modal({ setModalOpen, showModal, showValidationModal, item, image }: an
   const [, setEditCardData] = useRecoilState<any>(editCardItem);
   const [, setEditCardImage] = useRecoilState<string>(editCardImage);
   const { buttonColor } = useRecoilValue(modeState);
-
+  const [isYours, setIsYours] = useState(false);
+  const cardId = item.User.id;
+  const cardUserName = item.User.username;
+  const loginUser = useRecoilValue(loginUserId);
+  const [, setCardUserId] = useRecoilState(cardUserId);
   useEffect(() => {
+    if (cardId === loginUser) {
+      setIsYours(true);
+    } else {
+      setIsYours(false);
+    }
     const handler = (e: any) => {
       if (modalRef.current && !modalRef.current.contains(e.target)) {
         setModalOpen(false);
@@ -23,24 +34,31 @@ function Modal({ setModalOpen, showModal, showValidationModal, item, image }: an
       document.removeEventListener('mousedown', handler);
     };
   });
+  const goProfile = () => {
+    setCardUserId(cardId);
+    navigate(`/mypage/${cardUserName}`);
+  };
 
   return (
     <ModalContainer ref={modalRef} buttonColor={buttonColor}>
       <div className="triangle"></div>
       <BtnContainer>
-        <ProfileBtn>프로필</ProfileBtn>
-        <EditDeleteWrap>
-          <EditBtn
-            onClick={() => {
-              navigate('/edit');
-              setEditCardData(item);
-              setEditCardImage(image);
-            }}
-          >
-            수정
-          </EditBtn>
-          <DeleteBtn onClick={showValidationModal}>삭제</DeleteBtn>
-        </EditDeleteWrap>
+        <ProfileBtn onClick={goProfile}>프로필</ProfileBtn>
+        {isYours && (
+          <EditDeleteWrap>
+            <EditBtn
+              onClick={() => {
+                navigate('/edit');
+                setEditCardData(item);
+                setEditCardImage(image);
+              }}
+            >
+              수정
+            </EditBtn>
+            <DeleteBtn onClick={showValidationModal}>삭제</DeleteBtn>
+          </EditDeleteWrap>
+        )}
+
         <CancelBtn onClick={showModal}>취소</CancelBtn>
       </BtnContainer>
     </ModalContainer>
