@@ -1,8 +1,8 @@
 import { ChangeEvent, createRef, MouseEvent, useEffect, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
+import profile2Image from '../../assets/images/profile3.png';
 import { profileThumbnailImgState, profileUploadFileState } from '../../store/profileEdit';
-import profile2Image from '../../assets/images/profile2.png';
 
 function EditProfileImage() {
   const fileInput = createRef<HTMLInputElement>();

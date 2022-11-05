@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { ReactComponent as BellBtn } from '../../assets/images/Bell.svg';
-import profileImage from '../../assets/images/profile2.png';
+import noProfileImage from '../../assets/images/profile3.png';
 import { ReactComponent as SearchBtn } from '../../assets/images/search.svg';
 import { cardFilterState } from '../../store/cardState';
 import { blueState, modeState, orangeState } from '../../store/themeColor';
@@ -43,7 +43,7 @@ function Header() {
             onClick={() => {
               setModalOpen(true);
             }}
-            profileImage={profileImage}
+            profileImage={noProfileImage}
           />
           {modalOpen && <UserModal modalOpen={modalOpen} setModalOpen={setModalOpen} />}
         </HeaderBtn>
