@@ -26,7 +26,7 @@ function MainPage() {
         const res = await getAccountData();
         console.log('로그인정보', res);
         setUserId(res.data.id); ///로그인 조회 api 사용후 id값을 recoilState 저장
-        if (res.data.Profile === null) {
+        if (res.data.profile === null) {
           setIsProfileImage(false);
         } else {
           setIsProfileImage(true);
@@ -47,6 +47,7 @@ function MainPage() {
       return false;
     }
   };
+
   const getBoard = async () => {
     try {
       const res = await getBoardApi(id);

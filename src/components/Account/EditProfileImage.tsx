@@ -43,7 +43,13 @@ function EditProfileImage() {
         {profileThumbnailImg ? <ProfileImage src={profileThumbnailImg} /> : <ProfileImage src={profile2Image} />}
       </ProfileImageContainer>
       <ProfileChangeBtn onClick={handleClickProfileChangeBtn}>프로필 사진 변경</ProfileChangeBtn>
-      <input ref={fileInput} type="file" onChange={handleChangeFileInput} style={{ display: 'none' }} />
+      <input
+        ref={fileInput}
+        type="file"
+        accept="image/jpg, image/png, image/jpeg"
+        onChange={handleChangeFileInput}
+        style={{ display: 'none' }}
+      />
     </>
   );
 }
