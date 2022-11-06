@@ -1,11 +1,11 @@
 import PasswordChangeForm from '../components/Account/PasswordChangeForm';
 import BottomNav from '../components/BottomNav/BottomNav';
-import Header from '../components/Header/Header';
+import UserHeader from '../components/UserHeader';
 
 function PasswordChangePage() {
   return (
     <>
-      <Header />
+      <UserHeader headerTitle="비밀번호 변경" />
       <PasswordChangeForm />
       <BottomNav />
     </>

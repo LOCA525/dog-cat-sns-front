@@ -9,6 +9,7 @@ import { cardFollowState } from '../../store/cardState';
 import { modeState } from '../../store/themeColor';
 
 const Container = styled.div`
+  padding-bottom: 10px;
   position: fixed;
   z-index: 99;
   background-color: #fff;
@@ -18,7 +19,7 @@ const Container = styled.div`
   justify-content: space-around;
   max-width: 500px;
   width: 100%;
-  height: 50px;
+  height: 60px;
   border-top: 1px solid rgb(223, 227, 232);
 `;
 function BottomNav() {
