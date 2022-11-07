@@ -75,6 +75,7 @@ function ProfileEditForm({ account }: Props) {
       if (userId) {
         const updateAccountResponse = await putUpdateAccount({
           userId,
+          username: name,
           intro: introduce,
           photo: photoId,
         });

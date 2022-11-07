@@ -49,6 +49,7 @@ export const getMyPage = async (userId: number) => await api.get(`/account/mypag
 
 export declare interface UpdateAccountBody {
   userId: number;
+  username: string;
   intro: string;
   photo: number;
 }
