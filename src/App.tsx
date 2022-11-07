@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import './App.css';
 import UploadPage from './components/Board/UploadEditUi';
 import Logo from './components/Logo';
+import CommentPage from './pages/CommentPage';
 import EditPage from './pages/EditPage';
 import JoinPage from './pages/JoinPage';
 import LoginPage from './pages/LoginPage';
@@ -39,6 +40,7 @@ function App() {
                   <Route path="/accounts/password/change" element={<PasswordChangePage />} />
                   <Route path="/upload" element={<UploadPage />} />
                   <Route path="/edit" element={<EditPage />} />
+                  <Route path="/comment" element={<CommentPage />} />
                 </Routes>
               </MainContent>
             </BrowserRouter>
