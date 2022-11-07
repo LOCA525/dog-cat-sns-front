@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import UserHeader from '../components/UserHeader';
 import { commentCard } from '../store/commentCard';
 import noProfileImage from '../assets/images/profile3.png';
+import CommentCard from '../components/CommentCard/CommentCard';
 
 function CommentPage() {
   const cardUserData = useRecoilValue<any>(commentCard);
@@ -34,6 +35,11 @@ function CommentPage() {
             <CreateDate>{cardUserData.createDate}</CreateDate>
           </ContentContainer>
         </CardUserContainer>
+        <CommentCard />
+        <CommentCard />
+        <CommentCard />
+        <CommentCard />
+        <CommentCard />
       </CommentContainer>
     </div>
   );
@@ -67,7 +73,10 @@ const UserImage = styled.img`
   height: 100%;
 `;
 
-const ContentContainer = styled.div``;
+const ContentContainer = styled.div`
+  float: left;
+`;
+
 const UserName = styled.div`
   font-size: 14px;
   font-weight: 900;
