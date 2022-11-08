@@ -4,8 +4,6 @@ import noProfileImage from '../../assets/images/profile3.png';
 
 function CommentCard({ item }: any) {
   const [isProfileImage, setIsProfileImage] = useState(false);
-  console.log(item);
-
   return (
     <div>
       <CardUserContainer>

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { getCommentApi } from '../api/board';
+import { getCommentApi, postCommentApi } from '../api/board';
 import noProfileImage from '../assets/images/profile3.png';
 import CommentCard from '../components/CommentCard/CommentCard';
 import UserHeader from '../components/UserHeader';
 import { commentCard } from '../store/commentCard';
-import { loginUserProfileUrl } from '../store/loginUser';
+import { loginUserId, loginUserProfileUrl } from '../store/loginUser';
 import { modeState } from '../store/themeColor';
 
 function CommentPage() {
@@ -15,7 +15,8 @@ function CommentPage() {
   const commentUserImageUrl = useRecoilValue(loginUserProfileUrl);
   const [commentData, setCommentData] = useState<any>([]);
   const { buttonColor } = useRecoilValue(modeState);
-
+  const [commentContent, setCommentContent] = useState('');
+  const userId = useRecoilValue(loginUserId);
   const getComment = async () => {
     try {
       const res = await getCommentApi(cardUserData.cardId);
@@ -38,6 +39,27 @@ function CommentPage() {
     getComment();
   }, []);
 
+  const commentUploadSubmit = async (e: any) => {
+    e.preventDefault();
+    if (commentContent !== '') {
+      const commentBody = {
+        content: commentContent,
+        writer: userId,
+      };
+      try {
+        const res = await postCommentApi(cardUserData.cardId, commentBody);
+        if (res.status === 200) {
+          console.log('댓글작성성공', res);
+          setCommentContent('');
+          getComment();
+        }
+      } catch (error) {
+        console.log('error', error);
+      }
+    } else {
+      alert('한글자 이상 입력해주세요!');
+    }
+  };
   return (
     <div>
       <UserHeader headerTitle="댓글" />
@@ -54,13 +76,20 @@ function CommentPage() {
             <CreateDate>{cardUserData.createDate}</CreateDate>
           </ContentContainer>
         </CardUserContainer>
-        <CommentFormContainer>
+        <CommentFormContainer onSubmit={commentUploadSubmit}>
           <CommentUserImageContainer>
             <CommentUserImage src={commentUserImageUrl} />
           </CommentUserImageContainer>
-          <CommentForm>
-            <CommentInput placeholder="댓글 달기..."></CommentInput>
-            <UoloadBtn buttonColor={buttonColor}>게시</UoloadBtn>
+          <CommentForm typeof="submit">
+            <CommentInput
+              placeholder="댓글 달기..."
+              onChange={(e: any) => {
+                setCommentContent(e.target.value);
+              }}
+            ></CommentInput>
+            <UoloadBtn onClick={commentUploadSubmit} buttonColor={buttonColor}>
+              게시
+            </UoloadBtn>
           </CommentForm>
         </CommentFormContainer>
         {commentData?.map((item: any) => {
