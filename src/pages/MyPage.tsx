@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { getMypageData } from '../api/myPage';
 import BottomNav from '../components/BottomNav/BottomNav';
-import UserFeeds from '../components/UserFeeds';
+import UserFeeds from '../components/UserFeeds/UserFeeds';
 import UserHeader from '../components/UserHeader';
 import UserProfile from '../components/UserProfile';
 import { cardUserId } from '../store/cardUserId';
+import { detailCardUserName } from '../store/detailCardId';
 
 function MyPage() {
   const userId = useRecoilValue<number>(cardUserId);
   const [userData, setUserData] = useState<any>('');
   const [isFollow, setIsFollow] = useState(false);
   const [isProfileImage, setIsProfileImage] = useState(false);
-
+  const [, setDetailcardUserName] = useRecoilState(detailCardUserName);
   const getMypage = async () => {
     try {
       const res = await getMypageData(userId);
@@ -22,6 +23,7 @@ function MyPage() {
         console.log('가져오기성공', res);
         const data = res.data;
         setUserData(data);
+        setDetailcardUserName(data.username);
         //이 유저를 팔로우 했는지 아닌지 체크 하고 isfollow 값 변경
         if (data.checkFollower.length === 0) {
           setIsFollow(false);

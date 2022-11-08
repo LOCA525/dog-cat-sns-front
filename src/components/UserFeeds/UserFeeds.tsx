@@ -1,25 +1,26 @@
 import styled from 'styled-components';
 import noFeedImage from '../../assets/images/nofeed.png';
+import FeedCard from './FeedCard';
 
 function UserFeeds({ userData }: any) {
   const boardList = userData.BoardList;
+  console.log(boardList);
 
-  const urlList = boardList?.map((item: any) => {
-    const image = item.Photo.url;
-    return image;
-  }); //부모컴포넌트에서 api 통신으로 받아온 url을 split하여 미리보기url 주소로 바꾸기 위해 쪼갬
-
+  // const urlList = boardList?.map((item: any) => {
+  //   const image = item.Photo.url;
+  //   return image;
+  // }); //부모컴포넌트에서 api 통신으로 받아온 url을 split하여 미리보기url 주소로 바꾸기 위해 쪼갬
   return (
     <UserFeedContainer>
-      {urlList?.length === 0 ? (
+      {boardList?.length === 0 ? (
         <img src={noFeedImage} />
       ) : (
         <Container>
-          {urlList
+          {boardList
             ?.slice(0)
             .reverse()
             .map((item: any) => {
-              return <Card key={item} item={item} />;
+              return <FeedCard key={item.id} item={item} />;
             })}
         </Container>
       )}
@@ -40,15 +41,4 @@ const Container = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(30%, auto));
 `;
 
-const Card = styled.div<{ item: string }>`
-  width: 100%;
-  height: 100%;
-  background-color: #000;
-  background-image: url(http://localhost:3030/api/image/${props => props.item});
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  padding-bottom: 100%;
-  border: 1px solid #ffff;
-`;
 export default UserFeeds;
