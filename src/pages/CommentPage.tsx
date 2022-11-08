@@ -1,15 +1,30 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import UserHeader from '../components/UserHeader';
-import { commentCard } from '../store/commentCard';
+import { getCommentApi } from '../api/board';
 import noProfileImage from '../assets/images/profile3.png';
 import CommentCard from '../components/CommentCard/CommentCard';
+import UserHeader from '../components/UserHeader';
+import { commentCard } from '../store/commentCard';
 
 function CommentPage() {
   const cardUserData = useRecoilValue<any>(commentCard);
   const [isProfileImage, setIsProfileImage] = useState(false);
   console.log(cardUserData);
+  const [commentData, setCommentData] = useState<any>([]);
+
+  const getComment = async () => {
+    try {
+      const res = await getCommentApi(cardUserData.cardId);
+      if (res.status === 200) {
+        const res = await getCommentApi(cardUserData.cardId);
+        console.log('댓글조회성공', res);
+        setCommentData(res.data);
+      }
+    } catch (error) {
+      console.log('댓글조회에러', error);
+    }
+  };
 
   useEffect(() => {
     if (cardUserData.photo === undefined) {
@@ -17,6 +32,7 @@ function CommentPage() {
     } else {
       setIsProfileImage(true);
     }
+    getComment();
   }, []);
 
   return (
@@ -35,11 +51,9 @@ function CommentPage() {
             <CreateDate>{cardUserData.createDate}</CreateDate>
           </ContentContainer>
         </CardUserContainer>
-        <CommentCard />
-        <CommentCard />
-        <CommentCard />
-        <CommentCard />
-        <CommentCard />
+        {commentData?.map((item: any) => {
+          return <CommentCard key={item.id} item={item} />;
+        })}
       </CommentContainer>
     </div>
   );

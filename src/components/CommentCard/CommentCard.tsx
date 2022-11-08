@@ -2,20 +2,24 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import noProfileImage from '../../assets/images/profile3.png';
 
-function CommentCard() {
+function CommentCard({ item }: any) {
   const [isProfileImage, setIsProfileImage] = useState(false);
+  console.log(item);
 
   return (
     <div>
       <CardUserContainer>
         <UserImageContainer>
-          <UserImage />
+          <UserImage src={noProfileImage} />
           {/* <UserImage src={isProfileImage ? `http://localhost:3030/api/image/${cardUserData.photo}` : noProfileImage} /> */}
         </UserImageContainer>
         <ContentContainer>
-          <UserName>Jessica</UserName>
-          <CardContent>오우쒯안뇽하세요</CardContent>
-          <CreateDate>2012년12월31일</CreateDate>
+          <UserName>{item.User.username}</UserName>
+          <CardContent>{item.content}</CardContent>
+          <CreateDate>
+            {item.createdAt.split('T')[0].split('-')[0]}년 {item.createdAt.split('T')[0].split('-')[1]}월{' '}
+            {item.createdAt.split('T')[0].split('-')[2]}일
+          </CreateDate>
         </ContentContainer>
       </CardUserContainer>
     </div>
@@ -24,7 +28,7 @@ function CommentCard() {
 
 const CardUserContainer = styled.div`
   width: 100%;
-  padding: 15px;
+  padding: 15px 50px 15px 15px;
   display: flex;
 `;
 const UserImageContainer = styled.div`
@@ -38,17 +42,20 @@ const UserImage = styled.img`
   border-radius: 50px;
   width: 100%;
   height: 100%;
+  cursor: pointer;
 `;
 
 const ContentContainer = styled.div`
   float: left;
 `;
 
-const UserName = styled.div`
+const UserName = styled.span`
   font-size: 14px;
   font-weight: 900;
+  margin-right: 5px;
+  cursor: pointer;
 `;
-const CardContent = styled.div`
+const CardContent = styled.span`
   font-size: 14px;
   font-weight: 600;
 `;
