@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import './App.css';
 import UploadPage from './components/Board/UploadEditUi';
 import Logo from './components/Logo';
+import CardDetailPage from './pages/CardDetailPage';
 import CommentPage from './pages/CommentPage';
 import EditPage from './pages/EditPage';
 import JoinPage from './pages/JoinPage';
@@ -34,6 +35,7 @@ function App() {
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/" element={<MainPage />} />
                   <Route path="/myPage/:id" element={<MyPage />} />
+                  <Route path="/cardDetail/:id" element={<CardDetailPage />} />
                   <Route path="/유저닉네임" element={<UserFeedPage />} />
                   <Route path="/setting" element={<SettingPage />} />
                   <Route path="/accounts/edit" element={<ProfileEditPage />} />
