@@ -8,3 +8,9 @@ export const loginUserId = atom<any>({
   default: null,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const loginUserProfileUrl = atom<any>({
+  key: 'loginUserProfileUrl',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});

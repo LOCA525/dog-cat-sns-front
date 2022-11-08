@@ -9,10 +9,11 @@ import BottomNav from '../components/BottomNav/BottomNav';
 import Header from '../components/Header/Header';
 import { cardList } from '../store/cardState';
 import { followList } from '../store/followList';
-import { loginUserId } from '../store/loginUser';
+import { loginUserId, loginUserProfileUrl } from '../store/loginUser';
 
 function MainPage() {
   const [id, setUserId] = useRecoilState(loginUserId);
+  const [profileUrl, setProfileUrl] = useRecoilState(loginUserProfileUrl);
   const [, setCard] = useRecoilState(cardList);
   const [follow, setFollowList] = useRecoilState(followList);
   const [isProfileImage, setIsProfileImage] = useState(false);
@@ -31,6 +32,7 @@ function MainPage() {
         } else {
           setIsProfileImage(true);
           setUserProfileImage(`http://localhost:3030/api/image/${res.data?.profile.url}`);
+          setProfileUrl(`http://localhost:3030/api/image/${res.data?.profile.url}`);
         }
         return true;
       }

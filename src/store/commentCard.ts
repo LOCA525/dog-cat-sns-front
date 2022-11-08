@@ -1,4 +1,7 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
+
+const { persistAtom } = recoilPersist();
 
 export const commentCard = <any>atom({
   key: 'commentCard',
@@ -9,4 +12,5 @@ export const commentCard = <any>atom({
     description: '',
     createDate: '',
   },
+  effects_UNSTABLE: [persistAtom],
 });

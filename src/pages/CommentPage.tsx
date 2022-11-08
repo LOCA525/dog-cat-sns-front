@@ -6,12 +6,15 @@ import noProfileImage from '../assets/images/profile3.png';
 import CommentCard from '../components/CommentCard/CommentCard';
 import UserHeader from '../components/UserHeader';
 import { commentCard } from '../store/commentCard';
+import { loginUserProfileUrl } from '../store/loginUser';
+import { modeState } from '../store/themeColor';
 
 function CommentPage() {
   const cardUserData = useRecoilValue<any>(commentCard);
   const [isProfileImage, setIsProfileImage] = useState(false);
-  console.log(cardUserData);
+  const commentUserImageUrl = useRecoilValue(loginUserProfileUrl);
   const [commentData, setCommentData] = useState<any>([]);
+  const { buttonColor } = useRecoilValue(modeState);
 
   const getComment = async () => {
     try {
@@ -51,6 +54,15 @@ function CommentPage() {
             <CreateDate>{cardUserData.createDate}</CreateDate>
           </ContentContainer>
         </CardUserContainer>
+        <CommentFormContainer>
+          <CommentUserImageContainer>
+            <CommentUserImage src={commentUserImageUrl} />
+          </CommentUserImageContainer>
+          <CommentForm>
+            <CommentInput placeholder="댓글 달기..."></CommentInput>
+            <UoloadBtn buttonColor={buttonColor}>게시</UoloadBtn>
+          </CommentForm>
+        </CommentFormContainer>
         {commentData?.map((item: any) => {
           return <CommentCard key={item.id} item={item} />;
         })}
@@ -66,6 +78,43 @@ const CommentContainer = styled.div`
   display: flex;
   height: calc(100vh - 110px);
   flex-direction: column;
+`;
+const CommentUserImageContainer = styled.div`
+  width: 37px;
+  height: 37px;
+  min-width: 37px;
+  border-radius: 50px;
+  margin-right: 15px;
+`;
+const CommentUserImage = styled.img`
+  border-radius: 50px;
+  width: 100%;
+  height: 100%;
+`;
+const CommentFormContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  padding: 6px 15px 6px 15px;
+  border-bottom: 1px solid rgb(223, 227, 232);
+`;
+const CommentForm = styled.form`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+const CommentInput = styled.input`
+  width: 100%;
+  padding: 0 20px 0 0;
+`;
+const UoloadBtn = styled.button<{ buttonColor: string }>`
+  width: 70px;
+  height: 40px;
+  font-weight: 900;
+  border-radius: 10px;
+  color: #ffff;
+  background-color: ${props => props.buttonColor};
 `;
 const CardUserContainer = styled.div`
   width: 100%;
