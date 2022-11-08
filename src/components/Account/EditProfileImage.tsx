@@ -1,8 +1,8 @@
 import { ChangeEvent, createRef, MouseEvent, useEffect, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
+import profile2Image from '../../assets/images/profile3.png';
 import { profileThumbnailImgState, profileUploadFileState } from '../../store/profileEdit';
-import profile2Image from '../../assets/images/profile2.png';
 
 function EditProfileImage() {
   const fileInput = createRef<HTMLInputElement>();
@@ -43,7 +43,13 @@ function EditProfileImage() {
         {profileThumbnailImg ? <ProfileImage src={profileThumbnailImg} /> : <ProfileImage src={profile2Image} />}
       </ProfileImageContainer>
       <ProfileChangeBtn onClick={handleClickProfileChangeBtn}>프로필 사진 변경</ProfileChangeBtn>
-      <input ref={fileInput} type="file" onChange={handleChangeFileInput} style={{ display: 'none' }} />
+      <input
+        ref={fileInput}
+        type="file"
+        accept="image/jpg, image/png, image/jpeg"
+        onChange={handleChangeFileInput}
+        style={{ display: 'none' }}
+      />
     </>
   );
 }

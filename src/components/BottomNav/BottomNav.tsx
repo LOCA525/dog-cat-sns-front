@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -8,6 +9,7 @@ import { cardFollowState } from '../../store/cardState';
 import { modeState } from '../../store/themeColor';
 
 const Container = styled.div`
+  padding-bottom: 10px;
   position: fixed;
   z-index: 99;
   background-color: #fff;
@@ -17,12 +19,13 @@ const Container = styled.div`
   justify-content: space-around;
   max-width: 500px;
   width: 100%;
-  height: 50px;
+  height: 60px;
   border-top: 1px solid rgb(223, 227, 232);
 `;
 function BottomNav() {
   const { buttonColor } = useRecoilValue(modeState);
-  const [isfollowPage, setIsFollowPage] = useRecoilState(cardFollowState);
+  const [isFollowPage, setIsFollowPage] = useRecoilState(cardFollowState);
+  const [isFollow, setIsFollow] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -31,10 +34,12 @@ function BottomNav() {
         width={'32px'}
         height={'32px'}
         stroke={buttonColor}
+        fill={isFollow ? 'none' : buttonColor}
         cursor={'pointer'}
         onClick={() => {
           navigate('/');
           setIsFollowPage('all');
+          setIsFollow(false);
           document.querySelector('.boardContainer')?.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         }}
       />
@@ -50,11 +55,13 @@ function BottomNav() {
       <HomeBtn
         width={'27px'}
         height={'26px'}
-        fill={buttonColor}
+        fill={isFollow ? buttonColor : '#ffffff'}
+        stroke={buttonColor}
         cursor={'pointer'}
         onClick={() => {
           navigate('/');
           setIsFollowPage('follow');
+          setIsFollow(true);
           document.querySelector('.boardContainer')?.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         }}
       />

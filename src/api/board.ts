@@ -64,3 +64,18 @@ export const disLikeCardApi = async (likeBody: likeBody) => {
   const res = await api.delete('/board/like', { data: likeBody });
   return res;
 };
+
+//댓글 조회
+export const getCommentApi = async (cardId: number) => {
+  const res = await api.get(`/board/${cardId}/comment`);
+  return res;
+};
+//댓글 등록
+interface commentBody {
+  content: string;
+  writer: number;
+}
+export const postCommentApi = async (cardId: number, commentBody: commentBody) => {
+  const res = await api.post(`/board/${cardId}/comment`, commentBody);
+  return res;
+};

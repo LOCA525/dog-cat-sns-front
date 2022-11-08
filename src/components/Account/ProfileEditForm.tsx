@@ -47,9 +47,7 @@ function ProfileEditForm({ account }: Props) {
 
         // 프로필 이미지가 있는 경우
         if (myPageData.Profile) {
-          const { url } = myPageData.Profile;
-          const fileName = url.substring(url.lastIndexOf('\\') + 1, url.length);
-          setProfileThumbnailImgState(`http://${location.hostname}:3030/api/image/${fileName}`);
+          setProfileThumbnailImgState(`http://${location.hostname}:3030/api/image/${myPageData.Profile.url}`);
         }
       }
     } catch (error) {
@@ -64,7 +62,7 @@ function ProfileEditForm({ account }: Props) {
     try {
       let photoId = null;
       // 업로드 파일이 있는 경우
-      if (profileUploadFile) {
+      if (profileUploadFile !== null) {
         const formData = new FormData();
         formData.append('url', profileUploadFile);
         const photoResponse = await photoApi(formData);
@@ -77,6 +75,7 @@ function ProfileEditForm({ account }: Props) {
       if (userId) {
         const updateAccountResponse = await putUpdateAccount({
           userId,
+          username: name,
           intro: introduce,
           photo: photoId,
         });

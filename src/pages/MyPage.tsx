@@ -12,6 +12,7 @@ function MyPage() {
   const userId = useRecoilValue<number>(cardUserId);
   const [userData, setUserData] = useState<any>('');
   const [isFollow, setIsFollow] = useState(false);
+  const [isProfileImage, setIsProfileImage] = useState(false);
 
   const getMypage = async () => {
     try {
@@ -26,6 +27,11 @@ function MyPage() {
           setIsFollow(false);
         } else if (data.checkFollower.length === 1) {
           setIsFollow(true);
+        }
+        if (data.Profile === null) {
+          setIsProfileImage(false);
+        } else {
+          setIsProfileImage(true);
         }
       }
     } catch (error) {
@@ -44,6 +50,7 @@ function MyPage() {
           userData={userData}
           userId={userId}
           isFollow={isFollow}
+          isProfileImage={isProfileImage}
           setIsFollow={setIsFollow}
           getMyPage={getMypage}
         />

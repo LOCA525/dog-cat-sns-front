@@ -7,7 +7,9 @@ import { ReactComponent as BookMarkBtn } from '../../assets/images/bookmark.svg'
 import { ReactComponent as CommentBtn } from '../../assets/images/comment.svg';
 import { ReactComponent as HeartBtn } from '../../assets/images/heart.svg';
 import { ReactComponent as MoreBtn } from '../../assets/images/more.svg';
+import noProfileImage from '../../assets/images/profile3.png';
 import { cardUserId } from '../../store/cardUserId';
+import { commentCard } from '../../store/commentCard';
 import { loginUserId } from '../../store/loginUser';
 import { modeState } from '../../store/themeColor';
 import Modal from './Modal';
@@ -19,18 +21,12 @@ function Card({ item }: any) {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [validationModalOpen, setValidationModalOpen] = useState<boolean>(false);
   const [heartState, setHeartState] = useState<boolean>(false);
-  const [setCardClick] = useRecoilState(cardUserId);
+  const [cardClick, setCardClick] = useRecoilState(cardUserId);
   const [likeLength, setLikeLength] = useState('');
+  const [isProfileImage, setIsProfileImage] = useState(false); //카드 유저의 프로필 이미지가 있는지 없는지 체크하는 스테이트
+  const [commentCardState, setCommentCardState] = useRecoilState(commentCard);
   const navigate = useNavigate();
-  const imageData: string = item.Photo.url;
-  const dateData: string = item.updatedAt;
-  const splitedData = imageData.split('/', 7);
-  const splitedDate = dateData.split('T');
-  const image: string = splitedData[6]; ///추출된 이미지 url
-  const date: string = splitedDate[0]; ///추출된 날짜
-  const year = date.split('-')[0];
-  const month = date.split('-')[1];
-  const day = date.split('-')[2];
+
   // 카드 우측상단 more버튼 클릭시 뜨는 모달창
   const showModal = () => {
     setModalOpen(!modalOpen);
@@ -97,7 +93,25 @@ function Card({ item }: any) {
   };
   useEffect(() => {
     getCard();
+    if (item.User.Profile === null) {
+      setIsProfileImage(false);
+    } else {
+      setIsProfileImage(true);
+    }
   }, []);
+
+  const navigateCommentPage = () => {
+    navigate('/comment');
+    setCommentCardState({
+      cardId: item.id,
+      photo: item.User.Profile?.url,
+      cardUserName: item.User.username,
+      description: item.description,
+      createDate: `${item.updatedAt.split('T')[0].split('-')[0]}년 ${item.updatedAt.split('T')[0].split('-')[1]}월 ${
+        item.updatedAt.split('T')[0].split('-')[2]
+      }일`,
+    });
+  };
 
   return (
     <div>
@@ -110,20 +124,25 @@ function Card({ item }: any) {
             showModal={showModal}
             showValidationModal={showValidationModal}
             item={item}
-            image={`http://localhost:3030/api/image/${image}`}
+            image={`http://localhost:3030/api/image/${item.Photo.url}`}
           />
         )}
         <HeaderContainer>
           <UserContainer>
             <UserWrap>
-              <UserImage onClick={navigateUserPage} />
+              <UserImageContainer onClick={navigateUserPage}>
+                <UserImage
+                  src={isProfileImage ? `http://localhost:3030/api/image/${item.User.Profile.url}` : noProfileImage}
+                />
+              </UserImageContainer>
+
               <UserNickName onClick={navigateUserPage}>{item.User.username}</UserNickName>
             </UserWrap>
 
             <MoreBtn width={'25px'} height={'25px'} fill={buttonColor} onClick={showModal} cursor={'pointer'} />
           </UserContainer>
         </HeaderContainer>
-        <CardImage image={image} />
+        <CardImage image={item.Photo.url} />
 
         <ButtonContainer>
           <HeartCommentContainer>
@@ -135,7 +154,14 @@ function Card({ item }: any) {
               stroke={heartState ? 'red' : buttonColor}
               cursor={'pointer'}
             />
-            <CommentBtn width={'30px'} height={'30px'} fill={buttonColor} stroke={buttonColor} cursor={'pointer'} />
+            <CommentBtn
+              onClick={navigateCommentPage}
+              width={'30px'}
+              height={'30px'}
+              fill={buttonColor}
+              stroke={buttonColor}
+              cursor={'pointer'}
+            />
           </HeartCommentContainer>
           <BookMarkBtn width={'32px'} height={'32px'} fill={buttonColor} />
         </ButtonContainer>
@@ -144,9 +170,10 @@ function Card({ item }: any) {
           <UserNickName>{item.User.username}</UserNickName>
           <CardText>{item.description}</CardText>
         </TextContainer>
-        <CommentCount>댓글 1개</CommentCount>
+        <CommentCount onClick={navigateCommentPage}>댓글 1개</CommentCount>
         <Date>
-          {year}년 {month}월 {day}일
+          {item.updatedAt.split('T')[0].split('-')[0]}년 {item.updatedAt.split('T')[0].split('-')[1]}월{' '}
+          {item.updatedAt.split('T')[0].split('-')[2]}일
         </Date>
       </CardContainer>
     </div>
@@ -181,19 +208,23 @@ const UserWrap = styled.div`
   display: flex;
   align-items: center;
 `;
-const UserImage = styled.div`
-  margin-right: 12px;
+const UserImageContainer = styled.div`
   width: 37px;
   height: 37px;
-  border-radius: 20px;
-  background-color: red;
+  border-radius: 50px;
+  margin-right: 12px;
+`;
+const UserImage = styled.img`
+  border-radius: 50px;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
 `;
 const UserNickName = styled.div`
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 5px;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 900;
+  margin-bottom: 5px;
 `;
 
 const CardImage = styled.div<{ image: string }>`
@@ -224,6 +255,7 @@ const HeartCount = styled.div`
   padding-bottom: 10px;
 `;
 const CommentCount = styled.div`
+  cursor: pointer;
   font-size: 14px;
   color: #8e8e8e;
   padding-left: 20px;
@@ -234,7 +266,9 @@ const TextContainer = styled.div`
   font-size: 14px;
   padding: 0 20px 8px 20px;
 `;
-const CardText = styled.div``;
+const CardText = styled.div`
+  font-weight: bold;
+`;
 const Date = styled.div`
   font-size: 10px;
   color: #8e8e8e;
