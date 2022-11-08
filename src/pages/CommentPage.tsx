@@ -14,7 +14,7 @@ function CommentPage() {
   const [isProfileImage, setIsProfileImage] = useState(false);
   const commentUserImageUrl = useRecoilValue(loginUserProfileUrl);
   const [commentData, setCommentData] = useState<any>([]);
-  const { buttonColor } = useRecoilValue(modeState);
+  const { buttonColor, hoverColor } = useRecoilValue(modeState);
   const [commentContent, setCommentContent] = useState('');
   const userId = useRecoilValue(loginUserId);
   const getComment = async () => {
@@ -50,8 +50,8 @@ function CommentPage() {
         const res = await postCommentApi(cardUserData.cardId, commentBody);
         if (res.status === 200) {
           console.log('댓글작성성공', res);
-          setCommentContent('');
           getComment();
+          setCommentContent('');
         }
       } catch (error) {
         console.log('error', error);
@@ -86,14 +86,15 @@ function CommentPage() {
               onChange={(e: any) => {
                 setCommentContent(e.target.value);
               }}
+              value={commentContent}
             ></CommentInput>
-            <UoloadBtn onClick={commentUploadSubmit} buttonColor={buttonColor}>
+            <UoloadBtn onClick={commentUploadSubmit} buttonColor={buttonColor} hoverColor={hoverColor}>
               게시
             </UoloadBtn>
           </CommentForm>
         </CommentFormContainer>
         {commentData?.map((item: any) => {
-          return <CommentCard key={item.id} item={item} />;
+          return <CommentCard key={item.id} item={item} userId={userId} getComment={getComment} />;
         })}
       </CommentContainer>
     </div>
@@ -137,13 +138,16 @@ const CommentInput = styled.input`
   width: 100%;
   padding: 0 20px 0 0;
 `;
-const UoloadBtn = styled.button<{ buttonColor: string }>`
+const UoloadBtn = styled.button<{ buttonColor: string; hoverColor: string }>`
   width: 70px;
   height: 40px;
   font-weight: 900;
   border-radius: 10px;
   color: #ffff;
   background-color: ${props => props.buttonColor};
+  :hover {
+    background-color: ${props => props.hoverColor};
+  }
 `;
 const CardUserContainer = styled.div`
   width: 100%;
