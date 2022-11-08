@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import noFeedImage from '../../assets/images/nofeed.png';
+
 function UserFeeds({ userData }: any) {
   const boardList = userData.BoardList;
 
@@ -8,18 +10,28 @@ function UserFeeds({ userData }: any) {
   }); //부모컴포넌트에서 api 통신으로 받아온 url을 split하여 미리보기url 주소로 바꾸기 위해 쪼갬
 
   return (
-    <div>
-      <Container>
-        {urlList
-          ?.slice(0)
-          .reverse()
-          .map((item: any) => {
-            return <Card key={item} item={item} />;
-          })}
-      </Container>
-    </div>
+    <UserFeedContainer>
+      {urlList?.length === 0 ? (
+        <img src={noFeedImage} />
+      ) : (
+        <Container>
+          {urlList
+            ?.slice(0)
+            .reverse()
+            .map((item: any) => {
+              return <Card key={item} item={item} />;
+            })}
+        </Container>
+      )}
+    </UserFeedContainer>
   );
 }
+
+const UserFeedContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const Container = styled.div`
   width: 100%;
