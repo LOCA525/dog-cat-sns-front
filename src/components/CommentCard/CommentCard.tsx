@@ -1,29 +1,57 @@
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { deleteCommentApi } from '../../api/board';
 import noProfileImage from '../../assets/images/profile3.png';
+import { modeState } from '../../store/themeColor';
 
-function CommentCard({ item }: any) {
+function CommentCard({ item, userId, getComment }: any) {
   const [isProfileImage, setIsProfileImage] = useState(false);
+  const { buttonColor, hoverColor } = useRecoilValue(modeState);
+
+  const deleteCommentClick = async () => {
+    try {
+      const res = await deleteCommentApi(item.id);
+      if (res.status === 200) {
+        const res = await deleteCommentApi(item.id);
+        console.log('삭제성공', res);
+        getComment();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
-      <CardUserContainer>
-        <UserImageContainer>
-          <UserImage src={noProfileImage} />
-          {/* <UserImage src={isProfileImage ? `http://localhost:3030/api/image/${cardUserData.photo}` : noProfileImage} /> */}
-        </UserImageContainer>
-        <ContentContainer>
-          <UserName>{item.User.username}</UserName>
-          <CardContent>{item.content}</CardContent>
-          <CreateDate>
-            {item.createdAt.split('T')[0].split('-')[0]}년 {item.createdAt.split('T')[0].split('-')[1]}월{' '}
-            {item.createdAt.split('T')[0].split('-')[2]}일
-          </CreateDate>
-        </ContentContainer>
-      </CardUserContainer>
+      <CommentCardContainer>
+        <CardUserContainer>
+          <UserImageContainer>
+            <UserImage src={noProfileImage} />
+            {/* <UserImage src={isProfileImage ? `http://localhost:3030/api/image/${cardUserData.photo}` : noProfileImage} /> */}
+          </UserImageContainer>
+          <ContentContainer>
+            <UserName>{item.User.username}</UserName>
+            <CardContent>{item.content}</CardContent>
+            <CreateDate>
+              {item.createdAt.split('T')[0].split('-')[0]}년 {item.createdAt.split('T')[0].split('-')[1]}월{' '}
+              {item.createdAt.split('T')[0].split('-')[2]}일
+            </CreateDate>
+          </ContentContainer>
+        </CardUserContainer>
+        {userId === item.writer && (
+          <DeleteBtnContainer onClick={deleteCommentClick} buttonColor={buttonColor} hoverColor={hoverColor}>
+            <DeleteBtn>X</DeleteBtn>
+          </DeleteBtnContainer>
+        )}
+      </CommentCardContainer>
     </div>
   );
 }
-
+const CommentCardContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 const CardUserContainer = styled.div`
   width: 100%;
   padding: 15px 50px 15px 15px;
@@ -64,4 +92,23 @@ const CreateDate = styled.div`
   text-align: left;
 `;
 
+const DeleteBtnContainer = styled.div<{ buttonColor: string; hoverColor: string }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  background-color: ${props => props.buttonColor};
+  margin-right: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  :hover {
+    background-color: ${props => props.hoverColor};
+  }
+`;
+const DeleteBtn = styled.div`
+  font-size: 10px;
+  font-weight: 900;
+  color: #ffff;
+`;
 export default CommentCard;

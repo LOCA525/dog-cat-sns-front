@@ -79,3 +79,8 @@ export const postCommentApi = async (cardId: number, commentBody: commentBody) =
   const res = await api.post(`/board/${cardId}/comment`, commentBody);
   return res;
 };
+//댓글 삭제
+export const deleteCommentApi = async (commentId: number) => {
+  const res = await api.delete(`/board/${commentId}/comment`);
+  return res;
+};

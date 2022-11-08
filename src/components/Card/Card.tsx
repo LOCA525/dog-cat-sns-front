@@ -163,7 +163,7 @@ function Card({ item }: any) {
               cursor={'pointer'}
             />
           </HeartCommentContainer>
-          <BookMarkBtn width={'32px'} height={'32px'} fill={buttonColor} />
+          {/* <BookMarkBtn width={'32px'} height={'32px'} fill={buttonColor} /> */}
         </ButtonContainer>
         <HeartCount>좋아요 {likeLength}개</HeartCount>
         <TextContainer>
