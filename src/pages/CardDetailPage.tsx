@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { getCardApi } from '../api/board';
 import Card from '../components/Card/Card';
 import UserHeader from '../components/UserHeader';
-import { followCardState } from '../store/cardState';
 import { detailCardId, detailCardUserName } from '../store/detailCardId';
 
 function CardDetailPage() {

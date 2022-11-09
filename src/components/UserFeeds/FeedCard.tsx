@@ -29,6 +29,7 @@ const Card = styled.div<{ url: string }>`
   background-repeat: no-repeat;
   padding-bottom: 100%;
   border: 1px solid #ffff;
+  cursor: pointer;
 `;
 
 export default FeedCard;
