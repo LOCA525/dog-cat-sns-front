@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { deleteCommentApi } from '../../api/board';
@@ -21,13 +21,23 @@ function CommentCard({ item, userId, getComment }: any) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (item.User.Profile.url.length === 0) {
+      setIsProfileImage(false);
+    } else {
+      setIsProfileImage(true);
+    }
+  });
+
   return (
     <div>
       <CommentCardContainer>
         <CardUserContainer>
           <UserImageContainer>
-            <UserImage src={noProfileImage} />
-            {/* <UserImage src={isProfileImage ? `http://localhost:3030/api/image/${cardUserData.photo}` : noProfileImage} /> */}
+            <UserImage
+              src={isProfileImage ? `http://localhost:3030/api/image/${item.User.Profile.url}` : noProfileImage}
+            />
           </UserImageContainer>
           <ContentContainer>
             <UserName>{item.User.username}</UserName>
