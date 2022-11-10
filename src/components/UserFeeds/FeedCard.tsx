@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import { detailCardId } from '../../store/detailCardId';
 
 function FeedCard({ item }: any) {
-  console.log(item);
-
   const navigate = useNavigate();
   const [, setDetailCardId] = useRecoilState(detailCardId);
   return (

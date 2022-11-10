@@ -26,7 +26,8 @@ function LoginPage() {
 
   return (
     <Container>
-      <TitleLogo style={{ margin: '4rem' }} />
+      <TitleLogo style={{ marginTop: '4rem' }} />
+      <HeaderText>친구들의 고양이와 강아지의 사진과 동영상을 보려면 로그인 하세요.</HeaderText>
       <LoginForm />
       <LoginNavigation />
     </Container>
@@ -39,5 +40,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 7rem;
+  margin-top: 4rem;
+`;
+const HeaderText = styled.h3`
+  margin: 2rem 0 2rem 0;
+  color: gray;
+  width: 75%;
 `;

@@ -84,3 +84,9 @@ export const deleteCommentApi = async (commentId: number) => {
   const res = await api.delete(`/board/${commentId}/comment`);
   return res;
 };
+
+//유저 검색
+export const getUserSearchApi = async (userName: string) => {
+  const res = await api.get(`/board/explore/user?name=${userName}`);
+  return res;
+};

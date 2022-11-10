@@ -170,7 +170,7 @@ function Card({ item }: any) {
           <UserNickName>{item.User.username}</UserNickName>
           <CardText>{item.description}</CardText>
         </TextContainer>
-        <CommentCount onClick={navigateCommentPage}>댓글 1개</CommentCount>
+        <CommentCount onClick={navigateCommentPage}>댓글 {item.Reply?.length}개</CommentCount>
         <Date>
           {item.updatedAt.split('T')[0].split('-')[0]}년 {item.updatedAt.split('T')[0].split('-')[1]}월{' '}
           {item.updatedAt.split('T')[0].split('-')[2]}일

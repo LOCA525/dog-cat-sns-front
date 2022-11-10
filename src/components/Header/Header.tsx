@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { getUserSearchApi } from '../../api/board';
 import { ReactComponent as BellBtn } from '../../assets/images/Bell.svg';
 import noProfileImage from '../../assets/images/profile3.png';
 import { ReactComponent as SearchBtn } from '../../assets/images/search.svg';
 import { cardFilterState } from '../../store/cardState';
+import { cardUserId } from '../../store/cardUserId';
 import { blueState, modeState, orangeState } from '../../store/themeColor';
 import UserModal from './UserModal';
 
@@ -14,7 +17,13 @@ function Header({ isProfileImage, userProfileImage }: any) {
   const bluemode = useRecoilValue(blueState);
   const [, setFilter] = useRecoilState(cardFilterState);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [searchValue, setSearchValue] = useState('');
+  const current = useRecoilValue(modeState);
+  const buttonColor = current.buttonColor;
+  const toggleBtnImage = current.toggleBtnImage;
+  const [, setuserId] = useRecoilState(cardUserId);
 
+  const navigate = useNavigate();
   const themeChangeClick = () => {
     document.querySelector('.boardContainer')?.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     if (Theme === orangemode) {
@@ -25,19 +34,45 @@ function Header({ isProfileImage, userProfileImage }: any) {
       setFilter('dogState');
     }
   };
-
-  const current = useRecoilValue(modeState);
-  const buttonColor = current.buttonColor;
-  const toggleBtnImage = current.toggleBtnImage;
+  const searchSubmit = async (e: any) => {
+    e.preventDefault();
+    if (searchValue !== '') {
+      try {
+        const res = await getUserSearchApi(searchValue);
+        if (res.status === 200) {
+          const res = await getUserSearchApi(searchValue);
+          console.log('검색성공', res);
+          setSearchValue('');
+          if (res.data[0].username) {
+            setuserId(res.data[0].id);
+            navigate(`mypage/${res.data[0].username}`);
+          } else {
+            alert('검색한 유저가 없습니다.');
+          }
+        }
+      } catch (error) {
+        console.log(error);
+        alert('검색한 유저가 없습니다.');
+      }
+    } else {
+      alert('내용을 입력해주세요.');
+    }
+  };
 
   return (
     <div>
       <Container>
         <ToggleBtn onClick={themeChangeClick} src={toggleBtnImage} />
-        <SearchForm>
-          <SearchInput placeholder="search" />
-          <SearchBtnContainer>
-            <SearchBtn width={'19px'} height={'17px'} fill={buttonColor} />
+        <SearchForm onSubmit={searchSubmit}>
+          <SearchInput
+            placeholder="NickName"
+            onChange={(e: any) => {
+              setSearchValue(e.target.value);
+            }}
+            value={searchValue}
+          />
+          <SearchBtnContainer onClick={searchSubmit}>
+            <SearchBtn width={'19px'} height={'17px'} fill={buttonColor} cursor={'pointer'} />
           </SearchBtnContainer>
         </SearchForm>
         <HeaderBtn>

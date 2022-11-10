@@ -15,7 +15,6 @@ import MyPage from './pages/MyPage';
 import PasswordChangePage from './pages/PasswordChangePage';
 import ProfileEditPage from './pages/ProfileEditPage';
 import SettingPage from './pages/SettingPage';
-import UserFeedPage from './pages/UserFeedPage';
 import GlobalStyle from './styles/GlobalStyle';
 
 const queryClient = new QueryClient();
@@ -36,7 +35,6 @@ function App() {
                   <Route path="/" element={<MainPage />} />
                   <Route path="/myPage/:id" element={<MyPage />} />
                   <Route path="/cardDetail/:id" element={<CardDetailPage />} />
-                  <Route path="/유저닉네임" element={<UserFeedPage />} />
                   <Route path="/setting" element={<SettingPage />} />
                   <Route path="/accounts/edit" element={<ProfileEditPage />} />
                   <Route path="/accounts/password/change" element={<PasswordChangePage />} />

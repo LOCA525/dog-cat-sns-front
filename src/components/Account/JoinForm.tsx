@@ -45,7 +45,7 @@ function JoinForm() {
         value={email}
         setValue={setEmail}
         RenderComponent={SignInputStyled}
-        placeholder="이메일(필수)"
+        placeholder="이메일 (필수)"
         limit={255}
       />
       <Input
@@ -55,7 +55,7 @@ function JoinForm() {
         value={username}
         setValue={setUsername}
         RenderComponent={SignInputStyled}
-        placeholder="사용자 이름(필수)"
+        placeholder="사용자 닉네임 (필수)"
         validator={/^[A-za-z]{1,}([A-za-z\d]){3,}$/}
         validatorErrorMessage="사용자 이름은 최소 4자 이상이어야 하며 영문으로 시작하는 영문 또는 숫자입니다. ex)love, lo12 ..."
         limit={16}

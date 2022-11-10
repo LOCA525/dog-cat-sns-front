@@ -79,7 +79,7 @@ function UserModal({ setModalOpen }: any) {
 
 const ModalContainer = styled.div<{ buttonColor: string }>`
   position: absolute;
-  right: 0px;
+  right: 5px;
   top: 50px;
   .triangle {
     right: 10px;
