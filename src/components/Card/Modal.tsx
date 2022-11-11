@@ -70,7 +70,7 @@ const ModalContainer = styled.div<{ buttonColor: string }>`
   top: 40px;
   .triangle {
     right: 12px;
-    top: -5px;
+    top: -8px;
     width: 10px;
     background-color: ${props => props.buttonColor};
     height: 30px;

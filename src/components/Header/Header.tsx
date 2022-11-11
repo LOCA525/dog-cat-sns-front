@@ -90,7 +90,7 @@ function Header({ isProfileImage, userProfileImage }: any) {
           />
           <UserBtnContainer
             onClick={() => {
-              setModalOpen(false);
+              setModalOpen(true);
             }}
           >
             <UserBtn src={isProfileImage ? userProfileImage : noProfileImage} />
