@@ -80,10 +80,10 @@ function UserModal({ setModalOpen }: any) {
 const ModalContainer = styled.div<{ buttonColor: string }>`
   position: absolute;
   right: 5px;
-  top: 50px;
+  top: 55px;
   .triangle {
     right: 10px;
-    top: -5px;
+    top: -8px;
     width: 10px;
     background-color: ${props => props.buttonColor};
     height: 30px;
