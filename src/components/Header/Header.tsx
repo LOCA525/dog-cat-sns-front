@@ -9,6 +9,7 @@ import { ReactComponent as SearchBtn } from '../../assets/images/search.svg';
 import { cardFilterState } from '../../store/cardState';
 import { cardUserId } from '../../store/cardUserId';
 import { blueState, modeState, orangeState } from '../../store/themeColor';
+import BellModal from './BellModal';
 import UserModal from './UserModal';
 
 function Header({ isProfileImage, userProfileImage }: any) {
@@ -22,6 +23,7 @@ function Header({ isProfileImage, userProfileImage }: any) {
   const buttonColor = current.buttonColor;
   const toggleBtnImage = current.toggleBtnImage;
   const [, setuserId] = useRecoilState(cardUserId);
+  const [bellModalOpen, setBellModalOpen] = useState(false);
 
   const navigate = useNavigate();
   const themeChangeClick = () => {
@@ -76,16 +78,26 @@ function Header({ isProfileImage, userProfileImage }: any) {
           </SearchBtnContainer>
         </SearchForm>
         <HeaderBtn>
-          <BellBtn width={'28px'} height={'28px'} fill={'#ffff'} stroke={buttonColor} />
+          <BellBtn
+            onClick={() => {
+              setBellModalOpen(!bellModalOpen);
+            }}
+            width={'28px'}
+            height={'28px'}
+            fill={bellModalOpen ? buttonColor : '#ffff'}
+            stroke={buttonColor}
+            cursor={'pointer'}
+          />
           <UserBtnContainer
             onClick={() => {
-              setModalOpen(true);
+              setModalOpen(false);
             }}
           >
             <UserBtn src={isProfileImage ? userProfileImage : noProfileImage} />
           </UserBtnContainer>
 
           {modalOpen && <UserModal modalOpen={modalOpen} setModalOpen={setModalOpen} />}
+          {bellModalOpen && <BellModal />}
         </HeaderBtn>
       </Container>
     </div>
