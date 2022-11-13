@@ -38,7 +38,7 @@ function Board() {
 
 const BoardContainer = styled.div`
   overflow-y: auto;
-  padding: 0 15px 0 15px;
+  padding: 0 15px 15px 15px;
   width: 100%;
   height: calc(100vh - 120px);
   background-color: #f5f6f7;
@@ -54,9 +54,9 @@ const ImageContainer = styled.div`
 `;
 
 const NoFollowingImage = styled.img`
-  max-width: 400px;
+  max-width: 300px;
   width: 100%;
-  max-height: 500px;
+  max-height: 400px;
   height: 100%;
 `;
 

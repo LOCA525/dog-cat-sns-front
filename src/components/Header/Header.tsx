@@ -110,6 +110,11 @@ const Container = styled.div`
   border-bottom: 1px solid rgb(223, 227, 232);
   height: 60px;
   width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  max-width: 500px;
+  background-color: #fff;
 `;
 
 const ToggleBtn = styled.img`

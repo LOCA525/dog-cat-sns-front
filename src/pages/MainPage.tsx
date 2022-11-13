@@ -10,6 +10,7 @@ import Header from '../components/Header/Header';
 import { cardList } from '../store/cardState';
 import { followList } from '../store/followList';
 import { loginUserId, loginUserProfileUrl } from '../store/loginUser';
+import styled from 'styled-components';
 
 function MainPage() {
   const [id, setUserId] = useRecoilState(loginUserId);
@@ -86,12 +87,15 @@ function MainPage() {
   }, []);
 
   return (
-    <div>
+    <Container>
       <Header isProfileImage={isProfileImage} userProfileImage={userProfileImage} />
       <Board />
       <BottomNav />
-    </div>
+    </Container>
   );
 }
 
+const Container = styled.div`
+  padding-top: 60px;
+`;
 export default MainPage;
