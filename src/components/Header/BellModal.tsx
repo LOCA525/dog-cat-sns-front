@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { getFollowApi } from '../../api/account';
 import noProfileImage from '../../assets/images/profile3.png';
+import { cardUserId } from '../../store/cardUserId';
 import { loginUserId } from '../../store/loginUser';
 import { modeState } from '../../store/themeColor';
 
@@ -10,8 +12,9 @@ function BellModal({ setBellModalOpen }: any) {
   const loginUser = useRecoilValue(loginUserId);
   const { buttonColor } = useRecoilValue(modeState);
   const [followList, setFollowList] = useState([]);
+  const [, setUserClick] = useRecoilState(cardUserId);
   const modalRef = useRef<HTMLDivElement>(null);
-
+  const navigate = useNavigate();
   const getFollowAlarm = async () => {
     try {
       const res = await getFollowApi(loginUser);
@@ -52,10 +55,22 @@ function BellModal({ setBellModalOpen }: any) {
               <UserBtnContainer>
                 <UserBtn
                   src={item.Profile === null ? noProfileImage : `http://localhost:3030/api/image/${item.Profile?.url}`}
+                  onClick={() => {
+                    navigate(`/mypage/${item.username}`);
+                    setUserClick(item.id);
+                  }}
                 />
               </UserBtnContainer>
               <UserNameContainer>
-                <span>{item.username}</span>님이 회원님을 팔로우하기 시작했습니다.
+                <span
+                  onClick={() => {
+                    navigate(`/mypage/${item.username}`);
+                    setUserClick(item.id);
+                  }}
+                >
+                  {item.username}
+                </span>
+                님이 회원님을 팔로우하기 시작했습니다.
               </UserNameContainer>
             </UserWrap>
           );

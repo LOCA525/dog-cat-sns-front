@@ -67,7 +67,7 @@ function Modal({ setModalOpen, showModal, showValidationModal, item, image }: an
 const ModalContainer = styled.div<{ buttonColor: string }>`
   position: absolute;
   right: 6px;
-  top: 40px;
+  top: 43px;
   .triangle {
     right: 12px;
     top: -8px;
