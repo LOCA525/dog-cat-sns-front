@@ -25,24 +25,30 @@ function SettingPage() {
   }, []);
 
   return (
-    <>
+    <div>
       <UserHeader headerTitle="설정" />
-      <MainContainer>
-        <LinkStyled to="/accounts/edit">
-          <ProfileIconStyled />
-          <Label>프로필 변경</Label>
-        </LinkStyled>
-        <LinkStyled to="/accounts/password/change">
-          <KeyIconStyled />
-          <Label>비밀번호 변경</Label>
-        </LinkStyled>
-      </MainContainer>
-      <BottomNav />
-    </>
+      <Container>
+        <MainContainer>
+          <LinkStyled to="/accounts/edit">
+            <ProfileIconStyled />
+            <Label>프로필 변경</Label>
+          </LinkStyled>
+          <LinkStyled to="/accounts/password/change">
+            <KeyIconStyled />
+            <Label>비밀번호 변경</Label>
+          </LinkStyled>
+        </MainContainer>
+        <BottomNav />
+      </Container>
+    </div>
   );
 }
 
 export default SettingPage;
+
+const Container = styled.div`
+  padding-top: 60px;
+`;
 
 const MainContainer = styled.div`
   margin: 1rem;

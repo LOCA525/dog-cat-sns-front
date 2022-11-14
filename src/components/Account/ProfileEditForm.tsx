@@ -72,7 +72,7 @@ function ProfileEditForm({ account }: Props) {
         }
       }
       // 유저 아이디가 있는 경우
-      if (userId) {
+      if (userId && name !== '') {
         const updateAccountResponse = await putUpdateAccount({
           userId,
           username: name,
@@ -82,6 +82,8 @@ function ProfileEditForm({ account }: Props) {
         if (updateAccountResponse.status === 200) {
           alert('프로필 정보가 수정되었습니다.');
         }
+      } else {
+        alert('닉네임을 한글자이상 입력해주세요!');
       }
     } catch (error) {
       console.error(error);

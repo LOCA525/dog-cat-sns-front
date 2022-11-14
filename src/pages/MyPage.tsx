@@ -66,6 +66,7 @@ function MyPage() {
 export default MyPage;
 
 const Container = styled.div`
-  height: calc(100vh - 110px);
+  padding-top: 60px;
+  height: calc(100vh - 60px);
   overflow-y: auto;
 `;
