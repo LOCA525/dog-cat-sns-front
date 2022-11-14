@@ -158,7 +158,9 @@ function UploadEditUi({ isEdit }: any) {
 }
 const Container = styled.div`
   width: 100%;
-  height: calc(100vh - 60px);
+  padding-top: 60px;
+  padding-bottom: 15px;
+  height: 100vh;
   overflow-y: auto;
   background-color: #f5f6f7;
 `;

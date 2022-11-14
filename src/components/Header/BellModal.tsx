@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { getFollowApi } from '../../api/account';
+import noProfileImage from '../../assets/images/profile3.png';
 import { loginUserId } from '../../store/loginUser';
 import { modeState } from '../../store/themeColor';
-
 function BellModal() {
   const loginUser = useRecoilValue(loginUserId);
   const { buttonColor } = useRecoilValue(modeState);
   const [followList, setFollowList] = useState([]);
+
   const getFollowAlarm = async () => {
     try {
       const res = await getFollowApi(loginUser);
@@ -24,8 +25,8 @@ function BellModal() {
 
   useEffect(() => {
     getFollowAlarm();
-    console.log(followList);
   }, []);
+  console.log('followList', followList);
 
   return (
     <ModalContainer buttonColor={buttonColor}>
@@ -35,11 +36,13 @@ function BellModal() {
           return (
             <UserWrap key={item.id}>
               <UserBtnContainer>
-                <UserBtn />
+                <UserBtn
+                  src={item.Profile === null ? noProfileImage : `http://localhost:3030/api/image/${item.Profile?.url}`}
+                />
               </UserBtnContainer>
-              <div>
+              <UserNameContainer>
                 <span>{item.username}</span>님이 회원님을 팔로우하기 시작했습니다.
-              </div>
+              </UserNameContainer>
             </UserWrap>
           );
         })}
@@ -84,16 +87,16 @@ const AlarmContainer = styled.div`
 `;
 
 const UserBtnContainer = styled.div`
-  width: 35px;
-  height: 35px;
-  border-radius: 30px;
-  margin-right: 10px;
+  width: 37px;
+  height: 37px;
+  border-radius: 50px;
+  margin-right: 5px;
   cursor: pointer;
 `;
 const UserBtn = styled.img`
   width: 100%;
   height: 100%;
-  border-radius: 30px;
+  border-radius: 50px;
 `;
 
 const UserWrap = styled.div`
@@ -105,5 +108,9 @@ const UserWrap = styled.div`
     font-weight: 900;
     cursor: pointer;
   }
+`;
+
+const UserNameContainer = styled.div`
+  flex: 1;
 `;
 export default BellModal;

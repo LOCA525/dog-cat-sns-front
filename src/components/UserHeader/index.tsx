@@ -34,6 +34,9 @@ function UserHeader({ headerTitle }: propsType) {
 export default UserHeader;
 
 const Container = styled.div`
+  position: fixed;
+  max-width: 500px;
+  background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;

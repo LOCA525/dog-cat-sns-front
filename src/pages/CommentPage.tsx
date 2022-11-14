@@ -106,7 +106,8 @@ const CommentContainer = styled.div`
   width: 100%;
   max-width: 500px;
   display: flex;
-  height: calc(100vh - 110px);
+  padding-top: 60px;
+  height: 100vh;
   flex-direction: column;
 `;
 const CommentUserImageContainer = styled.div`

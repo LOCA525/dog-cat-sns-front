@@ -54,9 +54,9 @@ const ImageContainer = styled.div`
 `;
 
 const NoFollowingImage = styled.img`
-  max-width: 300px;
+  max-width: 400px;
   width: 100%;
-  max-height: 400px;
+  max-height: 500px;
   height: 100%;
 `;
 
