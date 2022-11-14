@@ -136,7 +136,9 @@ function Card({ item }: any) {
                 />
               </UserImageContainer>
 
-              <UserNickName onClick={navigateUserPage}>{item.User.username}</UserNickName>
+              <UserNickName onClick={navigateUserPage}>
+                <span>{item.User.username}</span>
+              </UserNickName>
             </UserWrap>
 
             <MoreBtn width={'25px'} height={'25px'} fill={buttonColor} onClick={showModal} cursor={'pointer'} />
@@ -167,10 +169,14 @@ function Card({ item }: any) {
         </ButtonContainer>
         <HeartCount>좋아요 {likeLength}개</HeartCount>
         <TextContainer>
-          <UserNickName>{item.User.username}</UserNickName>
+          <UserNickName>
+            <span onClick={navigateUserPage}>{item.User.username}</span>
+          </UserNickName>
           <CardText>{item.description}</CardText>
         </TextContainer>
-        <CommentCount onClick={navigateCommentPage}>댓글 {item.Reply?.length}개</CommentCount>
+        <CommentCount>
+          <span onClick={navigateCommentPage}>댓글 {item.Reply?.length}개</span>
+        </CommentCount>
         <Date>
           {item.updatedAt.split('T')[0].split('-')[0]}년 {item.updatedAt.split('T')[0].split('-')[1]}월{' '}
           {item.updatedAt.split('T')[0].split('-')[2]}일
@@ -221,10 +227,12 @@ const UserImage = styled.img`
   cursor: pointer;
 `;
 const UserNickName = styled.div`
-  cursor: pointer;
   font-size: 14px;
   font-weight: 900;
   margin-bottom: 5px;
+  span {
+    cursor: pointer;
+  }
 `;
 
 const CardImage = styled.div<{ image: string }>`
@@ -255,11 +263,13 @@ const HeartCount = styled.div`
   padding-bottom: 10px;
 `;
 const CommentCount = styled.div`
-  cursor: pointer;
   font-size: 14px;
   color: #8e8e8e;
   padding-left: 20px;
   padding-bottom: 8px;
+  span {
+    cursor: pointer;
+  }
 `;
 const TextContainer = styled.div`
   font-weight: 400;
