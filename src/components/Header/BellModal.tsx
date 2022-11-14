@@ -1,14 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { getFollowApi } from '../../api/account';
 import noProfileImage from '../../assets/images/profile3.png';
 import { loginUserId } from '../../store/loginUser';
 import { modeState } from '../../store/themeColor';
-function BellModal() {
+
+function BellModal({ setBellModalOpen }: any) {
   const loginUser = useRecoilValue(loginUserId);
   const { buttonColor } = useRecoilValue(modeState);
   const [followList, setFollowList] = useState([]);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const getFollowAlarm = async () => {
     try {
@@ -28,8 +30,20 @@ function BellModal() {
   }, []);
   console.log('followList', followList);
 
+  useEffect(() => {
+    const handler = (e: any) => {
+      if (modalRef.current && !modalRef.current.contains(e.target)) {
+        setBellModalOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => {
+      document.removeEventListener('mousedown', handler);
+    };
+  });
+
   return (
-    <ModalContainer buttonColor={buttonColor}>
+    <ModalContainer ref={modalRef} buttonColor={buttonColor}>
       <div className="triangle"></div>
       <AlarmContainer>
         {followList.map((item: any) => {

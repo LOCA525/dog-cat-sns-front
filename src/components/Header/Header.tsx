@@ -79,6 +79,7 @@ function Header({ isProfileImage, userProfileImage }: any) {
         </SearchForm>
         <HeaderBtn>
           <BellBtn
+            className="bellBtn"
             onClick={() => {
               setBellModalOpen(!bellModalOpen);
             }}
@@ -89,15 +90,15 @@ function Header({ isProfileImage, userProfileImage }: any) {
             cursor={'pointer'}
           />
           <UserBtnContainer
+            className="userBtn"
             onClick={() => {
               setModalOpen(true);
             }}
           >
             <UserBtn src={isProfileImage ? userProfileImage : noProfileImage} />
           </UserBtnContainer>
-
           {modalOpen && <UserModal modalOpen={modalOpen} setModalOpen={setModalOpen} />}
-          {bellModalOpen && <BellModal />}
+          {bellModalOpen && <BellModal setBellModalOpen={setBellModalOpen} />}
         </HeaderBtn>
       </Container>
     </div>
