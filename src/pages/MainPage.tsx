@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios, { type AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import styled from 'styled-components';
 import { getFollowApi } from '../api/account';
 import { getAccountData, getBoardApi } from '../api/board';
 import Board from '../components/Board/Board';
@@ -10,7 +11,7 @@ import Header from '../components/Header/Header';
 import { cardList } from '../store/cardState';
 import { followList } from '../store/followList';
 import { loginUserId, loginUserProfileUrl } from '../store/loginUser';
-import styled from 'styled-components';
+import Loading from '../components/Loading/Loading';
 
 function MainPage() {
   const [id, setUserId] = useRecoilState(loginUserId);
@@ -19,9 +20,11 @@ function MainPage() {
   const [follow, setFollowList] = useRecoilState(followList);
   const [isProfileImage, setIsProfileImage] = useState(false);
   const [userProfileImage, setUserProfileImage] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   const getAccount = async () => {
+    setIsLoading(true);
     try {
       const res = await getAccountData();
       if (res.status === 200) {
@@ -35,6 +38,7 @@ function MainPage() {
           setUserProfileImage(`http://localhost:3030/api/image/${res.data?.profile.url}`);
           setProfileUrl(`http://localhost:3030/api/image/${res.data?.profile.url}`);
         }
+        setIsLoading(false);
         return true;
       }
     } catch (error) {
@@ -88,6 +92,7 @@ function MainPage() {
 
   return (
     <Container>
+      {isLoading && <Loading />}
       <Header isProfileImage={isProfileImage} userProfileImage={userProfileImage} />
       <Board />
       <BottomNav />

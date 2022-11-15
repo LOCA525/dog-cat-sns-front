@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { getCommentApi, postCommentApi } from '../api/board';
 import noProfileImage from '../assets/images/profile3.png';
 import CommentCard from '../components/CommentCard/CommentCard';
+import Loading from '../components/Loading/Loading';
 import UserHeader from '../components/UserHeader';
 import { commentCard } from '../store/commentCard';
 import { loginUserId, loginUserProfileUrl } from '../store/loginUser';
@@ -17,13 +18,17 @@ function CommentPage() {
   const { buttonColor, hoverColor } = useRecoilValue(modeState);
   const [commentContent, setCommentContent] = useState('');
   const userId = useRecoilValue(loginUserId);
+  const [isLoading, setIsLoading] = useState(true);
+
   const getComment = async () => {
+    setIsLoading(true);
     try {
       const res = await getCommentApi(cardUserData.cardId);
       if (res.status === 200) {
         const res = await getCommentApi(cardUserData.cardId);
         console.log('댓글조회성공', res);
         setCommentData(res.data);
+        setIsLoading(false);
       }
     } catch (error) {
       console.log('댓글조회에러', error);
@@ -63,6 +68,7 @@ function CommentPage() {
   return (
     <div>
       <UserHeader headerTitle="댓글" />
+      {isLoading && <Loading />}
       <CommentContainer>
         <CardUserContainer>
           <UserImageContainer>
