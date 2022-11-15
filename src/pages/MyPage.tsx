@@ -3,6 +3,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { getMypageData } from '../api/myPage';
 import BottomNav from '../components/BottomNav/BottomNav';
+import Loading from '../components/Loading/Loading';
 import UserFeeds from '../components/UserFeeds/UserFeeds';
 import UserHeader from '../components/UserHeader';
 import UserProfile from '../components/UserProfile';
@@ -15,7 +16,10 @@ function MyPage() {
   const [isFollow, setIsFollow] = useState(false);
   const [isProfileImage, setIsProfileImage] = useState(false);
   const [, setDetailcardUserName] = useRecoilState(detailCardUserName);
+  const [isLoading, setIsLoading] = useState(true);
+
   const getMypage = async () => {
+    setIsLoading(true);
     try {
       const res = await getMypageData(userId);
       if (res.status === 200) {
@@ -35,6 +39,7 @@ function MyPage() {
         } else {
           setIsProfileImage(true);
         }
+        setIsLoading(false);
       }
     } catch (error) {
       console.log('마이페이지가져오기에러', error);
@@ -47,6 +52,7 @@ function MyPage() {
   return (
     <div>
       <UserHeader headerTitle={userData.username} />
+      {isLoading && <Loading />}
       <Container>
         <UserProfile
           userData={userData}

@@ -12,6 +12,7 @@ import { cardUserId } from '../../store/cardUserId';
 import { commentCard } from '../../store/commentCard';
 import { loginUserId } from '../../store/loginUser';
 import { modeState } from '../../store/themeColor';
+import Loading from '../Loading/Loading';
 import Modal from './Modal';
 import ValidationModal from './ValidationModal';
 
@@ -25,6 +26,7 @@ function Card({ item }: any) {
   const [likeLength, setLikeLength] = useState('');
   const [isProfileImage, setIsProfileImage] = useState(false); //카드 유저의 프로필 이미지가 있는지 없는지 체크하는 스테이트
   const [commentCardState, setCommentCardState] = useRecoilState(commentCard);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   // 카드 우측상단 more버튼 클릭시 뜨는 모달창
@@ -69,6 +71,7 @@ function Card({ item }: any) {
   };
 
   const getCard = async () => {
+    setIsLoading(true);
     try {
       const res = await getCardApi(item.id);
       if (res.status === 200) {
@@ -78,9 +81,11 @@ function Card({ item }: any) {
         setLikeLength(likeList.length);
         const isLike = likeList.some((item: { user_id: number }) => item.user_id === userId);
         setHeartState(isLike);
+        setIsLoading(false);
       }
     } catch (error) {
       console.log('카드조회실패', error);
+      setIsLoading(false);
     }
   };
 
@@ -115,6 +120,7 @@ function Card({ item }: any) {
 
   return (
     <div>
+      {isLoading && <Loading />}
       {validationModalOpen && <ValidationModal showValidationModal={showValidationModal} cardId={item.id} />}
       <CardContainer>
         {modalOpen && (
