@@ -21,10 +21,10 @@ function CommentCard({ item, userId, getComment }: any) {
       console.log(error);
     }
   };
-  console.log(item);
+  console.log('item', item);
 
   useEffect(() => {
-    if (item.User.Profile.url.length === 0) {
+    if (item.User.Profile === null) {
       setIsProfileImage(false);
     } else {
       setIsProfileImage(true);
