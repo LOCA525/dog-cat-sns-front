@@ -1,4 +1,4 @@
-import Lottie from 'lottie-react';
+import Lottie from 'react-lottie-player';
 import styled from 'styled-components';
 import animateCat from '../Loading/116545-loading-cat.json';
 
@@ -6,7 +6,7 @@ function Loading() {
   return (
     <Container>
       <AnimateCat>
-        <Lottie animationData={animateCat} />
+        <Lottie animationData={animateCat} speed={5} loop play />
       </AnimateCat>
     </Container>
   );
@@ -25,7 +25,7 @@ const Container = styled.div`
 `;
 
 const AnimateCat = styled.div`
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
 `;
 export default Loading;

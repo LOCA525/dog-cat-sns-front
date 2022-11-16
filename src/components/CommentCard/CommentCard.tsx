@@ -21,6 +21,7 @@ function CommentCard({ item, userId, getComment }: any) {
       console.log(error);
     }
   };
+  console.log(item);
 
   useEffect(() => {
     if (item.User.Profile.url.length === 0) {
