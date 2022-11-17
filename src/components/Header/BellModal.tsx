@@ -49,32 +49,43 @@ function BellModal({ setBellModalOpen }: any) {
     <ModalContainer ref={modalRef} buttonColor={buttonColor}>
       <div className="triangle"></div>
       <AlarmContainer>
-        {followList.map((item: any) => {
-          return (
-            <UserWrap key={item.id}>
-              <UserBtnContainer>
-                <UserBtn
-                  src={item.Profile === null ? noProfileImage : `http://localhost:3030/api/image/${item.Profile?.url}`}
-                  onClick={() => {
-                    navigate(`/mypage/${item.username}`);
-                    setUserClick(item.id);
-                  }}
-                />
-              </UserBtnContainer>
-              <UserNameContainer>
-                <span
-                  onClick={() => {
-                    navigate(`/mypage/${item.username}`);
-                    setUserClick(item.id);
-                  }}
-                >
-                  {item.username}
-                </span>
-                님이 회원님을 팔로우하기 시작했습니다.
-              </UserNameContainer>
-            </UserWrap>
-          );
-        })}
+        {followList.length === 0 ? (
+          <NoFollowerContainer>
+            회원님을 팔로우중인 유저가 없네요!<br></br> 회원님의 반려동물 과의 추억 사진을 공유하여 팔로워를
+            늘려보세요!!
+          </NoFollowerContainer>
+        ) : (
+          <div>
+            {followList.map((item: any) => {
+              return (
+                <UserWrap key={item.id}>
+                  <UserBtnContainer>
+                    <UserBtn
+                      src={
+                        item.Profile === null ? noProfileImage : `http://localhost:3030/api/image/${item.Profile?.url}`
+                      }
+                      onClick={() => {
+                        navigate(`/mypage/${item.username}`);
+                        setUserClick(item.id);
+                      }}
+                    />
+                  </UserBtnContainer>
+                  <UserNameContainer>
+                    <span
+                      onClick={() => {
+                        navigate(`/mypage/${item.username}`);
+                        setUserClick(item.id);
+                      }}
+                    >
+                      {item.username}
+                    </span>
+                    님이 회원님을 팔로우하기 시작했습니다.
+                  </UserNameContainer>
+                </UserWrap>
+              );
+            })}
+          </div>
+        )}
       </AlarmContainer>
     </ModalContainer>
   );
@@ -115,6 +126,11 @@ const AlarmContainer = styled.div`
   padding: 0px 10px 10px 10px;
 `;
 
+const NoFollowerContainer = styled.div`
+  margin-top: 10px;
+  text-align: left;
+  font-weight: 700;
+`;
 const UserBtnContainer = styled.div`
   width: 37px;
   height: 37px;

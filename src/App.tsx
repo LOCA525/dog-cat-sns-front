@@ -8,6 +8,7 @@ import Logo from './components/Logo';
 import CardDetailPage from './pages/CardDetailPage';
 import CommentPage from './pages/CommentPage';
 import EditPage from './pages/EditPage';
+import FollowPage from './pages/FollowPage';
 import JoinPage from './pages/JoinPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
@@ -41,6 +42,7 @@ function App() {
                   <Route path="/upload" element={<UploadPage />} />
                   <Route path="/edit" element={<EditPage />} />
                   <Route path="/comment" element={<CommentPage />} />
+                  <Route path="/myPage/:id/follow" element={<FollowPage />} />
                 </Routes>
               </MainContent>
             </BrowserRouter>
