@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { deleteFollowApi, postFollowApi } from '../../api/account';
 import noProfileImage from '../../assets/images/profile3.png';
+import { followListUserId, followListUserName, isFollowerList } from '../../store/FollowPage';
 import { loginUserId } from '../../store/loginUser';
 import { modeState } from '../../store/themeColor';
 
@@ -12,8 +13,11 @@ function UserProfile({ userData, userId, isFollow, getMyPage, isProfileImage }: 
   const loginId = useRecoilValue(loginUserId);
   const [isYours, setIsYours] = useState(false);
   const { buttonColor, hoverColor } = useRecoilValue(modeState);
-
+  const [, setFollowListUser] = useRecoilState(followListUserId);
+  const [, setIsFollowerClick] = useRecoilState(isFollowerList);
+  const [, setUserName] = useRecoilState(followListUserName);
   const navigate = useNavigate();
+
   useEffect(() => {
     if (userId === loginId) {
       setIsYours(true);
@@ -52,6 +56,20 @@ function UserProfile({ userData, userId, isFollow, getMyPage, isProfileImage }: 
     }
   };
 
+  const navigateFollowerClick = () => {
+    setFollowListUser(userId);
+    setIsFollowerClick(true);
+    setUserName(userData.username);
+    navigate(`/myPage/${userData.username}/follow`);
+  };
+
+  const navigateFollowingClick = () => {
+    setFollowListUser(userId);
+    setIsFollowerClick(false);
+    setUserName(userData.username);
+    navigate(`/myPage/${userData.username}/follow`);
+  };
+
   return (
     <Container>
       <ProfileContainer>
@@ -65,11 +83,11 @@ function UserProfile({ userData, userId, isFollow, getMyPage, isProfileImage }: 
             <span>{userData.BoardList?.length}</span>
             <div>게시물</div>
           </FeedCount>
-          <FollowerCount>
+          <FollowerCount onClick={navigateFollowerClick}>
             <span>{userData.follower}</span>
             <div>팔로워</div>
           </FollowerCount>
-          <FollowingCount>
+          <FollowingCount onClick={navigateFollowingClick}>
             <span>{userData.following}</span>
             <div>팔로잉</div>
           </FollowingCount>
@@ -136,12 +154,14 @@ const FeedCount = styled.div`
 `;
 
 const FollowerCount = styled.div`
+  cursor: pointer;
   div {
     font-weight: 500;
   }
 `;
 
 const FollowingCount = styled.div`
+  cursor: pointer;
   div {
     font-weight: 500;
   }
