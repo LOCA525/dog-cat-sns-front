@@ -51,8 +51,8 @@ function BellModal({ setBellModalOpen }: any) {
       <AlarmContainer>
         {followList.length === 0 ? (
           <NoFollowerContainer>
-            회원님을 팔로우중인 유저가 없네요!<br></br> 회원님의 반려동물 과의 추억 사진을 공유하여 팔로워를
-            늘려보세요!!
+            회원님을 팔로우중인 유저가 없네요!<br></br> <br></br> 회원님의 반려동물 과의 추억 사진을 공유하여 팔로워를
+            늘려보세요!
           </NoFollowerContainer>
         ) : (
           <div>
