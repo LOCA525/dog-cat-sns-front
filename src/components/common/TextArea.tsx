@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { ReactSetState, ReactTextAreaProps } from '../../types/reactTypes';
 
@@ -33,8 +32,7 @@ function TextArea(props: TextAreaProps) {
         const heightString = textAreaElement.style.height;
         const height = +heightString.slice(0, heightString.length - 2);
         const scrollHeight = textAreaElement.scrollHeight;
-        const heightGap =
-          lineHeight > 1 ? lineHeight : Math.abs(height - scrollHeight);
+        const heightGap = lineHeight > 1 ? lineHeight : Math.abs(height - scrollHeight);
 
         if (heightGap > 1 && scrollHeight > heightGap * (maxRows + 1)) {
           setLineHeight(heightGap);
@@ -62,9 +60,9 @@ function TextArea(props: TextAreaProps) {
   }, [textAreaElement, value]);
 
   return (
-    (WrappedComponent && (
-      <WrappedComponent ref={textAreaRef} onChange={handleChange} {...props} />
-    )) || <textarea ref={textAreaRef} onChange={handleChange} {...props} />
+    (WrappedComponent && <WrappedComponent ref={textAreaRef} onChange={handleChange} {...props} />) || (
+      <textarea ref={textAreaRef} onChange={handleChange} {...props} />
+    )
   );
 }
 
