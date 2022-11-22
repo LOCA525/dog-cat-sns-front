@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { getCardApi } from '../api/board';
 import Card from '../components/Card/Card';
@@ -19,7 +19,6 @@ function CardDetailPage() {
       const res = await getCardApi(detailCard);
       if (res.status === 200) {
         const res = await getCardApi(detailCard);
-        console.log('카드조회성공', res);
         setCard(res.data);
       }
       setIsLoading(false);
