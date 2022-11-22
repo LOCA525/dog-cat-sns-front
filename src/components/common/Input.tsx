@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ReactInputProps, ReactSetState } from '../../types/reactTypes';
 
 export declare interface InputProps extends ReactInputProps {
@@ -17,15 +16,7 @@ export declare interface InputProps extends ReactInputProps {
 }
 
 function Input(props: InputProps) {
-  const {
-    RenderComponent,
-    notEnterSubmit,
-    setValue,
-    limit,
-    validator,
-    validatorErrorMessage,
-    ...restProps
-  } = props;
+  const { RenderComponent, notEnterSubmit, setValue, limit, validator, validatorErrorMessage, ...restProps } = props;
 
   const { required, onKeyDown, onChange } = restProps;
 
@@ -66,13 +57,7 @@ function Input(props: InputProps) {
   }
 
   return (
-    (RenderComponent && (
-      <RenderComponent
-        onKeyDown={handleKeyDown}
-        onChange={handleChange}
-        {...restProps}
-      />
-    )) || (
+    (RenderComponent && <RenderComponent onKeyDown={handleKeyDown} onChange={handleChange} {...restProps} />) || (
       <input onKeyDown={handleKeyDown} onChange={handleChange} {...restProps} />
     )
   );
