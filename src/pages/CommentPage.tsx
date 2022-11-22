@@ -26,7 +26,6 @@ function CommentPage() {
       const res = await getCommentApi(cardUserData.cardId);
       if (res.status === 200) {
         const res = await getCommentApi(cardUserData.cardId);
-        console.log('댓글조회성공', res);
         setCommentData(res.data);
         setIsLoading(false);
       }
@@ -54,7 +53,6 @@ function CommentPage() {
       try {
         const res = await postCommentApi(cardUserData.cardId, commentBody);
         if (res.status === 200) {
-          console.log('댓글작성성공', res);
           getComment();
           setCommentContent('');
         }

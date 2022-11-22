@@ -1,75 +1,74 @@
-{
-  "env": {
-    "browser": true,
-    "es2021": true
-  },
-  // eslint-config 또는 eslint-plugin에 대하여 기본 규칙을 확장하여 설정할 수 있다.
-  "extends": [
-    // eslint react default
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    // import
-    "plugin:import/typescript",
-    "plugin:import/recommended",
-    "plugin:import/warnings",
-    "plugin:import/errors",
-    // https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#removing-unused-react-imports
-    "plugin:react/jsx-runtime"
-  ],
-  "overrides": [
-    {
-      // ts, tsx 파일에 대해서만 eslint가 작동되도록 설정
-      "files": ["*.ts", "*.tsx"],
-      "parserOptions": {
-        "project": ["./tsconfig.json"]
-      }
-    }
-  ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": "latest",
-    "sourceType": "module"
-  },
-  // eslint-plugin-{name}, 패키지에 미리 설정된 기본 규칙을 가져오는 옵션이다.
-  "plugins": ["react", "@typescript-eslint"],
-  "settings": {
-    "import/resolver": {
-      "typescript": {}
-    },
-    "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
-    },
-    "import/cache": {
-      "lifeTime": "1200"
-    }
-  },
-  // 파싱 에러시 경로 관련 참고자료: https://bobbyhadz.com/blog/typescript-parsing-error-cannot-read-file
+// {
+//   "env": {
+//     "browser": true,
+//     "es2021": true
+//   },
+//   // eslint-config 또는 eslint-plugin에 대하여 기본 규칙을 확장하여 설정할 수 있다.
+//   "extends": [
+//     // eslint react default
+//     "eslint:recommended",
+//     "plugin:@typescript-eslint/recommended",
+//     "plugin:react/recommended",
+//     // import
+//     "plugin:import/typescript",
+//     "plugin:import/recommended",
+//     "plugin:import/warnings",
+//     "plugin:import/errors",
+//     // https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#removing-unused-react-imports
+//     "plugin:react/jsx-runtime"
+//   ],
+//   "overrides": [
+//     {
+//       "files": ["*.ts", "*.tsx"],
+//       "parserOptions": {
+//         "project": ["./tsconfig.json"]
+//       }
+//     }
+//   ],
+//   "parser": "@typescript-eslint/parser",
+//   "parserOptions": {
+//     "ecmaFeatures": {
+//       "jsx": true
+//     },
+//     "ecmaVersion": "latest",
+//     "sourceType": "module"
+//   },
+//   // eslint-plugin-{name}, 패키지에 미리 설정된 기본 규칙을 가져오는 옵션이다.
+//   "plugins": ["react", "@typescript-eslint"],
+//   "settings": {
+//     "import/resolver": {
+//       "typescript": {}
+//     },
+//     "import/parsers": {
+//       "@typescript-eslint/parser": [".ts", ".tsx"]
+//     },
+//     "import/cache": {
+//       "lifeTime": "1200"
+//     }
+//   },
+//   // 파싱 에러시 경로 관련 참고자료: https://bobbyhadz.com/blog/typescript-parsing-error-cannot-read-file
 
-  // extends보다 우선 적용되는 규칙
-  "rules": {
-    // import 정렬 규칙 설정 https://github.com/import-js/eslint-plugin-import/blob/v2.26.0/docs/rules/order.md
-    "import/order": [
-      "warn",
-      {
-        "groups": ["builtin", "external", "internal", "parent"],
-        "pathGroups": [
-          {
-            "pattern": "react",
-            "group": "external",
-            "position": "before"
-          }
-        ],
-        "pathGroupsExcludedImportTypes": ["react"],
-        "newlines-between": "never",
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        }
-      }
-    ]
-  }
-}
+//   // extends보다 우선 적용되는 규칙
+//   "rules": {
+//     // import 정렬 규칙 설정 https://github.com/import-js/eslint-plugin-import/blob/v2.26.0/docs/rules/order.md
+//     "import/order": [
+//       "warn",
+//       {
+//         "groups": ["builtin", "external", "internal", "parent"],
+//         "pathGroups": [
+//           {
+//             "pattern": "react",
+//             "group": "external",
+//             "position": "before"
+//           }
+//         ],
+//         "pathGroupsExcludedImportTypes": ["react"],
+//         "newlines-between": "never",
+//         "alphabetize": {
+//           "order": "asc",
+//           "caseInsensitive": true
+//         }
+//       }
+//     ]
+//   }
+// }
