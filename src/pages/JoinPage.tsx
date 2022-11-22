@@ -26,10 +26,12 @@ function JoinPage() {
 
   return (
     <Container>
-      <TitleLogo style={{ marginTop: '4rem' }} />
-      <HeaderText>친구들의 고양이와 강아지의 사진과 동영상을 보려면 가입하세요.</HeaderText>
-      <JoinForm />
-      <JoinNavigation />
+      <FormContainer>
+        <TitleLogo style={{ marginTop: '4rem' }} />
+        <HeaderText>친구들의 고양이와 강아지의 사진과 동영상을 보려면 가입하세요.</HeaderText>
+        <JoinForm />
+        <JoinNavigation />
+      </FormContainer>
     </Container>
   );
 }
@@ -37,10 +39,17 @@ function JoinPage() {
 export default JoinPage;
 
 const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 4rem;
 `;
 
 const HeaderText = styled.h3`

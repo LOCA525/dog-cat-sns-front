@@ -26,10 +26,12 @@ function LoginPage() {
 
   return (
     <Container>
-      <TitleLogo style={{ marginTop: '4rem' }} />
-      <HeaderText>친구들의 고양이와 강아지의 사진과 동영상을 보려면 로그인 하세요.</HeaderText>
-      <LoginForm />
-      <LoginNavigation />
+      <FormContainer>
+        <TitleLogo style={{ marginTop: '4rem' }} />
+        <HeaderText>친구들의 고양이와 강아지의 사진과 동영상을 보려면 로그인 하세요.</HeaderText>
+        <LoginForm />
+        <LoginNavigation />
+      </FormContainer>
     </Container>
   );
 }
@@ -37,10 +39,17 @@ function LoginPage() {
 export default LoginPage;
 
 const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 4rem;
 `;
 const HeaderText = styled.h3`
   margin: 2rem 0 2rem 0;
