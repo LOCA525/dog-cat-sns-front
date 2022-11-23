@@ -35,8 +35,8 @@ function MainPage() {
           setIsProfileImage(false);
         } else {
           setIsProfileImage(true);
-          setUserProfileImage(`http://localhost:3030/api/image/${res.data?.profile.url}`);
-          setProfileUrl(`http://localhost:3030/api/image/${res.data?.profile.url}`);
+          setUserProfileImage(`http://43.201.89.17:3030/api/image/${res.data?.profile.url}`);
+          setProfileUrl(`http://43.201.89.17:3030/api/image/${res.data?.profile.url}`);
         }
         setIsLoading(false);
         return true;

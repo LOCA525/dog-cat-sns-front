@@ -62,7 +62,9 @@ function BellModal({ setBellModalOpen }: any) {
                   <UserBtnContainer>
                     <UserBtn
                       src={
-                        item.Profile === null ? noProfileImage : `http://localhost:3030/api/image/${item.Profile?.url}`
+                        item.Profile === null
+                          ? noProfileImage
+                          : `http://43.201.89.17:3030/api/image/${item.Profile?.url}`
                       }
                       onClick={() => {
                         navigate(`/mypage/${item.username}`);

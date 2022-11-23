@@ -21,7 +21,7 @@ const Card = styled.div<{ url: string }>`
   width: 100%;
   height: 100%;
   background-color: #000;
-  background-image: url(http://localhost:3030/api/image/${props => props.url});
+  background-image: url(http://43.201.89.17:3030/api/image/${props => props.url});
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;

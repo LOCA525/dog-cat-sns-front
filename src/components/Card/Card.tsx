@@ -130,7 +130,7 @@ function Card({ item }: any) {
             showModal={showModal}
             showValidationModal={showValidationModal}
             item={item}
-            image={`http://localhost:3030/api/image/${item.Photo.url}`}
+            image={`http://43.201.89.17:3030/api/image/${item.Photo.url}`}
           />
         )}
         <HeaderContainer>
@@ -138,7 +138,7 @@ function Card({ item }: any) {
             <UserWrap>
               <UserImageContainer onClick={navigateUserPage}>
                 <UserImage
-                  src={isProfileImage ? `http://localhost:3030/api/image/${item.User.Profile.url}` : noProfileImage}
+                  src={isProfileImage ? `http://43.201.89.17:3030/api/image/${item.User.Profile.url}` : noProfileImage}
                 />
               </UserImageContainer>
 
@@ -244,7 +244,7 @@ const UserNickName = styled.div`
 const CardImage = styled.div<{ image: string }>`
   width: 100%;
   padding-bottom: 100%;
-  background-image: url(http://localhost:3030/api/image/${props => props.image});
+  background-image: url(http://43.201.89.17:3030/api/image/${props => props.image});
   background-color: #000;
   background-position: center;
   background-size: contain;

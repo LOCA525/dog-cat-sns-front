@@ -71,7 +71,7 @@ function CommentPage() {
         <CardUserContainer>
           <UserImageContainer>
             <UserImage
-              src={isProfileImage ? `http://localhost:3030/api/image/${cardUserData.photo}` : noProfileImage}
+              src={isProfileImage ? `http://43.201.89.17:3030/api/image/${cardUserData.photo}` : noProfileImage}
             />
           </UserImageContainer>
           <ContentContainer>

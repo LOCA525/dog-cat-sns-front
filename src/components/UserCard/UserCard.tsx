@@ -17,7 +17,7 @@ function UserCard({ item }: any) {
       <UserImageContainer>
         <UserImage
           onClick={navigateClick}
-          src={item.Profile === null ? noProfileImage : `http://localhost:3030/api/image/${item.Profile?.url}`}
+          src={item.Profile === null ? noProfileImage : `http://43.201.89.17:3030/api/image/${item.Profile?.url}`}
         />
       </UserImageContainer>
       <UserContentContainer>
