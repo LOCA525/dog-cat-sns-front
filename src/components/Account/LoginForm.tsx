@@ -25,7 +25,7 @@ function LoginForm() {
     mutateLogin(
       { email, password },
       {
-        onSuccess: (response: AxiosResponse<string, unknown>) => {
+        onSuccess: () => {
           // alert(response?.data);
           if (isSaveIdCheck) {
             saveUserEmail(email);
