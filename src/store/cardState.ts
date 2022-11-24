@@ -20,10 +20,10 @@ export const filteredCardState = selector({
 
     switch (filter) {
       case 'dogState':
-        return card.filter((item: any) => item.type === 'DOG');
+        return Array.isArray(card) ? card.filter((item: any) => item.type === 'DOG') : [];
 
       case 'catState':
-        return card.filter((item: any) => item.type === 'CAT');
+        return Array.isArray(card) ? card.filter((item: any) => item.type === 'CAT') : [];
 
       default:
         return card;
