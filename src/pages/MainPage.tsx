@@ -42,11 +42,11 @@ function MainPage() {
         return true;
       }
     } catch (error) {
-      console.log('에러', error, axios.isAxiosError(error));
       const { response } = error as AxiosError;
-      if (response && response.status === 404) {
-        navigate('/login');
-      }
+      console.log('에러', error, response, axios.isAxiosError(error));
+      navigate('/login');
+      // if (response && response.status === 404) {
+      // }
 
       // 로그인이 되어 있지 않는 경우 로그인 페이지로 이동
       // if (axios.isAxiosError(error)) {
