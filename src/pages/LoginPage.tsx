@@ -15,8 +15,10 @@ function LoginPage() {
   async function loginChecked() {
     let data = null;
     data = await getAccount();
+    console.log('data', data);
+
     if (data) {
-      navigator('/');
+      // navigator('/');
     }
   }
 
