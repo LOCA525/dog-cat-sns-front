@@ -1,5 +1,5 @@
 [[redirects]]
   from = "/proxy/*"
-  to = "https://doggydoggy-kittykiity.netlify.app/"
+  to = "http://43.201.89.17:3030/"
   status = 200
   force = true
