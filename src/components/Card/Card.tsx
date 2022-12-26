@@ -244,7 +244,7 @@ const UserNickName = styled.div`
 const CardImage = styled.div<{ image: string }>`
   width: 100%;
   padding-bottom: 100%;
-  background-image: url(https://api.doggydoggykittykitty.site:3030/api/image/${props => props.image});
+  background-image: url(http://43.201.89.17:3030/api/image/${props => props.image});
   background-color: #000;
   background-position: center;
   background-size: contain;
