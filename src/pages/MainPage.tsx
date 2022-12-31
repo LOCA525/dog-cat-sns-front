@@ -35,8 +35,8 @@ function MainPage() {
           setIsProfileImage(false);
         } else {
           setIsProfileImage(true);
-          setUserProfileImage(`http://43.201.89.17:3030/api/image/${res.data?.profile.url}`);
-          setProfileUrl(`http://43.201.89.17:3030/api/image/${res.data?.profile.url}`);
+          setUserProfileImage(`https://api.doggydoggykittykitty.site/api/image/${res.data?.profile.url}`);
+          setProfileUrl(`https://api.doggydoggykittykitty.site/api/image/${res.data?.profile.url}`);
         }
         setIsLoading(false);
         return true;
