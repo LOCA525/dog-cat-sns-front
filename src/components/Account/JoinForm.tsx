@@ -79,7 +79,7 @@ function JoinForm() {
       />
       <Input
         required
-        type="passwordValidation"
+        type="password"
         value={passwordValidation}
         setValue={setPasswordValidation}
         RenderComponent={SignInputStyled}
