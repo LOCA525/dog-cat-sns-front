@@ -14,26 +14,31 @@ function JoinForm() {
   const [email, setEmail] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [passwordValidation, setPasswordValidation] = useState<string>('');
 
   function handleSubmit(event: MouseEvent<HTMLFormElement>) {
     event.preventDefault();
-    mutateJoin(
-      { email, username, password },
-      {
-        onSuccess: (response: AxiosResponse<string, unknown>) => {
-          alert(response?.data);
-          navigate('/');
-        },
-        onError: error => {
-          if (axios.isAxiosError(error)) {
-            const { response } = error as AxiosError;
+    if (password !== passwordValidation) {
+      alert('비밀번호가 서로 다릅니다.');
+    } else {
+      mutateJoin(
+        { email, username, password },
+        {
+          onSuccess: (response: AxiosResponse<string, unknown>) => {
             alert(response?.data);
-          } else {
-            console.error(error);
-          }
+            navigate('/');
+          },
+          onError: error => {
+            if (axios.isAxiosError(error)) {
+              const { response } = error as AxiosError;
+              alert(response?.data);
+            } else {
+              console.error(error);
+            }
+          },
         },
-      },
-    );
+      );
+    }
   }
 
   return (
@@ -67,6 +72,18 @@ function JoinForm() {
         setValue={setPassword}
         RenderComponent={SignInputStyled}
         placeholder="비밀번호(필수)"
+        validator={/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$])[A-Za-z\d!@#$]{6,}$/}
+        validatorErrorMessage="비밀번호는 최소 6자 이상이어야 하며 숫자, 영문, 특수 문자(!@#$)를 포함해야
+        합니다."
+        limit={32}
+      />
+      <Input
+        required
+        type="passwordValidation"
+        value={passwordValidation}
+        setValue={setPasswordValidation}
+        RenderComponent={SignInputStyled}
+        placeholder="비밀번호 확인(필수)"
         validator={/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$])[A-Za-z\d!@#$]{6,}$/}
         validatorErrorMessage="비밀번호는 최소 6자 이상이어야 하며 숫자, 영문, 특수 문자(!@#$)를 포함해야
         합니다."
