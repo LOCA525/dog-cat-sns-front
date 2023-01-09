@@ -64,7 +64,7 @@ function BellModal({ setBellModalOpen }: any) {
                       src={
                         item.Profile === null
                           ? noProfileImage
-                          : `http://43.201.89.17:3030/api/image/${item.Profile?.url}`
+                          : `https://api.doggydoggykittykitty.site/api/image/${item.Profile?.url}`
                       }
                       onClick={() => {
                         navigate(`/mypage/${item.username}`);

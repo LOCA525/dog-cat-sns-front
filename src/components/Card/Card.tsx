@@ -130,7 +130,7 @@ function Card({ item }: any) {
             showModal={showModal}
             showValidationModal={showValidationModal}
             item={item}
-            image={`http://43.201.89.17:3030/api/image/${item.Photo.url}`}
+            image={`https://api.doggydoggykittykitty.site/api/image/${item.Photo.url}`}
           />
         )}
         <HeaderContainer>
@@ -138,7 +138,11 @@ function Card({ item }: any) {
             <UserWrap>
               <UserImageContainer onClick={navigateUserPage}>
                 <UserImage
-                  src={isProfileImage ? `http://43.201.89.17:3030/api/image/${item.User.Profile.url}` : noProfileImage}
+                  src={
+                    isProfileImage
+                      ? `https://api.doggydoggykittykitty.site/api/image/${item.User.Profile.url}`
+                      : noProfileImage
+                  }
                 />
               </UserImageContainer>
 
