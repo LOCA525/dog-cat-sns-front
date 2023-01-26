@@ -37,7 +37,6 @@ function ProfileEditForm({ account }: Props) {
       const myPageResponse = await getMyPage(account.id);
       if (myPageResponse.status === 200) {
         const myPageData = myPageResponse.data;
-        console.log('마이페이지데이터!!', myPageData);
 
         setUserId(myPageData.id);
         setName(myPageData.username);

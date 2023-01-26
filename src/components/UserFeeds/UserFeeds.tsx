@@ -4,8 +4,6 @@ import FeedCard from './FeedCard';
 
 function UserFeeds({ userData }: any) {
   const boardList = userData.BoardList;
-  console.log(boardList);
-
   // const urlList = boardList?.map((item: any) => {
   //   const image = item.Photo.url;
   //   return image;
