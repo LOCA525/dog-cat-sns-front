@@ -32,7 +32,7 @@ function UploadEditUi({ isEdit }: any) {
         formData.append('url', imageFile);
         const res = await photoApi(formData);
         if (res.status === 200) {
-          console.log('사진보내기성공!', res);
+          console.log('사진보내기성공!');
           const photoId: number = res.data.id;
           const uploadBody = {
             isDog: isDog,
@@ -44,7 +44,7 @@ function UploadEditUi({ isEdit }: any) {
           try {
             const res = await upLoadApi(id, uploadBody);
             if (res.status === 200) {
-              console.log('사진업로드 성공', res);
+              console.log('사진업로드 성공');
               navigate('/');
             }
           } catch (error) {
@@ -70,7 +70,6 @@ function UploadEditUi({ isEdit }: any) {
         const res = await editCardApi(cardId, editBody);
         if (res.status === 200) {
           const res = await editCardApi(cardId, editBody);
-          console.log('수정 성공', res);
           navigate('/');
         }
       } catch (error) {
