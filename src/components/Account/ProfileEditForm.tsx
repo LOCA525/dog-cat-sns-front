@@ -37,6 +37,8 @@ function ProfileEditForm({ account }: Props) {
       const myPageResponse = await getMyPage(account.id);
       if (myPageResponse.status === 200) {
         const myPageData = myPageResponse.data;
+        console.log('마이페이지데이터!!', myPageData);
+
         setUserId(myPageData.id);
         setName(myPageData.username);
 
@@ -47,7 +49,7 @@ function ProfileEditForm({ account }: Props) {
 
         // 프로필 이미지가 있는 경우
         if (myPageData.Profile) {
-          setProfileThumbnailImgState(`http://${location.hostname}:3030/api/image/${myPageData.Profile.url}`);
+          setProfileThumbnailImgState(`http://api.doggydoggykittykitty.site/api/image/${myPageData.Profile.url}`);
         }
       }
     } catch (error) {
