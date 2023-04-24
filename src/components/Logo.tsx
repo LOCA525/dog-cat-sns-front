@@ -8,14 +8,9 @@ const LogoContainer = styled.div`
     display: none;
   }
 `;
-const WallContainer = styled.img`
-  max-width: 500px;
-`;
-const LogoImage = styled.img`
-  position: relative;
-`;
+
+const LogoImage = styled.img``;
 const WallPaper = styled.img`
-  position: relative;
   z-index: 1;
 `;
 function Logo() {
@@ -23,10 +18,8 @@ function Logo() {
 
   return (
     <LogoContainer>
-      <WallContainer>
-        <LogoImage src={leftImage} />
-        <WallPaper src={wallPaper} />
-      </WallContainer>
+      <LogoImage src={leftImage} />
+      <WallPaper src={wallPaper} />
     </LogoContainer>
   );
 }

@@ -61,7 +61,6 @@ const AppContainer = styled.div`
   align-items: center;
   /* height: 100vh; */
   overflow: hidden;
-  position: relative;
 `;
 
 const MainContent = styled.div`
