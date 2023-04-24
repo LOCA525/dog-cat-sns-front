@@ -13,8 +13,8 @@ const LogoImage = styled.img`
 `;
 const WallPaper = styled.img`
   position: absolute;
-  top: 40px;
-  left: 300px;
+  top: 5%;
+  left: 20%;
   z-index: 1;
 `;
 function Logo() {
