@@ -7,10 +7,14 @@ const LogoContainer = styled.div`
   @media screen and (max-width: 1200px) {
     display: none;
   }
+  position: relative;
 `;
 
 const LogoImage = styled.img``;
 const WallPaper = styled.img`
+  position: absolute;
+  top: 0px;
+  left: 50px;
   z-index: 1;
 `;
 function Logo() {
