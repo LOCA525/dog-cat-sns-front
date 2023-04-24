@@ -8,16 +8,13 @@ const LogoContainer = styled.div`
     display: none;
   }
 `;
-const WallContainer = styled.img`
-  max-width: 500px;
-  max-height: 600px;
+const LogoImage = styled.img`
   position: relative;
 `;
-const LogoImage = styled.img``;
 const WallPaper = styled.img`
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   z-index: 1;
 `;
 function Logo() {
@@ -25,10 +22,8 @@ function Logo() {
 
   return (
     <LogoContainer>
-      <WallContainer>
-        <LogoImage src={leftImage} />
-        <WallPaper src={wallPaper} />
-      </WallContainer>
+      <LogoImage src={leftImage} />
+      <WallPaper src={wallPaper} />
     </LogoContainer>
   );
 }
