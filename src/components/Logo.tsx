@@ -8,13 +8,8 @@ const LogoContainer = styled.div`
     display: none;
   }
 `;
-const LogoImage = styled.img`
-  position: relative;
-`;
+const LogoImage = styled.img``;
 const WallPaper = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
   z-index: 1;
 `;
 function Logo() {
