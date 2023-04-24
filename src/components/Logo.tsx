@@ -22,8 +22,9 @@ function Logo() {
 
   return (
     <LogoContainer>
-      <LogoImage src={leftImage} />
-      <WallPaper src={wallPaper} />
+      <LogoImage src={leftImage}>
+        <WallPaper src={wallPaper} />
+      </LogoImage>
     </LogoContainer>
   );
 }
