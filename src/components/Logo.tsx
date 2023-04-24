@@ -8,8 +8,11 @@ const LogoContainer = styled.div`
     display: none;
   }
 `;
-const LogoImage = styled.img``;
+const LogoImage = styled.img`
+  position: relative;
+`;
 const WallPaper = styled.img`
+  position: relative;
   z-index: 1;
 `;
 function Logo() {
