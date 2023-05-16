@@ -172,7 +172,7 @@ function Card({ item }: any) {
           </HeartCommentContainer>
           {/* <BookMarkBtn width={'32px'} height={'32px'} fill={buttonColor} /> */}
         </ButtonContainer>
-        <HeartCount>좋아요!!!!!!!!!!!!!!!!!!!! {likeLength}개</HeartCount>
+        <HeartCount>좋아요{likeLength}개</HeartCount>
         <TextContainer>
           <UserNickName>
             <span onClick={navigateUserPage}>{item.User.username}</span>
