@@ -93,7 +93,7 @@ const ModalContainer = styled.div<{ buttonColor: string }>`
   }
 `;
 const BtnContainer = styled.div`
-  width: 80px;
+  width: 90px;
   height: 100%;
   font-size: 14px;
   font-weight: 500;

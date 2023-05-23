@@ -60,7 +60,7 @@ function MainPage() {
       const res = await getBoardApi(id);
       if (res.status == 200) {
         const res = await getBoardApi(id);
-        console.log('게시글 조회 성공');
+        console.log('게시글 조회 성공', res);
         const cards = res.data;
         setCard(cards);
       }
